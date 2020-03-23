@@ -1,159 +1,99 @@
-﻿#include <iostream>
-#include <ctime>
-
-enum  SpotType {
-    Compact, Medium, Large, Motorcycle, Electric, Handicapped
-};
+﻿#include "Parking.h"
 
 
-class ParkingTicket {
-private:
-    int number = 0;
-    time_t startTime = {};
-    long long amount = 0;
-};
-
-class EntrancePanel {
-public:
-    void printTicket();
-};
-
-class ExitingPanel {
-
-};
-
-class ParkingSpot {
-public:
-    void setAvailability();
-    bool getAvailability() const;
-    void setNumber();
-    int getNumber() const;
-private:
-    bool isFree = true;
-    int number = 0;
-    SpotType type = Medium;
-};
-
-class ParkngLot {
-public:
-    bool isFull() const;
-private:
-    bool isUnavailable = false;
-    std::string address = {};
-    class ParkingFloor {
-    public:
-        void updateDisplayBoard();
-    private:
-        int numberOfFloor = 0;
-        class ParkingDisplayBoard {
-        public:
-            void showInfo();
-        private:
-            int displayNumber = 0;
-        };
-        ParkingDisplayBoard parkingDisplayBoard;
-        ParkingSpot parkingSpot;
-    };
-    class ParkingRate {
-        void setRate();
-        long long getRate()const;
-    private:
-        long long rate;
-    };
-    ParkingRate parkingRate;
-    ParkingFloor parkingFloor;
-    ParkingTicket parkingTicket;
-};
-
-class CompactSpot : public ParkingSpot {
-private:
-    bool isFree = true;
-    int number = 0;
-    SpotType type = Compact;
-};
-
-class MediumSpot : public ParkingSpot {
-private:
-    bool isFree = true;
-    int number = 0;
-    SpotType type = Medium;
-};
-
-class LargeSpot : public ParkingSpot {
-private:
-    bool isFree = true;
-    int number = 0;
-    SpotType type = Large;
-};
-
-class MotorcycleSpot : public ParkingSpot {
-private:
-    bool isFree = true;
-    int number = 0;
-    SpotType type = Medium;
-};
-
-class ElectricPanel {
-public:
-    void setPowerON();
-    bool getPower() const;
-private:
-    bool isPowerON = false;
-    std::time_t chargingStartTime = {};
-    long long payedForMinute = 0;
-};
-
-class ElectricSpot : public ParkingSpot {
-public:
-    bool getCharging() const;  
-private:
-    bool isChargeOn = false;
-    bool isFree = true;
-    int number = 0;
-    SpotType type = Electric;
-    ElectricPanel ePanel;
-};
-
-class HandicappedSpot : public ParkingSpot {
-
-    private:
-        bool isFree = true;
-    int number = 0;
-    SpotType type = Handicapped;
-};
-
-/*class Payment {
-public:
-private:
-};
-
-class PaymentByCach : Payment {
-public:
-private:
-};
-
-class PaymentByCreditCard : Payment {
-public:
-private:
-};*/
-
-class Account {
-
-};
-
-class Admin : public Account {
-
-};
-
-
-
-
-
-
-int main()
-{
-    std::cout << "Hello World!\n";
-    return 0;
+void ParkingSpot::setNumber(int const& newNumber) {
+	number = newNumber;
 }
 
+void ParkingSpot::setAvailability(bool const& available){
+	isFree = available;
+}
 
+bool ParkingSpot::getAvailability()const{
+	return isFree;
+}
+
+int ParkingSpot::getNumber()const {
+	return number;
+}
+
+void ElectricPanel::setPower(bool const& power) {
+	isPowerON = power;
+}
+
+bool ElectricPanel::getPower()const{
+	return isPowerON;
+} 
+
+void ElectricPanel::setRate(long long const& rate) {
+	payedForMinute = rate;
+}
+
+long long ElectricPanel::getRate()const {
+	return payedForMinute;
+}
+
+void ElectricPanel::setChargingTime(time_t const& startTime) {
+	chargingStartTime = startTime;
+}
+
+time_t ElectricPanel::getChargingTime() const {
+	return chargingStartTime;
+}
+
+void ElectricSpot::setCharging(){
+	isChargeOn = ePanel.getPower;
+}
+
+bool ElectricSpot::getCharging() const {
+	return isChargeOn;
+}
+
+ParkngLot::ParkingFloor::ParkingFloor(int const& newNumber){
+	numberOfFloor = newNumber;
+}
+
+void ParkngLot::ParkingFloor::ParkingDisplayBoard::setInfo(std::string const& info) {
+	displayInfo = info;
+}
+
+std::string ParkngLot::ParkingFloor::ParkingDisplayBoard::getInfo()const {
+	return  displayInfo;
+}
+
+void ParkngLot::ParkingFloor::updateDisplayBoard(std::string const& info) {
+	parkingDisplayBoard.setInfo(info);
+}
+
+void ParkngLot::ParkingRate::setRate(long long const& newRate) {
+	rate = newRate;
+}
+
+long long ParkngLot::ParkingRate::getRate() const{
+	return rate;
+}
+
+void ParkngLot::setAddress(std::string const& newAddress) {
+	address = newAddress;
+}
+
+std::string ParkngLot::getAddress()const {
+	return address;;
+}
+
+void ParkngLot::isFull(bool const& full) {
+	isUnavailable = full;
+}
+
+bool ParkngLot::getStatus()const {
+	return isUnavailable;
+}
+
+Vehicle::Vehicle(std::string const& newNumber, VehicleType const& newType) {
+	licenseNumber = newNumber;
+	vehicleType = newType;
+}
+
+void Vehicle::assigneTicket(int const& ticketNumber) {
+	numberOfTicket = ticketNumber;
+}
