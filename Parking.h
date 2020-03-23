@@ -1,12 +1,12 @@
 #include <iostream>
 #include <ctime>
 
-enum SpotType {
+enum  SpotType {
     Compact, Medium, Large, Motorcycle, Electric, Handicapped
 };
 
-enum VehicleType {
-    MiniCooper, Car, Bus, Motorcycle, ElectroCar
+enum  VehicleType {
+    MiniCooper, Car, Bus, Moto, ElectroCar
 };
 
 class Vehicle {
@@ -167,6 +167,7 @@ class Admin : public Account {
 
 int main()
 {
+    std::cout << "done" << std::endl;
     return 0;
 }
 

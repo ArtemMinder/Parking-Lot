@@ -42,7 +42,7 @@ time_t ElectricPanel::getChargingTime() const {
 }
 
 void ElectricSpot::setCharging(){
-	isChargeOn = ePanel.getPower;
+	isChargeOn = ePanel.getPower();
 }
 
 bool ElectricSpot::getCharging() const {
