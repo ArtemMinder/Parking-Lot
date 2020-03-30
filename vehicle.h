@@ -7,12 +7,12 @@ class Vehicle
 {
 public:
     Vehicle();
-   // Vehicle(std::string const& newNumber, VehicleType const& newType);
+    Vehicle(std::string const& newNumber, char const& newType);
     void assigneTicket(int const& ticketNumber);
 private:
     std::string licenseNumber = {};
-     //  VehicleType vehicleType = {};
-       int numberOfTicket= 0;
+    char vehicleType = {};
+    int numberOfTicket= 0;
 };
 
 #endif // VEHICLE_H

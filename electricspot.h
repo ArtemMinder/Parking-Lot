@@ -14,7 +14,7 @@ private:
     bool isChargeOn = false;
     bool isFree = true;
     int number = 0;
-    //SpotType type = Medium;
+    char spotType = Enums::SpotType::Electric;
     ElectricPanel *ePanel;
 };
 

@@ -10,7 +10,7 @@ public:
 private:
     bool isFree = true;
     int number = 0;
-    //SpotType type = Medium;
+    char spotType = Enums::SpotType::Compact;
 };
 
 #endif // COMPACTSPOT_H

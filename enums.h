@@ -7,14 +7,16 @@ class Enums : public QObject
 {
     Q_OBJECT
 public:
-    explicit Enums(QObject *parent = nullptr);
-
-    enum class SpotSize: char {
-            Compact, Medium, Large, Motorcycle, Electric, Handicapped
-        };
-    enum class VeicleType: char {
-            MiniCooper, Car, Bus, Moto, ElectroCar
-        };
+public:
+    enum SpotType: char {
+        Compact, Medium, Large, Motorcycle, Electric, Handicapped
+    };
+    Q_ENUM(SpotType)
+    enum VehicleType: char {
+         MiniCooper, Car, Bus, Moto, ElectroCar
+    };
+    Q_ENUM(VehicleType)
+    Enums() = delete;
 
 };
 
