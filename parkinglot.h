@@ -5,6 +5,10 @@
 #include "parkingrate.h"
 #include "parkingfloor.h"
 
+#include "QStandardItemModel"
+#include "QStandardItem"
+#include <QtSql>
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class ParkingLot; }
 QT_END_NAMESPACE

@@ -2,17 +2,17 @@
 #define VEHICLE_H
 
 #include <QApplication>
+#include <entrancepanel.h>
 
 class Vehicle
 {
 public:
-    Vehicle();
     Vehicle(std::string const& newNumber, char const& newType);
-    void assigneTicket(int const& ticketNumber);
+    void takeTicket();
 private:
     std::string licenseNumber = {};
     char vehicleType = {};
-    int numberOfTicket= 0;
+    EntrancePanel *enter;
 };
 
 #endif // VEHICLE_H
