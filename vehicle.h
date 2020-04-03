@@ -7,11 +7,11 @@
 class Vehicle
 {
 public:
-    Vehicle(std::string const& newNumber, char const& newType);
+    Vehicle(std::string const& newNumber, Enums::VehicleType newType);
     void takeTicket();
 private:
     std::string licenseNumber = {};
-    char vehicleType = {};
+    Enums::VehicleType vehicleType ={};
     EntrancePanel *enter;
 };
 

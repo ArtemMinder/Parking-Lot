@@ -1,14 +1,26 @@
-#include "parkinglot.h"
-#include "ui_parkinglot.h"
+#include "view.h"
+#include "ui_view.h"
+#include <QLabel>
 
-ParkingLot::ParkingLot(QWidget *parent, int const& newNumberOfFloors)
-    : QMainWindow(parent)
-    , ui(new Ui::ParkingLot)
+View::View(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::View)
 {
-    numberOfFloors = newNumberOfFloors;
     ui->setupUi(this);
     QWidget::showMaximized();
-    rate = new ParkingRate;
+    QPixmap background(":/images/images/Parking Floor HD.png");
+    QPixmap isNotFree(":/images/images/isNotFree.png");
+    QPixmap online(":/images/images/Online.png");
+    ui->Electric1->setPixmap(isNotFree);
+    std::vector<QLabel*> Electric = {ui->Electric1,ui->Electric2};
+    Electric[0]->setPixmap(isNotFree);
+    Electric[1]->setPixmap(online);
+    QWidget::showMaximized();
+    QSqlDatabase dbase = QSqlDatabase::addDatabase("QSQLITE");
+    dbase.setDatabaseName("my_db.sqlite");
+    if (!dbase.open()) {
+        qDebug() << "Что-то не так с соединением!";
+    }
     QStandardItemModel *model = new QStandardItemModel;
         QStandardItem *item;
 
@@ -64,26 +76,7 @@ ParkingLot::ParkingLot(QWidget *parent, int const& newNumberOfFloors)
                 ui->tableView->resizeColumnsToContents();
 }
 
-void ParkingLot::setAddress(std::string const& newAddress) {
-    address = newAddress;
-}
-
-std::string ParkingLot::getAddress()const {
-    return address;;
-}
-
-void ParkingLot::isFull(bool const& full) {
-    isUnavailable = full;
-}
-
-bool ParkingLot::getStatus()const {
-    return isUnavailable;
-}
-
-ParkingLot::~ParkingLot()
+View::~View()
 {
     delete ui;
 }
-
-
-

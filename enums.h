@@ -13,7 +13,7 @@ public:
     };
     Q_ENUM(SpotType)
     enum VehicleType: char {
-         MiniCooper, Car, Bus, Moto, ElectroCar
+         MiniCooper, Car, Bus, Moto, ElectroCar, HandicappedCar
     };
     Q_ENUM(VehicleType)
     Enums() = delete;

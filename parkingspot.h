@@ -9,12 +9,10 @@ public:
     ParkingSpot();
     void setAvailability(bool const& available);
     bool getAvailability() const;
-    void setNumber(int const& newNumber);
-    int getNumber() const;
+    int checkAvaibility(char const& type);
 private:
     bool isFree = true;
     int number = 0;
-   // SpotType type = Medium;
 };
 
 #endif // PARKINGSPOT_H

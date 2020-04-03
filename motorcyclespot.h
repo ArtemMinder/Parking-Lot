@@ -7,6 +7,8 @@ class MotorcycleSpot : public ParkingSpot
 {
 public:
     MotorcycleSpot();
+    MotorcycleSpot(int const& newNumber);
+    int getNumer() const;
 private:
     bool isFree = true;
     int number = 0;

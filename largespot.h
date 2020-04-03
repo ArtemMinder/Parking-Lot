@@ -7,6 +7,8 @@ class LargeSpot : public ParkingSpot
 {
 public:
     LargeSpot();
+    LargeSpot(int const& newNumber);
+    int getNumer() const;
 private:
     bool isFree = true;
     int number = 0;

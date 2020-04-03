@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/images">
         <file>images/Parking Floor HD.png</file>
+        <file>images/isNotFree.png</file>
+        <file>images/Online.png</file>
     </qresource>
 </RCC>

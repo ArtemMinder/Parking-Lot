@@ -7,6 +7,8 @@ class MediumSpot : public ParkingSpot
 {
 public:
     MediumSpot();
+    MediumSpot(int const& newNumber);
+    int getNumer() const;
 private:
     bool isFree = true;
     int number = 0;

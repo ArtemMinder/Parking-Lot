@@ -18,7 +18,7 @@ class ParkingLot : public QMainWindow
     Q_OBJECT
 
 public:
-    ParkingLot(QWidget *parent = nullptr);
+    ParkingLot(QWidget *parent = nullptr, int const& newNumberOfFloors = 1);
     void setAddress(std::string const& newAddress);
     std::string getAddress()const;
     void isFull(bool const& full);
@@ -28,6 +28,7 @@ public:
 private:
     std::string address;
     bool isUnavailable = false;
+    int numberOfFloors = 0;
     Ui::ParkingLot *ui;
     ParkingRate *rate;
     ParkingFloor *floor;
