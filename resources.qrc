@@ -3,5 +3,8 @@
         <file>images/isNotFree.png</file>
         <file>images/Online.png</file>
         <file>images/Parking Floor HD.png</file>
+        <file>images/Logo.ico</file>
+        <file>images/Logo333.ico</file>
+        <file>ParkingDB.accdb</file>
     </qresource>
 </RCC>

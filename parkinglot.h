@@ -16,6 +16,7 @@ public:
                int const& newNumberOfMediums = 53, int const& newNumberOfLarges = 14,
                int const& newNumberOfMoto = 10, int const& newNumberOfElectrics = 10,
                int const& newNumberOfHandicapped = 14);
+    void simulate();
     void receiveCar(Vehicle const& newVehicle);
     ~ParkingLot();
 private:

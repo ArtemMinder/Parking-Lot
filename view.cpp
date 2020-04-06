@@ -8,6 +8,7 @@ View::View(QWidget *parent) :
 {
     ui->setupUi(this);
     QWidget::showMaximized();
+    setWindowIcon(QIcon(QString::fromUtf8(":/images/images/Logo333.ico")));
     Compact = {ui->label1,ui->label2,ui->label3,ui->label4,ui->label5,ui->label6,ui->label7,
                ui->label8,ui->label9,ui->label10,ui->label11,ui->label12,ui->label13,ui->label14,
                ui->label15,ui->label16,ui->label17,ui->label18};
@@ -27,6 +28,7 @@ ui->label2_40,ui->label2_41,ui->label2_42,ui->label2_43,ui->label2_44,ui->label2
                 ui->label5_15,ui->label5_16,ui->label5_17};
     Handicapped = {ui->label6_1,ui->label6_2,ui->label6_3,ui->label6_4,ui->label6_5,ui->label6_6,ui->label6_7,
                    ui->label6_8,ui->label6_9,ui->label6_10};
+
 }
 
 void View::busy(int const& newPlase, Types::VehicleType const& newType){
@@ -77,6 +79,59 @@ void View::free(int const& newPlase, Types::VehicleType const& newType){
         }
     }
  this->repaint();
+}
+
+void View::loadInfo(int const& newPlase, std::string const& newLicense, Types::VehicleType const& newType,
+                    std::string const& newStartTime, double newAmount){
+    QStandardItemModel *model = new QStandardItemModel;
+    QStandardItem *item;
+    QStringList horizontalHeader;
+    horizontalHeader.append("Место");
+    horizontalHeader.append("Номер ТС");
+    horizontalHeader.append("Тип ТС");
+    horizontalHeader.append("Время прибытия");
+    horizontalHeader.append("Стоимость услуг");
+    horizontalHeader.append("Оплачено");
+
+    QStringList verticalHeader;
+    QString numberOfString;
+    for(int i = 1;i <= 122;i++){
+        numberOfString = QString::number(i);
+        verticalHeader.append(numberOfString);
+    }
+     this->loot += newAmount;
+     QString place = QString::number(newPlase);
+     QString license = QString::fromUtf8(newLicense.c_str());
+     QString type = QString::number(newType);
+     QString startTime = QString::fromUtf8(newStartTime.c_str());
+     QString amount = QString::number(newAmount);
+
+    model->setHorizontalHeaderLabels(horizontalHeader);
+    model->setVerticalHeaderLabels(verticalHeader);
+
+    this->noteNumber += 1;
+    qDebug()<<noteNumber;
+
+    item = new QStandardItem(QString(place));
+    model->setItem(0, 0, item);
+    item = new QStandardItem(QString(license));
+    model->setItem(0, 1, item);
+    item = new QStandardItem(QString(type));
+    model->setItem(0, 2, item);
+    item = new QStandardItem(QString(startTime));
+    model->setItem(0, 3, item);
+    item = new QStandardItem(QString(amount)+"$");
+    model->setItem(0, 4, item);
+
+    ui->tableView->setModel(model);
+    ui->tableView->resizeRowsToContents();
+    ui->tableView->resizeColumnsToContents();
+
+
+            QString newLoot = QString::number(loot);
+            ui->Loot_label->setText(QString(newLoot)+"$");
+            ui->Cost_label->setText(QString("1")+"$");
+            ui->Profit_label->setText(QString("37.5")+"$");
 }
 
 View::~View()

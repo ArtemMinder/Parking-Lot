@@ -4,6 +4,12 @@
 #include <QDialog>
 #include <QLabel>
 #include "Types.h"
+#include "QStandardItemModel"
+#include "QStandardItem"
+#include <QtSql>
+#include <QSqlQuery>
+#include "account.h"
+#include <QSqlTableModel>
 
 namespace Ui {
 class View;
@@ -17,8 +23,14 @@ public:
     explicit View(QWidget *parent = nullptr);
     void busy(int const& newPlase, Types::VehicleType const& newType);
     void free(int const& newPlase, Types::VehicleType const& newType);
+    void loadInfo(int const& newPlase, std::string const& newLicense, Types::VehicleType const& newType,
+                  std::string const& newStartTime, double newAmount);
     ~View();
 private:
+    Account *account;
+    QSqlTableModel *model;
+    QSqlDatabase dataBase;
+    QSqlQuery sqlQuery;
     Ui::View *ui;
     std::vector<QLabel*> Compact = {};
     std::vector<QLabel*> Medium = {};
@@ -29,7 +41,11 @@ private:
     QPixmap background = QPixmap(":/images/images/Parking Floor HD.png");
     QPixmap isNotFree = QPixmap(":/images/images/isNotFree.png");
     QPixmap online = QPixmap(":/images/images/Online.png");
-
+    std::string startTime = {};
+    int noteNumber = -1;
+    double loot = 0;
+    double cost = 0;
+    double profit = 0;
 };
 
 #endif // VIEW_H

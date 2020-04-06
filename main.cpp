@@ -4,6 +4,7 @@
 
 int main(int argc, char *argv[])
 {
+
     QApplication a(argc, argv);
     ParkingLot w(1,17,53,14,10,10,17);
     Vehicle audi("7777AB-1",Types::VehicleType::MiniCooper);
