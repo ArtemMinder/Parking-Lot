@@ -1,36 +1,35 @@
 #ifndef PARKINGLOT_H
 #define PARKINGLOT_H
 
-#include <QMainWindow>
-#include "parkingrate.h"
+#include <iostream>
+#include <QStandardItem>
 #include "parkingfloor.h"
+#include "entrancepanel.h"
+#include "vehicle.h"
+#include "view.h"
+#include "parkingrate.h"
 
-#include "QStandardItemModel"
-#include "QStandardItem"
-#include <QtSql>
-
-QT_BEGIN_NAMESPACE
-namespace Ui { class ParkingLot; }
-QT_END_NAMESPACE
-
-class ParkingLot : public QMainWindow
+class ParkingLot
 {
-    Q_OBJECT
-
 public:
-    ParkingLot(QWidget *parent = nullptr, int const& newNumberOfFloors = 1);
-    void setAddress(std::string const& newAddress);
-    std::string getAddress()const;
-    void isFull(bool const& full);
-    bool getStatus()const;
+    ParkingLot(int const& newNumberOfFloors = 1, int const& newNumberOfCompacts = 18,
+               int const& newNumberOfMediums = 53, int const& newNumberOfLarges = 14,
+               int const& newNumberOfMoto = 10, int const& newNumberOfElectrics = 10,
+               int const& newNumberOfHandicapped = 14);
+    void receiveCar(Vehicle const& newVehicle);
     ~ParkingLot();
-
 private:
-    std::string address;
-    bool isUnavailable = false;
     int numberOfFloors = 0;
-    Ui::ParkingLot *ui;
+    int numberOfCompactSpots = 0;
+    int numberOfMediumSpots = 0;
+    int numberOfLargeSpots = 0;
+    int numberOfMotorcycleSpots = 0;
+    int numberOfElectricSpots = 0;
+    int numberOfHandicappedSpots = 0;
+    std::vector<ParkingFloor> floors = {};
+    EntrancePanel *enterPanel;
+    Vehicle *vehicle;
+    View *view;
     ParkingRate *rate;
-    ParkingFloor *floor;
 };
 #endif // PARKINGLOT_H

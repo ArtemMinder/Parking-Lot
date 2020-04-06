@@ -2,18 +2,28 @@
 
 ParkingRate::ParkingRate()
 {
-}
-void ParkingRate::setRate(long long const& newRate){
-   rate = newRate;
+
 }
 
-long long ParkingRate::getRate(char const& type)const{
-    switch(type){
-    case Enums::VehicleType::MiniCooper:{return compactPlaceRate;}
-    case Enums::VehicleType::Car:{return mediumPlaceRate;}
-    case Enums::VehicleType::Bus:{return largePlaceRate;}
-    case Enums::VehicleType::Moto:{return motorcyclePlaceRate;}
-    case Enums::VehicleType::ElectroCar:{return electricPlaceRate;}
+double ParkingRate::getRate(Types::VehicleType const& newType, int const& elapsedMinuts){
+    switch(newType){
+    case Types::VehicleType::MiniCooper:{
+        return fullPriceForMinute * 0.7 * elapsedMinuts;
     }
-   return rate;
+    case Types::VehicleType::Car:{
+        return fullPriceForMinute * 0.9 * elapsedMinuts;
+    }
+    case Types::VehicleType::Bus:{
+        return fullPriceForMinute * 1.2 * elapsedMinuts;
+    }
+    case Types::VehicleType::Moto:{
+        return fullPriceForMinute * 0.7 * elapsedMinuts;
+    }
+     case Types::VehicleType::ElectroCar:{
+        return fullPriceForMinute * 0.8 * elapsedMinuts;
+    }
+    case Types::VehicleType::HandicappedCar:{
+        return fullPriceForMinute * 0.5 * elapsedMinuts;
+    }
+    }
 }

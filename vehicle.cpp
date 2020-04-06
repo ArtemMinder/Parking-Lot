@@ -1,12 +1,22 @@
 #include "vehicle.h"
 
-Vehicle::Vehicle(std::string const& newNumber, Enums::VehicleType newType)
+Vehicle::Vehicle(std::string const& newLicenseNumber, Types::VehicleType const& newType)
 {
-  licenseNumber = newNumber;
-  vehicleType = newType;
-  enter = new EntrancePanel;
+    this->licenseNumber = newLicenseNumber;
+    this->type = newType;
+}
+
+std::string Vehicle::getLicense()const{
+    return this->licenseNumber;
+}
+Types::VehicleType Vehicle::getType()const{
+    return this->type;
 }
 
 void Vehicle::takeTicket(){
-    enter->printTicket(licenseNumber, vehicleType);
+
+}
+
+Vehicle::~Vehicle(){
+
 }

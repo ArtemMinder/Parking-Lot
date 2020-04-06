@@ -1,22 +1,10 @@
 #include "electricspot.h"
 
-ElectricSpot::ElectricSpot(){
-
-}
-
-ElectricSpot::ElectricSpot(int const& newNumber)
+ElectricSpot::ElectricSpot(int const& newNumberOfSpot)
 {
-    number = newNumber;
+   numberOfSpot =newNumberOfSpot;
 }
 
-void ElectricSpot::setCharging(){
-    isChargeOn = ePanel->getPower();
-}
-
-bool ElectricSpot::getCharging() const {
-    return isChargeOn;
-}
-
-int ElectricSpot::getNumer() const{
-    return number;
+int ElectricSpot::getNumberOfSpot() const{
+    return this->numberOfSpot;
 }

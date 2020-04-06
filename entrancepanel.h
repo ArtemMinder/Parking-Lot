@@ -1,18 +1,16 @@
 #ifndef ENTRANCEPANEL_H
 #define ENTRANCEPANEL_H
 
-#include <QApplication>
-#include "parkingfloor.h"
+#include "vehicle.h"
 #include "parkingticket.h"
 
 class EntrancePanel
 {
 public:
-    EntrancePanel();
-    void printTicket(std::string newLicense, Enums::VehicleType type);
-    int takePlace(Enums::VehicleType type);
+    EntrancePanel(Vehicle const& newVehucle, int const& newNumberOfPlace);
+    void printTicket(std::string const& newLicense, Types::VehicleType const& newType, int const& newNumberOfPlace);
 private:
-    ParkingFloor *floor;
+    Vehicle *vehicle;
     ParkingTicket *ticket;
 };
 

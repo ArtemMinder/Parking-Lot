@@ -1,14 +1,10 @@
 #include "handicappedspot.h"
 
-HandicappedSpot::HandicappedSpot()
+HandicappedSpot::HandicappedSpot(int const& newNumberOfSpot)
 {
-
-}
-HandicappedSpot::HandicappedSpot(int const& newNumber)
-{
-    number = newNumber;
+   numberOfSpot =newNumberOfSpot;
 }
 
-int HandicappedSpot::getNumer() const{
-    return number;
+int HandicappedSpot::getNumberOfSpot() const{
+    return this->numberOfSpot;
 }

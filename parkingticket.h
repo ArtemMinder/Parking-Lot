@@ -1,29 +1,17 @@
 #ifndef PARKINGTICKET_H
 #define PARKINGTICKET_H
 
-#include <QApplication>
-#include "enums.h"
-#include "parkingrate.h"
+#include "Types.h"
 
 class ParkingTicket
 {
 public:
-    ParkingTicket();
-    void setInfo(std::string const& newLicesneNumber, Enums::VehicleType const& newType,
-                 int const& newNumberOfTicket, time_t newStartTime, int const& newNumberOfPlace);
-    std::string getLicenseNumber()const;
-    Enums::VehicleType getTicketType()const;
-    int getNumberOfTicket()const;
-    time_t getStartTime()const;
-    int getNumberOfPlace()const;
+    ParkingTicket(int const& newParkingPlace, std::string const& newLicenseNumber, Types::VehicleType const & newType);
 private:
+    int parkingPlace = 0;
     std::string licenseNumber = {};
-    Enums::VehicleType type = {};
-    int numberOfTicket = 0;
-    long long amount = 0;
-    time_t startTime = {};
-    ParkingRate *rate;
-    int numberOfPlace = 0;
+    Types::VehicleType type ={};
+
 };
 
 #endif // PARKINGTICKET_H

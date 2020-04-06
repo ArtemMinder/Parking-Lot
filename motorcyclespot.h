@@ -6,13 +6,11 @@
 class MotorcycleSpot : public ParkingSpot
 {
 public:
-    MotorcycleSpot();
-    MotorcycleSpot(int const& newNumber);
-    int getNumer() const;
+    MotorcycleSpot(int const& newNumberOfSpot);
+    int getNumberOfSpot() const;
 private:
-    bool isFree = true;
-    int number = 0;
-    char spotType = Enums::SpotType::Motorcycle;
+    int numberOfSpot = 0;
+    Types::SpotType type = Types::SpotType::Motorcycle;
 };
 
 #endif // MOTORCYCLESPOT_H

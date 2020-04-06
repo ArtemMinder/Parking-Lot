@@ -1,16 +1,10 @@
 #include "motorcyclespot.h"
 
-
-MotorcycleSpot::  MotorcycleSpot()
+MotorcycleSpot::MotorcycleSpot(int const& newNumberOfSpot)
 {
-
+   numberOfSpot =newNumberOfSpot;
 }
 
-MotorcycleSpot::MotorcycleSpot(int const& newNumber)
-{
-    number = newNumber;
-}
-
-int MotorcycleSpot::getNumer() const{
-    return number;
+int MotorcycleSpot::getNumberOfSpot() const{
+    return this->numberOfSpot;
 }

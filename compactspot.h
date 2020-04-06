@@ -2,17 +2,16 @@
 #define COMPACTSPOT_H
 
 #include "parkingspot.h"
+#include "Types.h"
 
 class CompactSpot : public ParkingSpot
 {
 public:
-    CompactSpot();
-    CompactSpot(int const& newNumber);
-    int getNumer() const;
+    CompactSpot(int const& newNumberOfSpot);
+    int getNumberOfSpot() const;
 private:
-    bool isFree = true;
-    int number = 0;
-    char spotType = Enums::SpotType::Compact;
+    int numberOfSpot = 0;
+    Types::SpotType type = Types::SpotType::Compact;
 };
 
 #endif // COMPACTSPOT_H

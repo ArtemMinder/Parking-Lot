@@ -6,13 +6,11 @@
 class LargeSpot : public ParkingSpot
 {
 public:
-    LargeSpot();
-    LargeSpot(int const& newNumber);
-    int getNumer() const;
+    LargeSpot(int const& newNumberOfSpot);
+    int getNumberOfSpot() const;
 private:
-    bool isFree = true;
-    int number = 0;
-    char spotType = Enums::SpotType::Large;
+    int numberOfSpot = 0;
+    Types::SpotType type = Types::SpotType::Large;
 };
 
 #endif // LARGESPOT_H

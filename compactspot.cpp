@@ -1,14 +1,11 @@
 #include "compactspot.h"
+#include <QDebug>
 
-CompactSpot::CompactSpot()
+CompactSpot::CompactSpot(int const& newNumberOfSpot)
 {
-
-}
-CompactSpot::CompactSpot(int const& newNumber)
-{
- number = newNumber;
+   numberOfSpot =newNumberOfSpot;
 }
 
-int CompactSpot::getNumer() const{
-    return number;
+int CompactSpot::getNumberOfSpot() const{
+    return this->numberOfSpot;
 }

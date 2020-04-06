@@ -1,23 +1,20 @@
-#ifndef ENUMS_H
-#define ENUMS_H
+#ifndef TYPES_H
+#define TYPES_H
 
 #include <QObject>
 
-class Enums : public QObject
+class Types : public QObject
 {
     Q_OBJECT
 public:
-public:
-    enum SpotType: char {
+    enum SpotType: int {
         Compact, Medium, Large, Motorcycle, Electric, Handicapped
     };
     Q_ENUM(SpotType)
-    enum VehicleType: char {
+    enum VehicleType: int {
          MiniCooper, Car, Bus, Moto, ElectroCar, HandicappedCar
     };
     Q_ENUM(VehicleType)
-    Enums() = delete;
-
+   Types() = delete;
 };
-
-#endif // ENUMS_H
+#endif // TYPES_H

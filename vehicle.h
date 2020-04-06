@@ -1,18 +1,19 @@
 #ifndef VEHICLE_H
 #define VEHICLE_H
 
-#include <QApplication>
-#include <entrancepanel.h>
+#include "Types.h"
 
 class Vehicle
 {
 public:
-    Vehicle(std::string const& newNumber, Enums::VehicleType newType);
+    Vehicle(std::string const& newLicenseNumber, Types::VehicleType const& newType);
+    std::string getLicense()const;
+    Types::VehicleType getType()const;
     void takeTicket();
+    ~Vehicle();
 private:
     std::string licenseNumber = {};
-    Enums::VehicleType vehicleType ={};
-    EntrancePanel *enter;
+    Types::VehicleType type = {};
 };
 
 #endif // VEHICLE_H

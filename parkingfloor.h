@@ -1,36 +1,33 @@
 #ifndef PARKINGFLOOR_H
 #define PARKINGFLOOR_H
 
-#include <QApplication>
+#include <QStandardItem>
 #include "parkingspot.h"
-#include "parkingdisplayboard.h"
 #include "compactspot.h"
 #include "mediumspot.h"
 #include "largespot.h"
-#include "handicappedspot.h"
-#include "electricspot.h"
 #include "motorcyclespot.h"
-
+#include "electricspot.h"
+#include "handicappedspot.h"
 
 class ParkingFloor
 {
 public:
-    ParkingFloor(int newNumberOfCompactPlases = 18, int newNumberOfMediumPlases = 53,
-    int newNumberOfLargePlases = 14, int newNumberOfHandicappedPlases = 10, int newNumberOfMotorcyclePlases = 10,
-    int newNumberOfElectricPlases = 17);
-    void setNumberOfFloor(int const& newNumber);
-    int getNumberOfFloor()const;
-    void updateDisplayBoard(std::string const& newInfo);
-    bool checkAvaibility(Enums::VehicleType type);
-    int takePlace(Enums::VehicleType type);
+    ParkingFloor(int const& newNumberOfFloor,  int const& newNumberOfCompacts,
+                 int const& newNumberOfMediums, int const& newNumberOfLarges,
+                 int const& newNumberOfMoto, int const& newNumberOfElectrics,
+                 int const& newNumberOfHandicapped);
+    int takePlace(Types::VehicleType const& type);
+    void releasePlace(Types::VehicleType const& type, int const& numberOfSpot);
 private:
-   int numberOfFloor = 0;
-   std::vector <CompactSpot> compact = {};
-   std::vector <MediumSpot> medium = {};
-   std::vector <LargeSpot> large = {};
-   std::vector <HandicappedSpot> handicapped = {};
-   std::vector <MotorcycleSpot> motorcycle = {};
-   std::vector <ElectricSpot> electric = {};
+    int numberOfFloor = 0;
+    int NumberOfCompactSpots = 0;
+    std::vector <CompactSpot> compact = {};
+    std::vector <MediumSpot> medium = {};
+    std::vector <LargeSpot> large = {};
+    std::vector <HandicappedSpot> handicapped = {};
+    std::vector <MotorcycleSpot> motorcycle = {};
+    std::vector <ElectricSpot> electric = {};
 };
 
 #endif // PARKINGFLOOR_H

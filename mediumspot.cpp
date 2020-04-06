@@ -1,15 +1,10 @@
 #include "mediumspot.h"
 
-MediumSpot::MediumSpot()
+MediumSpot::MediumSpot(int const& newNumberOfSpot)
 {
-
+   numberOfSpot =newNumberOfSpot;
 }
 
-MediumSpot::MediumSpot(int const& newNumber)
-{
-    number = newNumber;
-}
-
-int MediumSpot::getNumer() const{
-    return number;
+int MediumSpot::getNumberOfSpot() const{
+    return this->numberOfSpot;
 }

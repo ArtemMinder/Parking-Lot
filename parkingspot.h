@@ -1,18 +1,21 @@
 #ifndef PARKINGSPOT_H
 #define PARKINGSPOT_H
 
-#include "enums.h"
+#include "Types.h"
+#include <QStandardItem>
 
 class ParkingSpot
 {
 public:
     ParkingSpot();
-    void setAvailability(bool const& available);
+    ParkingSpot(int const& newNumberOfSpot);
+    Types::SpotType getTypeOfSpot() const;
+    void setAvailability(bool const& availability);
     bool getAvailability() const;
-    int checkAvaibility(char const& type);
 private:
     bool isFree = true;
-    int number = 0;
+    int numberOfSpot = 0;
+    Types::SpotType typeOfSpot = {};
 };
 
 #endif // PARKINGSPOT_H

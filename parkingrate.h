@@ -1,22 +1,17 @@
 #ifndef PARKINGRATE_H
 #define PARKINGRATE_H
 
-#include "enums.h"
+#include <Types.h>
 
 class ParkingRate
 {
 public:
     ParkingRate();
-    void setRate(long long const& newRate);
-    long long getRate(char const& type)const;
+    double getRate(Types::VehicleType const& newType, int const& elapsedMinuts);
+
 private:
-    long long rate = 0;
-    long long compactPlaceRate = 0;
-    long long mediumPlaceRate = 0;
-    long long largePlaceRate = 0;
-    long long handicappedPlaceRate = 0;
-    long long motorcyclePlaceRate = 0;
-    long long electricPlaceRate = 0;
+    const double fullPriceForMinute = 0.05;
+    Types::VehicleType type ={};
 };
 
 #endif // PARKINGRATE_H

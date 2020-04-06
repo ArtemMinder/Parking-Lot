@@ -1,34 +1,14 @@
 #include "parkingticket.h"
+#include <QDebug>
+#include <iostream>
 
-ParkingTicket::ParkingTicket()
+ParkingTicket::ParkingTicket(int const& newParkingPlace, std::string const& newLicenseNumber, Types::VehicleType const & newType)
 {
+    this->parkingPlace = newParkingPlace;
+    this->licenseNumber = newLicenseNumber;
+    this->type = newType;
+   /* std::cout<<"mesto - "<<parkingPlace<<std::endl;
+    std::cout<<"nomer - "<<licenseNumber<<std::endl;
+    qDebug()<<"type - "<<type;*/
 
-}
-
-void ParkingTicket::setInfo(std::string const& newLicesneNumber, Enums::VehicleType const& newType,
-                            int const& newNumberOfTicket, time_t newStartTime, int const& newNumberOfPlace)
-{
-    licenseNumber = newLicesneNumber;
-    type = newType;
-    numberOfTicket = newNumberOfTicket;
-    startTime = newStartTime;
-    rate->getRate(newType);
-    numberOfPlace = newNumberOfPlace;
-}
-
-std::string ParkingTicket::getLicenseNumber()const{
-   return licenseNumber;
-}
-Enums::VehicleType  ParkingTicket::getTicketType()const{
-   return type;
-}
-int ParkingTicket::getNumberOfTicket()const{
-    return numberOfTicket;
-}
-time_t ParkingTicket::getStartTime()const{
-    return startTime;
-}
-
-int ParkingTicket::getNumberOfPlace()const{
-    return numberOfPlace;
 }

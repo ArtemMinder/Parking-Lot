@@ -4,12 +4,18 @@ ParkingSpot::ParkingSpot()
 {
 
 }
-
-void ParkingSpot::setAvailability(bool const& available){
-    isFree = available;
+ParkingSpot::ParkingSpot(int const& newNumberOfSpot)
+{
+    this->numberOfSpot = newNumberOfSpot;
 }
 
-bool ParkingSpot::getAvailability()const{
-    return isFree;
+Types::SpotType ParkingSpot::getTypeOfSpot() const{
+    return this->typeOfSpot;
 }
 
+void ParkingSpot::setAvailability(bool const& availability){
+    this->isFree = availability;
+}
+bool ParkingSpot::getAvailability() const{
+    return  this->isFree;
+}

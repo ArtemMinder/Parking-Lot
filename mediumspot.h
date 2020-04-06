@@ -6,13 +6,11 @@
 class MediumSpot : public ParkingSpot
 {
 public:
-    MediumSpot();
-    MediumSpot(int const& newNumber);
-    int getNumer() const;
+    MediumSpot(int const& newNumberOfSpot);
+    int getNumberOfSpot() const;
 private:
-    bool isFree = true;
-    int number = 0;
-    char spotType = Enums::SpotType::Medium;
+    int numberOfSpot = 0;
+    Types::SpotType type = Types::SpotType::Medium;
 };
 
 #endif // MEDIUMSPOT_H

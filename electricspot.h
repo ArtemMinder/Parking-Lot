@@ -2,22 +2,15 @@
 #define ELECTRICSPOT_H
 
 #include "parkingspot.h"
-#include "electricpanel.h"
 
 class ElectricSpot : public ParkingSpot
 {
 public:
-    ElectricSpot();
-    ElectricSpot(int const& newNumber);
-    void setCharging();
-    bool getCharging() const;
-    int getNumer() const;
+    ElectricSpot(int const& newNumberOfSpot);
+    int getNumberOfSpot() const;
 private:
-    bool isChargeOn = false;
-    bool isFree = true;
-    int number = 0;
-    char spotType = Enums::SpotType::Electric;
-    ElectricPanel *ePanel;
+    int numberOfSpot = 0;
+    Types::SpotType type = Types::SpotType::Electric;
 };
 
 #endif // ELECTRICSPOT_H

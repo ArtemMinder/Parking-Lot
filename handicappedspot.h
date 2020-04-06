@@ -6,13 +6,11 @@
 class HandicappedSpot : public ParkingSpot
 {
 public:
-    HandicappedSpot();
-    HandicappedSpot(int const& newNumber);
-    int getNumer() const;
+    HandicappedSpot(int const& newNumberOfSpot);
+    int getNumberOfSpot() const;
 private:
-    bool isFree = true;
-    int number = 0;
-    char spotType = Enums::SpotType::Handicapped;
+    int numberOfSpot = 0;
+    Types::SpotType type = Types::SpotType::Handicapped;
 };
 
 #endif // HANDICAPPEDSPOT_H
