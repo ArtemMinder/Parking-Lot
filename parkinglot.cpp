@@ -26,14 +26,15 @@ void ParkingLot::receiveCar(Vehicle const& newVehicle){
     int place =floors[0].takePlace(newVehicle.getType());
     if(place != -1){
     EntrancePanel enterPanel(newVehicle, place);
-    view->loadInfo(place,newVehicle.getLicense(),newVehicle.getType(),startTime,rate->getRate(newVehicle.getType(),60));
+    view->loadInfo(place,newVehicle.getLicense(),newVehicle.getType(),startTime,rate->getRate(newVehicle.getType(),
+    newVehicle.getParkingTime()), newVehicle.getParkingTime());
     } else {
         std::cout<<"Sorry, all plases for your vehicle is unavailable"<<std::endl;
         newVehicle.~Vehicle();
     }
     view->busy(place, newVehicle.getType());
-    floors[0].releasePlace(newVehicle.getType(),place);
-    view->free(place, newVehicle.getType());
+    //floors[0].releasePlace(newVehicle.getType(),place);
+    //view->free(place, newVehicle.getType());
 }
 
 

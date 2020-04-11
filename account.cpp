@@ -4,12 +4,11 @@
 Account::Account()
 {
     dataBase = QSqlDatabase::addDatabase("QSQLITE");
-    dataBase.setDatabaseName("ParkingDB");
+    dataBase.setDatabaseName("database.db3");
     if(dataBase.open()){
-        sqlQuery = QSqlQuery(dataBase);
 
     } else {
-        qDebug()<<"o neet!";
+
     }
 }
 

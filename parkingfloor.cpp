@@ -32,125 +32,78 @@ int ParkingFloor::takePlace(Types::VehicleType const& type){
     switch(type){
     case Types::VehicleType::MiniCooper: {
         int size = compact.size();
-        int free = 0;
-        for(int i = 0; i < size; i++){
-            if(compact[i].getAvailability() == true){
-                free++;
-            }
-        }
-        if(free > 0){
-            std::vector <int> available = {};
-           for(auto i =0; i<compact.size();i++){
+        std::vector <int> available = {};
+           for(auto i =0; i < size;i++){
                if(compact[i].getAvailability() == true){
                    available.push_back(i);
                }
            }
            compact[available[0]].setAvailability(false);
          return  compact[available[0]].getNumberOfSpot();
+         break;
         }
-       return -1;
-    }
     case Types::VehicleType::Car: {
         int size = medium.size();
-        int free = 0;
-        for(int i = 0; i < size; i++){
-            if(medium[i].getAvailability() == true){
-                free++;
-            }
-        }
-        if(free > 0){
-            std::vector <int> available = {};
-           for(auto i =0; i<medium.size();i++){
+        std::vector <int> available = {};
+           for(auto i =0; i < size;i++){
                if(medium[i].getAvailability() == true){
                    available.push_back(i);
                }
            }
            medium[available[0]].setAvailability(false);
          return  medium[available[0]].getNumberOfSpot();
+         break;
         }
-       return -1;
-    }
     case Types::VehicleType::Bus: {
         int size = large.size();
-        int free = 0;
-        for(int i = 0; i < size; i++){
-            if(large[i].getAvailability() == true){
-                free++;
-            }
-        }
-        if(free > 0){
-            std::vector <int> available = {};
-           for(auto i =0; i<large.size();i++){
+        std::vector <int> available = {};
+           for(auto i =0; i < size;i++){
                if(large[i].getAvailability() == true){
                    available.push_back(i);
                }
            }
            large[available[0]].setAvailability(false);
          return  large[available[0]].getNumberOfSpot();
+         break;
         }
-       return -1;
-    }
     case Types::VehicleType::Moto: {
         int size = motorcycle.size();
-        int free = 0;
-        for(int i = 0; i < size; i++){
-            if(motorcycle[i].getAvailability() == true){
-                free++;
-            }
-        }
-        if(free > 0){
-            std::vector <int> available = {};
-           for(auto i =0; i<motorcycle.size();i++){
+        std::vector <int> available = {};
+           for(auto i =0; i < size;i++){
                if(motorcycle[i].getAvailability() == true){
                    available.push_back(i);
                }
            }
            motorcycle[available[0]].setAvailability(false);
          return  motorcycle[available[0]].getNumberOfSpot();
+         break;
         }
-       return -1;
-    }
     case Types::VehicleType::ElectroCar: {
         int size = electric.size();
-        int free = 0;
-        for(int i = 0; i < size; i++){
-            if(electric[i].getAvailability() == true){
-                free++;
-            }
-        }
-        if(free > 0){
-            std::vector <int> available = {};
-           for(auto i =0; i<electric.size();i++){
+        std::vector <int> available = {};
+           for(auto i =0; i < size;i++){
                if(electric[i].getAvailability() == true){
                    available.push_back(i);
                }
            }
            electric[available[0]].setAvailability(false);
          return  electric[available[0]].getNumberOfSpot();
+         break;
         }
-       return -1;
-    }
     case Types::VehicleType::HandicappedCar: {
         int size = handicapped.size();
-        int free = 0;
-        for(int i = 0; i < size; i++){
-            if(handicapped[i].getAvailability() == true){
-                free++;
-            }
-        }
-        if(free > 0){
-            std::vector <int> available = {};
-           for(auto i =0; i<handicapped.size();i++){
+        std::vector <int> available = {};
+           for(auto i =0; i < size;i++){
                if(handicapped[i].getAvailability() == true){
                    available.push_back(i);
                }
            }
            handicapped[available[0]].setAvailability(false);
-         return handicapped[available[0]].getNumberOfSpot();
+         return  handicapped[available[0]].getNumberOfSpot();
+         break;
         }
-       return -1;
+    default: return -1;
     }
-   }
     return -1;
 }
 
@@ -158,21 +111,27 @@ void ParkingFloor::releasePlace(Types::VehicleType const& type, int const& numbe
     switch(type){
     case Types::VehicleType::MiniCooper:{
         compact[numberOfSpot-1].setAvailability(true);
+        break;
     }
     case Types::VehicleType::Car:{
         medium[numberOfSpot-1].setAvailability(true);
+        break;
     }
     case Types::VehicleType::Bus:{
         large[numberOfSpot-1].setAvailability(true);
+        break;
     }
     case Types::VehicleType::Moto:{
         motorcycle[numberOfSpot-1].setAvailability(true);
+        break;
     }
      case Types::VehicleType::ElectroCar:{
         electric[numberOfSpot-1].setAvailability(true);
+        break;
     }
     case Types::VehicleType::HandicappedCar:{
         handicapped[numberOfSpot-1].setAvailability(true);
+        break;
     }
    }
 }

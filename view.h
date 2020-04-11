@@ -24,11 +24,12 @@ public:
     void busy(int const& newPlase, Types::VehicleType const& newType);
     void free(int const& newPlase, Types::VehicleType const& newType);
     void loadInfo(int const& newPlase, std::string const& newLicense, Types::VehicleType const& newType,
-                  std::string const& newStartTime, double newAmount);
+                  std::string const& newStartTime, double const& newAmount, int const& newParkingTime);
     ~View();
 private:
     Account *account;
-    QSqlTableModel *model;
+    QStandardItemModel *model;
+    QStandardItem *item;
     QSqlDatabase dataBase;
     QSqlQuery sqlQuery;
     Ui::View *ui;
@@ -43,6 +44,9 @@ private:
     QPixmap online = QPixmap(":/images/images/Online.png");
     std::string startTime = {};
     int noteNumber = -1;
+    int maxTime = 0;
+    double employeeCost = 0.04;
+    double electricCost = 0.12;
     double loot = 0;
     double cost = 0;
     double profit = 0;

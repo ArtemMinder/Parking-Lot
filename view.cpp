@@ -29,109 +29,141 @@ ui->label2_40,ui->label2_41,ui->label2_42,ui->label2_43,ui->label2_44,ui->label2
     Handicapped = {ui->label6_1,ui->label6_2,ui->label6_3,ui->label6_4,ui->label6_5,ui->label6_6,ui->label6_7,
                    ui->label6_8,ui->label6_9,ui->label6_10};
 
+    for(auto i = 0; i < Compact.size(); i++){Compact[i]->setPixmap(online);}
+    for(auto i = 0; i < Medium.size(); i++){Medium[i]->setPixmap(online);}
+    for(auto i = 0; i < Large.size(); i++){Large[i]->setPixmap(online);}
+    for(auto i = 0; i < Motorcycle.size(); i++){Motorcycle[i]->setPixmap(online);}
+    for(auto i = 0; i < Electric.size(); i++){Electric[i]->setPixmap(online); }
+    for(auto i = 0; i < Handicapped.size(); i++){Handicapped[i]->setPixmap(online);}
+
+    model = new QStandardItemModel(122, 6, this);
+    item = new QStandardItem;
+    account = new Account;
 }
 
 void View::busy(int const& newPlase, Types::VehicleType const& newType){
-    qDebug()<<newType;
     switch(newType){
         case Types::VehicleType::MiniCooper:{
             Compact[newPlase-1]->setPixmap(isNotFree);
+            break;
         }
         case Types::VehicleType::Car:{
             Medium[newPlase-1]->setPixmap(isNotFree);
+            break;
         }
         case Types::VehicleType::Bus:{
             Large[newPlase-1]->setPixmap(isNotFree);
+            break;
         }
         case Types::VehicleType::Moto:{
             Motorcycle[newPlase-1]->setPixmap(isNotFree);
+            break;
         }
          case Types::VehicleType::ElectroCar:{
             Electric[newPlase-1]->setPixmap(isNotFree);
+            break;
         }
         case Types::VehicleType::HandicappedCar:{
             Handicapped[newPlase-1]->setPixmap(isNotFree);
+            break;
         }
     }
  this->repaint();
 }
 
 void View::free(int const& newPlase, Types::VehicleType const& newType){
-    qDebug()<<newType;
     switch(newType){
         case Types::VehicleType::MiniCooper:{
             Compact[newPlase-1]->setPixmap(online);
+            break;
         }
         case Types::VehicleType::Car:{
             Medium[newPlase-1]->setPixmap(online);
+            break;
         }
         case Types::VehicleType::Bus:{
             Large[newPlase-1]->setPixmap(online);
+            break;
         }
         case Types::VehicleType::Moto:{
             Motorcycle[newPlase-1]->setPixmap(online);
+            break;
         }
          case Types::VehicleType::ElectroCar:{
             Electric[newPlase-1]->setPixmap(online);
+            break;
         }
         case Types::VehicleType::HandicappedCar:{
             Handicapped[newPlase-1]->setPixmap(online);
+            break;
         }
     }
  this->repaint();
 }
 
 void View::loadInfo(int const& newPlase, std::string const& newLicense, Types::VehicleType const& newType,
-                    std::string const& newStartTime, double newAmount){
-    QStandardItemModel *model = new QStandardItemModel;
-    QStandardItem *item;
+                    std::string const& newStartTime, double const& newAmount, int const& newParkingTime){
     QStringList horizontalHeader;
     horizontalHeader.append("Место");
     horizontalHeader.append("Номер ТС");
     horizontalHeader.append("Тип ТС");
     horizontalHeader.append("Время прибытия");
+     horizontalHeader.append("Время стоянки");
     horizontalHeader.append("Стоимость услуг");
     horizontalHeader.append("Оплачено");
 
-    QStringList verticalHeader;
-    QString numberOfString;
-    for(int i = 1;i <= 122;i++){
-        numberOfString = QString::number(i);
-        verticalHeader.append(numberOfString);
-    }
+
      this->loot += newAmount;
      QString place = QString::number(newPlase);
+     QString parkingTime = QString::number(newParkingTime);
      QString license = QString::fromUtf8(newLicense.c_str());
      QString type = QString::number(newType);
+     if(type =="0"){type = "Легковой мини";}
+     else if(type =="1"){type = "Легковой стандарт";}
+     else if(type =="2"){type = "Крупногабаритный";}
+     else if(type =="3"){type = "Мотоцикл";}
+     else if(type =="4"){type = "Электромобиль";}
+     else{type = "Handicapped";}
      QString startTime = QString::fromUtf8(newStartTime.c_str());
      QString amount = QString::number(newAmount);
 
     model->setHorizontalHeaderLabels(horizontalHeader);
-    model->setVerticalHeaderLabels(verticalHeader);
 
     this->noteNumber += 1;
-    qDebug()<<noteNumber;
+
+    dataBase = account->getDB();
+
 
     item = new QStandardItem(QString(place));
-    model->setItem(0, 0, item);
+    model->setItem(noteNumber, 0, item);
     item = new QStandardItem(QString(license));
-    model->setItem(0, 1, item);
+    model->setItem(noteNumber, 1, item);
     item = new QStandardItem(QString(type));
-    model->setItem(0, 2, item);
+    model->setItem(noteNumber, 2, item);
     item = new QStandardItem(QString(startTime));
-    model->setItem(0, 3, item);
+    model->setItem(noteNumber, 3, item);
+    item = new QStandardItem(QString(parkingTime)+" минут");
+    model->setItem(noteNumber, 4, item);
     item = new QStandardItem(QString(amount)+"$");
-    model->setItem(0, 4, item);
+    model->setItem(noteNumber, 5, item);
+    item = new QStandardItem(QString("+"));
+    model->setItem(noteNumber, 6, item);
 
     ui->tableView->setModel(model);
     ui->tableView->resizeRowsToContents();
     ui->tableView->resizeColumnsToContents();
 
-
+            if(maxTime < newParkingTime){
+                maxTime = newParkingTime;
+            }
+            this->cost = (employeeCost + electricCost) * maxTime;
+            this->profit = loot - cost;
             QString newLoot = QString::number(loot);
+            QString newCost = QString::number(cost);
+            QString newProfit = QString::number(profit);
             ui->Loot_label->setText(QString(newLoot)+"$");
-            ui->Cost_label->setText(QString("1")+"$");
-            ui->Profit_label->setText(QString("37.5")+"$");
+            ui->Cost_label->setText(QString(newCost)+"$");
+            ui->Profit_label->setText(QString(newProfit)+"$");
 }
 
 View::~View()
