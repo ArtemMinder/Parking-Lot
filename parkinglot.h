@@ -1,8 +1,7 @@
 #ifndef PARKINGLOT_H
 #define PARKINGLOT_H
 
-#include <iostream>
-#include <QStandardItem>
+#include "iostream"
 #include "parkingfloor.h"
 #include "entrancepanel.h"
 #include "vehicle.h"

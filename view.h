@@ -21,11 +21,17 @@ class View : public QDialog
 
 public:
     explicit View(QWidget *parent = nullptr);
+    bool showInfo(std::string const& newLogin, std::string const& newPassword);
     void busy(int const& newPlase, Types::VehicleType const& newType);
     void free(int const& newPlase, Types::VehicleType const& newType);
     void loadInfo(int const& newPlase, std::string const& newLicense, Types::VehicleType const& newType,
                   std::string const& newStartTime, double const& newAmount, int const& newParkingTime);
     ~View();
+private slots:
+    void on_pushButton_clicked();
+
+    void on_exitButton_clicked();
+
 private:
     Account *account;
     QStandardItemModel *model;

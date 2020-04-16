@@ -1,6 +1,4 @@
 #include "account.h"
-#include <QDebug>
-
 Account::Account()
 {
     dataBase = QSqlDatabase::addDatabase("QSQLITE");
@@ -10,6 +8,11 @@ Account::Account()
     } else {
 
     }
+}
+
+bool Account::isAuthorized(QString const& newLogin, QString const& newPassword){
+    if(QString::compare(newLogin,login)==0 && QString::compare(newPassword,password)==0 ){return true;}
+    else{return false;}
 }
 
 QSqlDatabase Account::getDB()const{

@@ -2,7 +2,6 @@
 #define PARKINGSPOT_H
 
 #include "Types.h"
-#include <QStandardItem>
 
 class ParkingSpot
 {

@@ -1,6 +1,6 @@
 #include "view.h"
 #include "ui_view.h"
-#include <QDebug>
+#include "QMessageBox"
 
 View::View(QWidget *parent) :
     QDialog(parent),
@@ -39,6 +39,7 @@ ui->label2_40,ui->label2_41,ui->label2_42,ui->label2_43,ui->label2_44,ui->label2
     model = new QStandardItemModel(122, 6, this);
     item = new QStandardItem;
     account = new Account;
+    ui->tableView->close();
 }
 
 void View::busy(int const& newPlase, Types::VehicleType const& newType){
@@ -164,6 +165,30 @@ void View::loadInfo(int const& newPlase, std::string const& newLicense, Types::V
             ui->Loot_label->setText(QString(newLoot)+"$");
             ui->Cost_label->setText(QString(newCost)+"$");
             ui->Profit_label->setText(QString(newProfit)+"$");
+}
+
+void View::on_pushButton_clicked()
+{
+    if(account->isAuthorized(ui->loginBox->toPlainText(), ui->passwordBox->toPlainText())==true) {
+        ui->loginBox->clear();
+        ui->passwordBox->clear();
+        ui->warningLabel->close();
+        ui->label->close();
+        ui->adminLed->setPixmap(online);
+        ui->tableView->show();}
+    else{
+        QMessageBox msgBox;
+        msgBox.setText("Логин или пароль были введены неверно");
+        msgBox.exec();
+    }
+}
+
+void View::on_exitButton_clicked()
+{
+   ui->tableView->close();
+   ui->adminLed->setPixmap(isNotFree);
+   ui->warningLabel->show();
+   ui->label->show();
 }
 
 View::~View()

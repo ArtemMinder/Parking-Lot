@@ -1,5 +1,5 @@
 #include "parkingfloor.h"
-#include <QDebug>
+
 
 ParkingFloor::ParkingFloor(int const& newNumberOfFloor,  int const& newNumberOfCompacts,
                            int const& newNumberOfMediums, int const& newNumberOfLarges,

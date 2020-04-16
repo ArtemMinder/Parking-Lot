@@ -1,5 +1,4 @@
 #include "compactspot.h"
-#include <QDebug>
 
 CompactSpot::CompactSpot(int const& newNumberOfSpot)
 {

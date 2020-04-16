@@ -1,7 +1,6 @@
 #ifndef PARKINGFLOOR_H
 #define PARKINGFLOOR_H
 
-#include <QStandardItem>
 #include "parkingspot.h"
 #include "compactspot.h"
 #include "mediumspot.h"

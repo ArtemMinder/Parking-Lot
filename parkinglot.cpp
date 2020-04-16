@@ -1,8 +1,6 @@
 #include "parkinglot.h"
 #include "ui_parkinglot.h"
 #include <QDebug>
-#include <QTime>
-#include <windows.h>
 
 ParkingLot::ParkingLot(int const& newNumberOfFloors, int const& newNumberOfCompacts,
                        int const& newNumberOfMediums, int const& newNumberOfLarges,
