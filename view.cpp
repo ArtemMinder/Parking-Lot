@@ -1,6 +1,7 @@
 #include "view.h"
 #include "ui_view.h"
 #include "QMessageBox"
+#include <QDebug>
 
 View::View(QWidget *parent) :
     QDialog(parent),
@@ -28,6 +29,7 @@ ui->label2_40,ui->label2_41,ui->label2_42,ui->label2_43,ui->label2_44,ui->label2
                 ui->label5_15,ui->label5_16,ui->label5_17};
     Handicapped = {ui->label6_1,ui->label6_2,ui->label6_3,ui->label6_4,ui->label6_5,ui->label6_6,ui->label6_7,
                    ui->label6_8,ui->label6_9,ui->label6_10};
+    ui->adminLed->setPixmap(isNotFree);
 
     for(auto i = 0; i < Compact.size(); i++){Compact[i]->setPixmap(online);}
     for(auto i = 0; i < Medium.size(); i++){Medium[i]->setPixmap(online);}
@@ -38,8 +40,12 @@ ui->label2_40,ui->label2_41,ui->label2_42,ui->label2_43,ui->label2_44,ui->label2
 
     model = new QStandardItemModel(122, 6, this);
     item = new QStandardItem;
-    account = new Account;
+    acc = new Acc;
+
+    this->close();
     ui->tableView->close();
+    acc->authentification();
+    this->checkStatus();
 }
 
 void View::busy(int const& newPlase, Types::VehicleType const& newType){
@@ -132,7 +138,6 @@ void View::loadInfo(int const& newPlase, std::string const& newLicense, Types::V
 
     this->noteNumber += 1;
 
-    dataBase = account->getDB();
 
 
     item = new QStandardItem(QString(place));
@@ -169,7 +174,7 @@ void View::loadInfo(int const& newPlase, std::string const& newLicense, Types::V
 
 void View::on_pushButton_clicked()
 {
-    if(account->isAuthorized(ui->loginBox->toPlainText(), ui->passwordBox->toPlainText())==true) {
+    if(acc->isAuthorized(ui->loginBox->toPlainText(), ui->passwordBox->toPlainText())==true) {
         ui->loginBox->clear();
         ui->passwordBox->clear();
         ui->warningLabel->close();
@@ -178,7 +183,7 @@ void View::on_pushButton_clicked()
         ui->tableView->show();}
     else{
         QMessageBox msgBox;
-        msgBox.setText("Логин или пароль были введены неверно");
+        msgBox.setText("Password/login was entered incorrectly.");
         msgBox.exec();
     }
 }
@@ -189,6 +194,21 @@ void View::on_exitButton_clicked()
    ui->adminLed->setPixmap(isNotFree);
    ui->warningLabel->show();
    ui->label->show();
+}
+
+void View::checkStatus(){
+    if(acc->getStatus() == "admin"){
+        ui->adminLed->setPixmap(online);
+        ui->warningLabel->close();
+        ui->label->close();
+        ui->tableView->show();
+        this->open();
+    }
+    else if(acc->getStatus() == "user"){
+        ui->adminLed->setPixmap(isNotFree);
+        ui->tableView->close();
+        this->open();
+    }
 }
 
 View::~View()

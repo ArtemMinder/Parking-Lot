@@ -17,13 +17,13 @@ list(APPEND THIRD_PARTY_LIBS Qt5::Widgets Qt5::Core Qt5::Gui Qt5::Sql)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(SOURCE_FILES account.cpp compactspot.cpp electricspot.cpp entrancepanel.cpp
+set(SOURCE_FILES acc.cpp compactspot.cpp electricspot.cpp entrancepanel.cpp
     handicappedspot.cpp largespot.cpp main.cpp mediumspot.cpp motorcyclespot.cpp 
     parkingfloor.cpp parkinglot.cpp parkingrate.cpp parkingspot.cpp parkingticket.cpp 
-    vehicle.cpp view.cpp Types.h account.h compactspot.h electricspot.h entrancepanel.h
+    vehicle.cpp view.cpp Types.h acc.h compactspot.h electricspot.h entrancepanel.h
     handicappedspot.h largespot.h mediumspot.h motorcyclespot.h parkingfloor.h 
     parkinglot.h parkingrate.h parkingspot.h parkingticket.h vehicle.h view.h view.ui
-    resources.qrc)
+    acc.ui resources.qrc)
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 

@@ -1,5 +1,4 @@
 #include "parkinglot.h"
-#include "ui_parkinglot.h"
 #include <QDebug>
 
 ParkingLot::ParkingLot(int const& newNumberOfFloors, int const& newNumberOfCompacts,

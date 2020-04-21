@@ -14,7 +14,12 @@
    <string>A-Parking</string>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string notr="true">background-color: rgb(255, 255, 255);
+                          border-style: inset;
+                          border-style: outset;
+                          border-width: 1px;
+                           border: 2px solid #000000;
+                          border-radius: 7px;</string>
   </property>
   <widget class="QLabel" name="background">
    <property name="geometry">
@@ -22,7 +27,7 @@
      <x>0</x>
      <y>0</y>
      <width>1921</width>
-     <height>1001</height>
+     <height>998</height>
     </rect>
    </property>
    <property name="font">
@@ -3471,8 +3476,8 @@
   <widget class="QLabel" name="Loot_label">
    <property name="geometry">
     <rect>
-     <x>1700</x>
-     <y>16</y>
+     <x>1709</x>
+     <y>20</y>
      <width>171</width>
      <height>41</height>
     </rect>
@@ -3494,10 +3499,10 @@
   <widget class="QLabel" name="Cost_label">
    <property name="geometry">
     <rect>
-     <x>1700</x>
-     <y>68</y>
+     <x>1711</x>
+     <y>67</y>
      <width>171</width>
-     <height>41</height>
+     <height>44</height>
     </rect>
    </property>
    <property name="font">
@@ -3518,10 +3523,10 @@ color: rgb(255, 0, 0);</string>
   <widget class="QLabel" name="Profit_label">
    <property name="geometry">
     <rect>
-     <x>1720</x>
-     <y>110</y>
-     <width>151</width>
-     <height>41</height>
+     <x>1730</x>
+     <y>113</y>
+     <width>152</width>
+     <height>43</height>
     </rect>
    </property>
    <property name="font">
@@ -3543,7 +3548,7 @@ color: rgb(255, 0, 0);</string>
     <rect>
      <x>1090</x>
      <y>220</y>
-     <width>641</width>
+     <width>581</width>
      <height>91</height>
     </rect>
    </property>
@@ -3560,9 +3565,9 @@ color: rgb(255, 0, 0);</string>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>1590</x>
+     <x>1596</x>
      <y>230</y>
-     <width>56</width>
+     <width>68</width>
      <height>71</height>
     </rect>
    </property>
@@ -3573,7 +3578,7 @@ color: rgb(255, 0, 0);</string>
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>1240</x>
+     <x>1249</x>
      <y>130</y>
      <width>141</width>
      <height>31</height>
@@ -3599,9 +3604,9 @@ color: rgb(255, 0, 0);</string>
    </property>
    <property name="font">
     <font>
-     <pointsize>10</pointsize>
-     <weight>50</weight>
-     <bold>false</bold>
+     <pointsize>9</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
     </font>
    </property>
   </widget>
@@ -3616,9 +3621,9 @@ color: rgb(255, 0, 0);</string>
    </property>
    <property name="font">
     <font>
-     <pointsize>10</pointsize>
-     <weight>50</weight>
-     <bold>false</bold>
+     <pointsize>9</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
     </font>
    </property>
   </widget>
@@ -3627,7 +3632,7 @@ color: rgb(255, 0, 0);</string>
     <rect>
      <x>1210</x>
      <y>153</y>
-     <width>31</width>
+     <width>29</width>
      <height>31</height>
     </rect>
    </property>
