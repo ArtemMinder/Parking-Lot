@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QDialog>
 #include <QSql>
+#include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QMessageBox>
 
@@ -35,7 +36,6 @@ private:
     QString userLogin = "user";
     QString userPassword = "user";
     QSqlDatabase dataBase;
-    QSqlQuery sqlQuery;
 };
 
 #endif // ACC_H

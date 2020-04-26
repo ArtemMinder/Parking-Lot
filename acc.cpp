@@ -1,7 +1,6 @@
 #include "acc.h"
 #include "ui_acc.h"
-
-
+#include <QDebug>
 
 Acc::Acc(QWidget *parent) :
     QDialog(parent),
@@ -9,12 +8,7 @@ Acc::Acc(QWidget *parent) :
 {
     setWindowIcon(QIcon(QString::fromUtf8(":/images/images/Logo333.ico")));
     dataBase = QSqlDatabase::addDatabase("QSQLITE");
-       dataBase.setDatabaseName("database.db3");
-       if(dataBase.open()){
-
-       } else {
-
-       }
+    dataBase.setDatabaseName("ParkingLot.sqlite");
 }
 
 void Acc::authentification(){

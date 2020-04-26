@@ -17,6 +17,9 @@ list(APPEND THIRD_PARTY_LIBS Qt5::Widgets Qt5::Core Qt5::Gui Qt5::Sql)
 
 set(CMAKE_CXX_STANDARD 14)
 
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR} ParkingLot.sqlite
+    DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
 set(SOURCE_FILES acc.cpp compactspot.cpp electricspot.cpp entrancepanel.cpp
     handicappedspot.cpp largespot.cpp main.cpp mediumspot.cpp motorcyclespot.cpp 
     parkingfloor.cpp parkinglot.cpp parkingrate.cpp parkingspot.cpp parkingticket.cpp 

@@ -4,8 +4,6 @@
 #include <QDialog>
 #include <QLabel>
 #include "Types.h"
-#include "QStandardItemModel"
-#include "QStandardItem"
 #include <QtSql>
 #include <QSqlQuery>
 #include <QSqlTableModel>
@@ -33,11 +31,26 @@ private slots:
 
     void on_exitButton_clicked();
 
+    void on_delete_all_clicked();
+
+    void on_tableView_activated(const QModelIndex &index);
+
+    void on_closeEditButton_clicked();
+
+    void on_commitButton_clicked();
+
+    void on_add_clicked();
+
+    void on_addButton_clicked();
+
+    void on_deleteNoteButton_clicked();
+
+    void on_deleteButton_clicked();
+
 private:
-    QStandardItemModel *model;
-    QStandardItem *item;
     QSqlDatabase dataBase;
-    QSqlQuery sqlQuery;
+    QSqlQuery *sqlQuery;
+    QSqlQueryModel *model;
     Ui::View *ui;
     Acc *acc;
     std::vector<QLabel*> Compact = {};

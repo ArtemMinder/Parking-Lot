@@ -1,7 +1,6 @@
 #include "view.h"
 #include "ui_view.h"
 #include "QMessageBox"
-#include <QDebug>
 
 View::View(QWidget *parent) :
     QDialog(parent),
@@ -38,10 +37,23 @@ ui->label2_40,ui->label2_41,ui->label2_42,ui->label2_43,ui->label2_44,ui->label2
     for(auto i = 0; i < Electric.size(); i++){Electric[i]->setPixmap(online); }
     for(auto i = 0; i < Handicapped.size(); i++){Handicapped[i]->setPixmap(online);}
 
-    model = new QStandardItemModel(122, 6, this);
-    item = new QStandardItem;
-    acc = new Acc;
+    ui->adminBox->setGeometry(1076, 23, 381, 191);
+    ui->editBox->hide();
+    ui->statBox->hide();
+    ui->add->hide();
+    ui->delete_all->hide();
+    ui->deleteNoteButton->hide();
+    ui->tableView->hide();
 
+    acc = new Acc;
+    dataBase = acc->getDB();
+    dataBase.open();
+    model = new QSqlQueryModel();
+    sqlQuery = new QSqlQuery(dataBase);
+    sqlQuery->prepare("select * from Parking");
+    sqlQuery->exec();
+    model->setQuery(*sqlQuery);
+    ui->tableView->setModel(model);
     this->close();
     ui->tableView->close();
     acc->authentification();
@@ -110,19 +122,9 @@ void View::free(int const& newPlase, Types::VehicleType const& newType){
 
 void View::loadInfo(int const& newPlase, std::string const& newLicense, Types::VehicleType const& newType,
                     std::string const& newStartTime, double const& newAmount, int const& newParkingTime){
-    QStringList horizontalHeader;
-    horizontalHeader.append("Место");
-    horizontalHeader.append("Номер ТС");
-    horizontalHeader.append("Тип ТС");
-    horizontalHeader.append("Время прибытия");
-     horizontalHeader.append("Время стоянки");
-    horizontalHeader.append("Стоимость услуг");
-    horizontalHeader.append("Оплачено");
-
-
      this->loot += newAmount;
      QString place = QString::number(newPlase);
-     QString parkingTime = QString::number(newParkingTime);
+     QString parkingTime = QString::number(newParkingTime)+"мин";
      QString license = QString::fromUtf8(newLicense.c_str());
      QString type = QString::number(newType);
      if(type =="0"){type = "Легковой мини";}
@@ -132,44 +134,32 @@ void View::loadInfo(int const& newPlase, std::string const& newLicense, Types::V
      else if(type =="4"){type = "Электромобиль";}
      else{type = "Handicapped";}
      QString startTime = QString::fromUtf8(newStartTime.c_str());
-     QString amount = QString::number(newAmount);
-
-    model->setHorizontalHeaderLabels(horizontalHeader);
-
-    this->noteNumber += 1;
+     QString amount = QString::number(newAmount)+"$";
+     this->noteNumber += 1;
 
 
+     dataBase.open();
+     sqlQuery->prepare("insert into Parking (place, license_number, type,"
+                       " time_of_coming, parking, amount) values('"+place+"' ,"
+                       " '"+license+"' , '"+type+"' , '"+startTime+"' , "
+                       "'"+parkingTime+"', '"+amount+"')");
+     sqlQuery->exec();
+     sqlQuery->prepare("select * from Parking");
+     sqlQuery->exec();
+     model->setQuery(*sqlQuery);
+     ui->tableView->setModel(model);
 
-    item = new QStandardItem(QString(place));
-    model->setItem(noteNumber, 0, item);
-    item = new QStandardItem(QString(license));
-    model->setItem(noteNumber, 1, item);
-    item = new QStandardItem(QString(type));
-    model->setItem(noteNumber, 2, item);
-    item = new QStandardItem(QString(startTime));
-    model->setItem(noteNumber, 3, item);
-    item = new QStandardItem(QString(parkingTime)+" минут");
-    model->setItem(noteNumber, 4, item);
-    item = new QStandardItem(QString(amount)+"$");
-    model->setItem(noteNumber, 5, item);
-    item = new QStandardItem(QString("+"));
-    model->setItem(noteNumber, 6, item);
-
-    ui->tableView->setModel(model);
-    ui->tableView->resizeRowsToContents();
-    ui->tableView->resizeColumnsToContents();
-
-            if(maxTime < newParkingTime){
-                maxTime = newParkingTime;
-            }
-            this->cost = (employeeCost + electricCost) * maxTime;
-            this->profit = loot - cost;
-            QString newLoot = QString::number(loot);
-            QString newCost = QString::number(cost);
-            QString newProfit = QString::number(profit);
-            ui->Loot_label->setText(QString(newLoot)+"$");
-            ui->Cost_label->setText(QString(newCost)+"$");
-            ui->Profit_label->setText(QString(newProfit)+"$");
+     if(maxTime < newParkingTime){
+         maxTime = newParkingTime;
+     }
+     this->cost = (employeeCost + electricCost) * maxTime;
+     this->profit = loot - cost;
+     QString newLoot = QString::number(loot);
+     QString newCost = QString::number(cost);
+     QString newProfit = QString::number(profit);
+     ui->Loot_label->setText(QString(newLoot)+"$");
+     ui->Cost_label->setText(QString(newCost)+"$");
+     ui->Profit_label->setText(QString(newProfit)+"$");
 }
 
 void View::on_pushButton_clicked()
@@ -180,7 +170,13 @@ void View::on_pushButton_clicked()
         ui->warningLabel->close();
         ui->label->close();
         ui->adminLed->setPixmap(online);
-        ui->tableView->show();}
+        ui->tableView->show();
+        ui->statBox->show();
+        ui->add->show();
+        ui->deleteNoteButton->show();
+        ui->delete_all->show();
+        ui->tableView->setGeometry(1070, 220, 811, 761);
+        ui->adminBox->setGeometry(1076, 23, 381, 191);}
     else{
         QMessageBox msgBox;
         msgBox.setText("Password/login was entered incorrectly.");
@@ -190,7 +186,13 @@ void View::on_pushButton_clicked()
 
 void View::on_exitButton_clicked()
 {
+   ui->adminBox->setGeometry(1250, 250, 381, 191);
    ui->tableView->close();
+   ui->editBox->hide();
+   ui->statBox->hide();
+   ui->add->hide();
+   ui->deleteNoteButton->hide();
+   ui->delete_all->hide();
    ui->adminLed->setPixmap(isNotFree);
    ui->warningLabel->show();
    ui->label->show();
@@ -199,6 +201,12 @@ void View::on_exitButton_clicked()
 void View::checkStatus(){
     if(acc->getStatus() == "admin"){
         ui->adminLed->setPixmap(online);
+        ui->tableView->setGeometry(1070, 220, 811, 761);
+        ui->adminBox->setGeometry(1076, 23, 381, 191);
+        ui->statBox->show();
+        ui->delete_all->show();
+        ui->deleteNoteButton->show();
+        ui->add->show();
         ui->warningLabel->close();
         ui->label->close();
         ui->tableView->show();
@@ -206,12 +214,160 @@ void View::checkStatus(){
     }
     else if(acc->getStatus() == "user"){
         ui->adminLed->setPixmap(isNotFree);
+        ui->adminBox->setGeometry(1250, 250, 381, 191);
         ui->tableView->close();
         this->open();
     }
 }
 
+void View::on_delete_all_clicked()
+{
+
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Delete all notes");
+    msgBox.setText("Are you sure, you want to delete all records from the database?");
+    msgBox.setStandardButtons(QMessageBox::Yes);
+    msgBox.addButton(QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::No);
+    if(msgBox.exec() == QMessageBox::Yes){
+        sqlQuery->prepare("delete  from Parking");
+        sqlQuery->exec();
+        sqlQuery->prepare("select * from Parking");
+        sqlQuery->exec();
+        model->setQuery(*sqlQuery);
+        ui->tableView->setModel(model);
+    }else {
+
+    }
+
+}
+
 View::~View()
 {
     delete ui;
+}
+
+
+void View::on_tableView_activated(const QModelIndex &index)
+{
+    ui->adminBox->setGeometry(1076, 23, 381, 191);
+    ui->editBox->show();
+    ui->statBox->show();
+    ui->add->show();
+    ui->addButton->hide();
+    ui->deleteButton->hide();
+    ui->commitButton->show();
+    ui->delete_all->show();
+    ui->tableView->setGeometry(1070, 360, 811, 620);
+    QString val = ui->tableView->model()->data(index).toString();
+    sqlQuery->prepare("select * from parking where place ='"+val+"' "
+                       "or license_number ='"+val+"' or type ='"+val+"' "
+                       "or time_of_coming ='"+val+"' or parking ='"+val+"'"
+                       "or amount ='"+val+"'");
+
+    sqlQuery->exec();
+
+    if(sqlQuery-exec()){
+        while(sqlQuery->next()){
+            ui->placeEdit->setPlainText(sqlQuery->value(0).toString());
+            ui->licenseEdit->setPlainText(sqlQuery->value(1).toString());
+            ui->typeEdit->setPlainText(sqlQuery->value(2).toString());
+            ui->time1Edit->setPlainText(sqlQuery->value(3).toString());
+            ui->Time2Edit->setPlainText(sqlQuery->value(4).toString());
+            ui->amountEdit->setPlainText(sqlQuery->value(5).toString());
+        }
+    }
+}
+
+void View::on_closeEditButton_clicked()
+{
+    ui->editBox->hide();
+    ui->tableView->setGeometry(1070, 220, 811, 761);
+}
+
+void View::on_commitButton_clicked()
+{
+    QString newPlace, newLicense, newType, newTimeOfComing, newParkingTime, newAmount;
+    newPlace = ui->placeEdit->toPlainText();
+    newLicense = ui->licenseEdit->toPlainText();
+    newType = ui->typeEdit->toPlainText();
+    newTimeOfComing = ui->time1Edit->toPlainText();
+    newParkingTime= ui->Time2Edit->toPlainText();
+    newAmount= ui->amountEdit->toPlainText();
+
+    sqlQuery->prepare("update parking set place = '"+newPlace+"' , license_number = '"+newLicense+"' ,"
+                      " type = '"+newType+"' , time_of_coming = '"+newTimeOfComing+"' ,"
+                      " parking = '"+newParkingTime+"' , amount = '"+newAmount+"' where place = '"+newPlace+"'"
+                      " and license_number = '"+newLicense+"' and type = '"+newType+"' and "
+                      "time_of_coming = '"+newTimeOfComing+"' and parking = '"+newParkingTime+"' ");
+    sqlQuery->exec();
+    sqlQuery->prepare("select * from Parking");
+    sqlQuery->exec();
+    model->setQuery(*sqlQuery);
+    ui->tableView->setModel(model);
+}
+
+void View::on_add_clicked()
+{
+    ui->tableView->setGeometry(1070, 360, 811, 620);
+    ui->adminBox->setGeometry(1076, 23, 381, 191);
+    ui->editBox->show();
+    ui->commitButton->hide();
+    ui->deleteButton->hide();
+    ui->addButton->show();
+    ui->placeEdit->clear();
+    ui->licenseEdit->clear();
+    ui->typeEdit->clear();
+    ui->time1Edit->clear();
+    ui->Time2Edit->clear();
+    ui->amountEdit->clear();
+}
+
+void View::on_addButton_clicked()
+{
+    QString newPlace, newLicense, newType, newTimeOfComing, newParkingTime, newAmount;
+    newPlace = ui->placeEdit->toPlainText();
+    newLicense = ui->licenseEdit->toPlainText();
+    newType = ui->typeEdit->toPlainText();
+    newTimeOfComing = ui->time1Edit->toPlainText();
+    newParkingTime= ui->Time2Edit->toPlainText();
+    newAmount= ui->amountEdit->toPlainText();
+    sqlQuery->prepare("insert into Parking (place, license_number, type,"
+                      " time_of_coming, parking, amount) values('"+newPlace+"' ,"
+                      " '"+newLicense+"' , '"+newType+"' , '"+newTimeOfComing+"' , "
+                      "'"+newParkingTime+"', '"+newAmount+"')");
+    sqlQuery->exec();
+    sqlQuery->prepare("select * from Parking");
+    sqlQuery->exec();
+    model->setQuery(*sqlQuery);
+    ui->tableView->setModel(model);
+}
+
+void View::on_deleteNoteButton_clicked()
+{
+    ui->tableView->setGeometry(1070, 360, 811, 620);
+    ui->adminBox->setGeometry(1076, 23, 381, 191);
+    ui->editBox->show();
+    ui->commitButton->hide();
+    ui->addButton->hide();
+    ui->deleteButton->show();
+}
+
+void View::on_deleteButton_clicked()
+{
+    QString newPlace, newLicense, newType, newTimeOfComing, newParkingTime, newAmount;
+    newPlace = ui->placeEdit->toPlainText();
+    newLicense = ui->licenseEdit->toPlainText();
+    newType = ui->typeEdit->toPlainText();
+    newTimeOfComing = ui->time1Edit->toPlainText();
+    newParkingTime= ui->Time2Edit->toPlainText();
+    newAmount= ui->amountEdit->toPlainText();
+    sqlQuery->prepare("delete  from Parking where place = '"+newPlace+"' and license_number = '"+newLicense+"'"
+                      "and type = '"+newType+"' and time_of_coming = '"+newTimeOfComing+"' and parking = '"+newParkingTime+"'"
+                       "and amount = '"+newAmount+"'");
+    sqlQuery->exec();
+    sqlQuery->prepare("select * from Parking");
+    sqlQuery->exec();
+    model->setQuery(*sqlQuery);
+    ui->tableView->setModel(model);
 }

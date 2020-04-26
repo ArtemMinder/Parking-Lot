@@ -5,10 +5,17 @@
         <file>images/Parking Floor HD.png</file>
         <file>images/Logo.ico</file>
         <file>images/Logo333.ico</file>
-        <file>ParkingDB.accdb</file>
         <file>images/warning.png</file>
         <file>images/employee.png</file>
         <file>images/exit.png</file>
         <file>images/id window11.png</file>
+        <file>images/cancel.ico</file>
+        <file>images/success.ico</file>
+        <file>images/SQLite-Logo.png.png</file>
+        <file>images/add.png</file>
+        <file>images/lighting.png</file>
+        <file>images/loot (2).png</file>
+        <file>images/money (2).png</file>
+        <file>images/delete.png</file>
     </qresource>
 </RCC>
