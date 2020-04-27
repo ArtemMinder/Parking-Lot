@@ -264,6 +264,9 @@ void View::on_tableView_activated(const QModelIndex &index)
                        "or license_number ='"+val+"' or type ='"+val+"' "
                        "or time_of_coming ='"+val+"' or parking ='"+val+"'"
                        "or amount ='"+val+"'");
+    exPlace = ui->placeEdit->toPlainText();
+    exType = ui->typeEdit->toPlainText();
+    exMoney = ui->amountEdit->toPlainText();
 
     sqlQuery->exec();
 
@@ -294,17 +297,32 @@ void View::on_commitButton_clicked()
     newTimeOfComing = ui->time1Edit->toPlainText();
     newParkingTime= ui->Time2Edit->toPlainText();
     newAmount= ui->amountEdit->toPlainText();
+    int place = newPlace.toInt();
+    Types::VehicleType type = {};
+    if(newType == "Легковой мини"){type = Types::VehicleType::MiniCooper;}
+    else if(newType == "Легковой стандарт"){type = Types::VehicleType::Car;}
+    else if(newType == "Крупногабаритный"){type = Types::VehicleType::Bus;}
+    else if(newType == "Мотоцикл"){type = Types::VehicleType::Moto;}
+    else if(newType == "Электромобиль"){type = Types::VehicleType::ElectroCar;}
+    else if(newType == "Handicapped"){type = Types::VehicleType::HandicappedCar;}
+    busy(place, type);
+    if(exType == "Легковой мини"){type = Types::VehicleType::MiniCooper;}
+    else if(exType == "Легковой стандарт"){type = Types::VehicleType::Car;}
+    else if(exType == "Крупногабаритный"){type = Types::VehicleType::Bus;}
+    else if(exType == "Мотоцикл"){type = Types::VehicleType::Moto;}
+    else if(exType == "Электромобиль"){type = Types::VehicleType::ElectroCar;}
+    else if(exType == "Handicapped"){type = Types::VehicleType::HandicappedCar;}
+    free (exPlace.toInt(), type);
 
     sqlQuery->prepare("update parking set place = '"+newPlace+"' , license_number = '"+newLicense+"' ,"
                       " type = '"+newType+"' , time_of_coming = '"+newTimeOfComing+"' ,"
-                      " parking = '"+newParkingTime+"' , amount = '"+newAmount+"' where place = '"+newPlace+"'"
-                      " and license_number = '"+newLicense+"' and type = '"+newType+"' and "
-                      "time_of_coming = '"+newTimeOfComing+"' and parking = '"+newParkingTime+"' ");
+                      " parking = '"+newParkingTime+"' , amount = '"+newAmount+"' where license_number = '"+newLicense+"'");
     sqlQuery->exec();
     sqlQuery->prepare("select * from Parking");
     sqlQuery->exec();
     model->setQuery(*sqlQuery);
     ui->tableView->setModel(model);
+
 }
 
 void View::on_add_clicked()
@@ -341,6 +359,16 @@ void View::on_addButton_clicked()
     sqlQuery->exec();
     model->setQuery(*sqlQuery);
     ui->tableView->setModel(model);
+
+    int place = newPlace.toInt();
+    Types::VehicleType type = {};
+    if(newType == "Легковой мини"){type = Types::VehicleType::MiniCooper;}
+    else if(newType == "Легковой стандарт"){type = Types::VehicleType::Car;}
+    else if(newType == "Крупногабаритный"){type = Types::VehicleType::Bus;}
+    else if(newType == "Мотоцикл"){type = Types::VehicleType::Moto;}
+    else if(newType == "Электромобиль"){type = Types::VehicleType::ElectroCar;}
+    else if(newType == "Handicapped"){type = Types::VehicleType::HandicappedCar;}
+    busy(place, type);
 }
 
 void View::on_deleteNoteButton_clicked()
@@ -370,4 +398,13 @@ void View::on_deleteButton_clicked()
     sqlQuery->exec();
     model->setQuery(*sqlQuery);
     ui->tableView->setModel(model);
+
+    Types::VehicleType type;
+    if(newType == "Легковой мини"){type = Types::VehicleType::MiniCooper;}
+    else if(newType == "Легковой стандарт"){type = Types::VehicleType::Car;}
+    else if(newType == "Крупногабаритный"){type = Types::VehicleType::Bus;}
+    else if(newType == "Мотоцикл"){type = Types::VehicleType::Moto;}
+    else if(newType == "Электромобиль"){type = Types::VehicleType::ElectroCar;}
+    else if(newType == "Handicapped"){type = Types::VehicleType::HandicappedCar;}
+    free (newPlace.toInt(), type);
 }

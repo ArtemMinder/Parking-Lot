@@ -8,6 +8,7 @@
 #include <QSqlQuery>
 #include <QSqlTableModel>
 #include "acc.h"
+#include "parkingfloor.h"
 
 namespace Ui {
 class View;
@@ -53,6 +54,7 @@ private:
     QSqlQueryModel *model;
     Ui::View *ui;
     Acc *acc;
+    ParkingFloor *floor;
     std::vector<QLabel*> Compact = {};
     std::vector<QLabel*> Medium = {};
     std::vector<QLabel*> Large = {};
@@ -70,6 +72,9 @@ private:
     double loot = 0;
     double cost = 0;
     double profit = 0;
+    QString exType = {};
+    QString exPlace = {};
+    QString exMoney = {};
 };
 
 #endif // VIEW_H
