@@ -299,6 +299,10 @@ void View::on_commitButton_clicked()
     newAmount= ui->amountEdit->toPlainText();
     int place = newPlace.toInt();
     Types::VehicleType type = {};
+    if ((newType == "Легковой мини" && newPlace.toInt() <= 17 ) || (newType == "Легковой стандарт" && newPlace.toInt() <= 53) ||
+        (newType == "Крупногабаритный" && newPlace.toInt() <= 14) || (newType == "Мотоцикл" && newPlace.toInt() <= 10) ||
+        (newType == "Электромобиль" && newPlace.toInt() <= 17 ) || ( newType == "Handicapped" && newPlace.toInt() <= 10) ){
+
     if(newType == "Легковой мини"){type = Types::VehicleType::MiniCooper;}
     else if(newType == "Легковой стандарт"){type = Types::VehicleType::Car;}
     else if(newType == "Крупногабаритный"){type = Types::VehicleType::Bus;}
@@ -323,6 +327,16 @@ void View::on_commitButton_clicked()
     model->setQuery(*sqlQuery);
     ui->tableView->setModel(model);
 
+    } else {
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("New data is incorrect");
+        msgBox.setText("Incorrect type or number of parking place");
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        if(msgBox.exec() == QMessageBox::Ok){
+            ui->placeEdit->clear();
+            ui->typeEdit->clear();
+        }
+    }
 }
 
 void View::on_add_clicked()
@@ -350,6 +364,11 @@ void View::on_addButton_clicked()
     newTimeOfComing = ui->time1Edit->toPlainText();
     newParkingTime= ui->Time2Edit->toPlainText();
     newAmount= ui->amountEdit->toPlainText();
+
+    if ((newType == "Легковой мини" && newPlace.toInt() <= 17 ) || (newType == "Легковой стандарт" && newPlace.toInt() <= 53) ||
+        (newType == "Крупногабаритный" && newPlace.toInt() <= 14) || (newType == "Мотоцикл" && newPlace.toInt() <= 10) ||
+        (newType == "Электромобиль" && newPlace.toInt() <= 17 ) || ( newType == "Handicapped" && newPlace.toInt() <= 10) ){
+
     sqlQuery->prepare("insert into Parking (place, license_number, type,"
                       " time_of_coming, parking, amount) values('"+newPlace+"' ,"
                       " '"+newLicense+"' , '"+newType+"' , '"+newTimeOfComing+"' , "
@@ -369,6 +388,17 @@ void View::on_addButton_clicked()
     else if(newType == "Электромобиль"){type = Types::VehicleType::ElectroCar;}
     else if(newType == "Handicapped"){type = Types::VehicleType::HandicappedCar;}
     busy(place, type);
+    }
+    else {
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("New data is incorrect");
+        msgBox.setText("Incorrect type or number of parking place");
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        if(msgBox.exec() == QMessageBox::Ok){
+            ui->placeEdit->clear();
+            ui->typeEdit->clear();
+        }
+    }
 }
 
 void View::on_deleteNoteButton_clicked()
