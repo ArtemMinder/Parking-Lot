@@ -22,11 +22,12 @@ file(COPY ${CMAKE_CURRENT_SOURCE_DIR} ParkingLot.sqlite
 
 set(SOURCE_FILES acc.cpp compactspot.cpp electricspot.cpp entrancepanel.cpp
     handicappedspot.cpp largespot.cpp main.cpp mediumspot.cpp motorcyclespot.cpp 
-    parkingfloor.cpp parkinglot.cpp parkingrate.cpp parkingspot.cpp parkingticket.cpp 
+    parkingfloor.cpp parkingrate.cpp parkingspot.cpp parkingticket.cpp 
     vehicle.cpp view.cpp Types.h acc.h compactspot.h electricspot.h entrancepanel.h
     handicappedspot.h largespot.h mediumspot.h motorcyclespot.h parkingfloor.h 
-    parkinglot.h parkingrate.h parkingspot.h parkingticket.h vehicle.h view.h view.ui
-    acc.ui resources.qrc)
+    parkingrate.h parkinglot.h parkinglot.cpp parkingrate.cpp parkinglot.ui parkingspot.h
+    parkingticket.h vehicle.h simulation.cpp simulation.h simulation.ui
+    parkinglot.ui view.h view.ui acc.ui resources.qrc)
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 

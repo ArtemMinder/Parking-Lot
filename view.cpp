@@ -152,7 +152,9 @@ void View::loadInfo(int const& newPlase, std::string const& newLicense, Types::V
      if(maxTime < newParkingTime){
          maxTime = newParkingTime;
      }
-     this->cost = (employeeCost + electricCost) * maxTime;
+     percent = (newAmount/(100*0.035) + (employeeCost + electricCost));
+     this->cost += percent;
+     //this->cost = ((employeeCost + electricCost) * maxTime + percent);
      this->profit = loot - cost;
      QString newLoot = QString::number(loot);
      QString newCost = QString::number(cost);

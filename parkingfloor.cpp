@@ -74,7 +74,7 @@ int ParkingFloor::takePlace(Types::VehicleType const& type){
                    available.push_back(i);
                }
            }
-           motorcycle[available[0]].setAvailability(false);
+         motorcycle[available[0]].setAvailability(false);
          return  motorcycle[available[0]].getNumberOfSpot();
          break;
         }
