@@ -1,6 +1,5 @@
 #include "acc.h"
 #include "ui_acc.h"
-#include <QDebug>
 
 Acc::Acc(QWidget *parent) :
     QDialog(parent),

@@ -1,6 +1,5 @@
 #include "view.h"
 #include "ui_view.h"
-#include "QMessageBox"
 
 View::View(QWidget *parent) :
     QDialog(parent),

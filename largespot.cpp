@@ -2,7 +2,7 @@
 
 LargeSpot::LargeSpot(int const& newNumberOfSpot)
 {
-   numberOfSpot =newNumberOfSpot;
+   numberOfSpot = newNumberOfSpot;
 }
 
 int LargeSpot::getNumberOfSpot() const{

@@ -10,7 +10,6 @@ public:
     std::string getLicense()const;
     Types::VehicleType getType()const;
     int getParkingTime()const;
-    void takeTicket();
     ~Vehicle();
 private:
     std::string licenseNumber = {};

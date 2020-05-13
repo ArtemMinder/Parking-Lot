@@ -7,6 +7,7 @@
 #include <QtSql>
 #include <QSqlQuery>
 #include <QSqlTableModel>
+#include <QMessageBox>
 #include "acc.h"
 
 namespace Ui {

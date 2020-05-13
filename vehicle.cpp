@@ -14,10 +14,6 @@ Types::VehicleType Vehicle::getType()const{
     return this->type;
 }
 
-void Vehicle::takeTicket(){
-
-}
-
 int Vehicle::getParkingTime()const{
    return parkingTime;
 }

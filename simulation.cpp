@@ -1,6 +1,5 @@
 #include "simulation.h"
 #include "ui_simulation.h"
-#include <QDebug>
 
 Simulation::Simulation(QWidget *parent) :
     QWidget(parent),
@@ -18,7 +17,6 @@ QString Simulation::generateNumber(){
     QString fifth = QString::number(static_cast<int>(rand() * fraction * (7 - 1 + 1) + 1));
 
     QString fullNumber = first + second + third + fourth + "AB-" + fifth;
-    qDebug()<<fullNumber;
     return fullNumber;
 }
 

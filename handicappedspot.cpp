@@ -2,7 +2,7 @@
 
 HandicappedSpot::HandicappedSpot(int const& newNumberOfSpot)
 {
-   numberOfSpot =newNumberOfSpot;
+   numberOfSpot = newNumberOfSpot;
 }
 
 int HandicappedSpot::getNumberOfSpot() const{

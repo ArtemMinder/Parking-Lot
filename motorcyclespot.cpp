@@ -2,7 +2,7 @@
 
 MotorcycleSpot::MotorcycleSpot(int const& newNumberOfSpot)
 {
-   numberOfSpot =newNumberOfSpot;
+   numberOfSpot = newNumberOfSpot;
 }
 
 int MotorcycleSpot::getNumberOfSpot() const{

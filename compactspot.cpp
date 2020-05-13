@@ -2,7 +2,7 @@
 
 CompactSpot::CompactSpot(int const& newNumberOfSpot)
 {
-   numberOfSpot =newNumberOfSpot;
+   numberOfSpot = newNumberOfSpot;
 }
 
 int CompactSpot::getNumberOfSpot() const{

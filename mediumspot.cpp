@@ -2,7 +2,7 @@
 
 MediumSpot::MediumSpot(int const& newNumberOfSpot)
 {
-   numberOfSpot =newNumberOfSpot;
+   numberOfSpot = newNumberOfSpot;
 }
 
 int MediumSpot::getNumberOfSpot() const{
