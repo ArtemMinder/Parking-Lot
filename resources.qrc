@@ -17,5 +17,9 @@
         <file>images/loot (2).png</file>
         <file>images/money (2).png</file>
         <file>images/delete.png</file>
+        <file>images/BY.ico</file>
+        <file>images/EU.ico</file>
+        <file>images/RUS.ico</file>
+        <file>images/USA.ico</file>
     </qresource>
 </RCC>

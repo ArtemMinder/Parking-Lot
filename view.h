@@ -9,6 +9,8 @@
 #include <QSqlTableModel>
 #include <QMessageBox>
 #include "acc.h"
+#include "exchange.h"
+#include <QDebug>
 
 namespace Ui {
 class View;
@@ -48,12 +50,15 @@ private slots:
 
     void on_deleteButton_clicked();
 
+    void on_comboBox_currentTextChanged(const QString &arg1);
+
 private:
     QSqlDatabase dataBase;
     QSqlQuery *sqlQuery;
     QSqlQueryModel *model;
     Ui::View *ui;
     Acc *acc;
+    Exchange *ex;
     std::vector<QLabel*> Compact = {};
     std::vector<QLabel*> Medium = {};
     std::vector<QLabel*> Large = {};
@@ -66,8 +71,8 @@ private:
     std::string startTime = {};
     int noteNumber = -1;
     int maxTime = 0;
-    double employeeCost = 0.04;
-    double electricCost = 0.12;
+    double employeeCost = 0.096;
+    double electricCost = 0.29;
     double percent = 0;
     double loot = 0;
     double cost = 0;
@@ -75,6 +80,8 @@ private:
     QString exType = {};
     QString exPlace = {};
     QString exMoney = {};
+    double rateCoeff = 1;
+    QString moneyName = "BYN";
 };
 
 #endif // VIEW_H

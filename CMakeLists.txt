@@ -8,8 +8,9 @@ set(CMAKE_AUTOUIC ON)
 
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5Sql REQUIRED)
+find_package(Qt5Network REQUIRED)
 
-list(APPEND THIRD_PARTY_LIBS Qt5::Widgets Qt5::Core Qt5::Gui Qt5::Sql)
+list(APPEND THIRD_PARTY_LIBS Qt5::Widgets Qt5::Core Qt5::Gui Qt5::Sql Qt5::Network)
 
 set(CMAKE_CXX_STANDARD 14)
 
@@ -21,9 +22,9 @@ set(SOURCE_FILES acc.cpp compactspot.cpp electricspot.cpp entrancepanel.cpp
     parkingfloor.cpp parkingrate.cpp parkingspot.cpp parkingticket.cpp 
     vehicle.cpp view.cpp Types.h acc.h compactspot.h electricspot.h entrancepanel.h
     handicappedspot.h largespot.h mediumspot.h motorcyclespot.h parkingfloor.h 
-    parkingrate.h parkinglot.h parkinglot.cpp parkingrate.cpp parkinglot.ui parkingspot.h
-    parkingticket.h vehicle.h simulation.cpp simulation.h simulation.ui
-    parkinglot.ui view.h view.ui acc.ui resources.qrc)
+    parkingrate.h parkinglot.h parkinglot.cpp parkingrate.cpp parkinglot.ui exchange.cpp
+    exchange.h parkingspot.h parkingticket.h vehicle.h simulation.cpp simulation.h
+    simulation.ui parkinglot.ui view.h view.ui acc.ui resources.qrc)
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
@@ -32,4 +33,5 @@ target_link_libraries(${PROJECT_NAME}
         Qt5::Widgets
         Qt5::Gui
         Qt5::Sql
+        Qt5::Network
         )

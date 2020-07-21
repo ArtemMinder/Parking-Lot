@@ -3757,7 +3757,7 @@ color: rgb(0, 0, 0);
   <widget class="QGroupBox" name="adminBox">
    <property name="geometry">
     <rect>
-     <x>1076</x>
+     <x>1070</x>
      <y>23</y>
      <width>381</width>
      <height>191</height>
@@ -4708,6 +4708,55 @@ color: rgb(0, 0, 0);
      <height>41</height>
     </size>
    </property>
+  </widget>
+  <widget class="QComboBox" name="comboBox">
+   <property name="geometry">
+    <rect>
+     <x>1455</x>
+     <y>25</y>
+     <width>72</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(0, 0, 0);</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>BYN</string>
+    </property>
+    <property name="icon">
+     <iconset resource="resources.qrc">
+      <normaloff>:/images/images/BY.ico</normaloff>:/images/images/BY.ico</iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>USD</string>
+    </property>
+    <property name="icon">
+     <iconset resource="resources.qrc">
+      <normaloff>:/images/images/USA.ico</normaloff>:/images/images/USA.ico</iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>EUR</string>
+    </property>
+    <property name="icon">
+     <iconset resource="resources.qrc">
+      <normaloff>:/images/images/EU.ico</normaloff>:/images/images/EU.ico</iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>RUB</string>
+    </property>
+    <property name="icon">
+     <iconset resource="resources.qrc">
+      <normaloff>:/images/images/RUS.ico</normaloff>:/images/images/RUS.ico</iconset>
+    </property>
+   </item>
   </widget>
  </widget>
  <resources>

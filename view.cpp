@@ -133,7 +133,7 @@ void View::loadInfo(int const& newPlase, std::string const& newLicense, Types::V
      else if(type =="4"){type = "Электромобиль";}
      else{type = "Handicapped";}
      QString startTime = QString::fromUtf8(newStartTime.c_str());
-     QString amount = QString::number(newAmount)+"$";
+     QString amount = QString::number(newAmount)+"BYN";
      this->noteNumber += 1;
 
 
@@ -153,14 +153,16 @@ void View::loadInfo(int const& newPlase, std::string const& newLicense, Types::V
      }
      percent = (newAmount/(100*0.035) + (employeeCost + electricCost));
      this->cost += percent;
-     //this->cost = ((employeeCost + electricCost) * maxTime + percent);
      this->profit = loot - cost;
+     loot /= rateCoeff;
+     cost /= rateCoeff;
+     profit /= rateCoeff;
      QString newLoot = QString::number(loot);
      QString newCost = QString::number(cost);
      QString newProfit = QString::number(profit);
-     ui->Loot_label->setText(QString(newLoot)+"$");
-     ui->Cost_label->setText(QString(newCost)+"$");
-     ui->Profit_label->setText(QString(newProfit)+"$");
+     ui->Loot_label->setText(QString(newLoot)+moneyName);
+     ui->Cost_label->setText(QString(newCost)+moneyName);
+     ui->Profit_label->setText(QString(newProfit)+moneyName);
 }
 
 void View::on_pushButton_clicked()
@@ -438,4 +440,17 @@ void View::on_deleteButton_clicked()
     else if(newType == "Электромобиль"){type = Types::VehicleType::ElectroCar;}
     else if(newType == "Handicapped"){type = Types::VehicleType::HandicappedCar;}
     free (newPlace.toInt(), type);
+}
+
+void View::on_comboBox_currentTextChanged(const QString &arg1)
+{
+    ex = new Exchange;
+    if (arg1 == "BYN"){rateCoeff = 1;
+    moneyName = "BYN";}
+    else if (arg1 == "USD"){rateCoeff = ex->exchange(2);
+    moneyName = "USD";}
+    else if (arg1 == "EUR"){rateCoeff = ex->exchange(3);
+    moneyName = "EUR";}
+    else if (arg1 == "RUB"){rateCoeff = (ex->exchange(4))/100;
+    moneyName = "RUB";}
 }

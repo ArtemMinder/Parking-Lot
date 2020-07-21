@@ -10,7 +10,7 @@ public:
     double getRate(Types::VehicleType const& newType, int const& elapsedMinuts);
 
 private:
-    const double fullPriceForMinute = 0.05;
+    const double fullPriceForMinute = 0.12;
     Types::VehicleType type ={};
 };
 
