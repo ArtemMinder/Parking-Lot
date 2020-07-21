@@ -7,22 +7,23 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QMessageBox>
+#include "IAcc.h"
 
 namespace Ui {
 class Acc;
 }
 
-class Acc : public QDialog
+class Acc : public QDialog, public IAcc
 {
     Q_OBJECT
 
 public:
     explicit Acc(QWidget *parent = nullptr);
-    QSqlDatabase getDB()const;
-    bool isAuthorized(QString const& newLogin, QString const& newPassword);
-    void authentification();
-    void setStatus(QString const& newStatus);
-    QString getStatus();
+    QSqlDatabase getDB()const override;
+    bool isAuthorized(QString const& newLogin, QString const& newPassword)override;
+    void authentification()override;
+    void setStatus(QString const& newStatus)override;
+    QString getStatus()override;
 
     ~Acc();
 private slots:

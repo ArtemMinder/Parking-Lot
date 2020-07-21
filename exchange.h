@@ -8,17 +8,16 @@
 #include <QUrl>
 #include <QTextCodec>
 #include <QEventLoop>
+#include "IExchange.h"
 
 
-class Exchange : public QObject
+class Exchange : public QObject, public IExchange
 {
     Q_OBJECT
-
 public:
     Exchange(QWidget *parent = nullptr);
+    double exchange(int const& arg)override;
     ~Exchange();
-public slots:
-    double exchange(int const& arg);
 private:
     QUrl url ={};
     QString rate = {};
