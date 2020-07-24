@@ -54,10 +54,8 @@ void ParkingLot::receiveCar(){
     view->loadInfo(place,newVehicle.getLicense(),newVehicle.getType(),startTime,rate->getRate(newVehicle.getType(),
     newVehicle.getParkingTime()), newVehicle.getParkingTime());
     view->busy(place, newVehicle.getType());
-    newVehicle.~Vehicle();
     }else {
         std::cout<<"Sorry, all plases for your vehicle is unavailable"<<std::endl;
-        newVehicle.~Vehicle();
     }
 }
 
@@ -86,7 +84,6 @@ void ParkingLot::deleteCar(){
    }
    floors[0].releasePlace(newVehicle.getType(),place);
    view->free(place, newVehicle.getType());
-   newVehicle.~Vehicle();
 }
 
 void ParkingLot::simulate(){
