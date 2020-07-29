@@ -21,7 +21,7 @@ class View : public QDialog
     Q_OBJECT
 
 public:
-    explicit View(QWidget *parent = nullptr);
+    explicit View(QWidget *parent = nullptr, IExchange *exh = nullptr);
     bool showInfo(std::string const& newLogin, std::string const& newPassword);
     void busy(int const& newPlase, Types::VehicleType const& newType);
     void free(int const& newPlase, Types::VehicleType const& newType);
@@ -58,7 +58,7 @@ private:
     QSqlQueryModel *model;
     Ui::View *ui;
     Acc *acc;
-    Exchange *ex;
+    IExchange *ex;
     std::vector<QLabel*> Compact = {};
     std::vector<QLabel*> Medium = {};
     std::vector<QLabel*> Large = {};

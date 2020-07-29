@@ -1,12 +1,6 @@
 #ifndef ACC_H
 #define ACC_H
 
-#include <QDialog>
-#include <QDialog>
-#include <QSql>
-#include <QSqlDatabase>
-#include <QSqlQuery>
-#include <QMessageBox>
 #include "IAcc.h"
 
 namespace Ui {

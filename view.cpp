@@ -1,9 +1,10 @@
 #include "view.h"
 #include "ui_view.h"
 
-View::View(QWidget *parent) :
+View::View(QWidget *parent, IExchange *exh) :
     QDialog(parent),
-    ui(new Ui::View)
+    ui(new Ui::View),
+    ex(exh)
 {
     ui->setupUi(this);
     QWidget::showMaximized();
@@ -444,7 +445,7 @@ void View::on_deleteButton_clicked()
 
 void View::on_comboBox_currentTextChanged(const QString &arg1)
 {
-    ex = new Exchange;
+    IExchange *ex = new Exchange();
     if (arg1 == "BYN"){rateCoeff = 1;
     moneyName = "BYN";}
     else if (arg1 == "USD"){rateCoeff = ex->exchange(2);
