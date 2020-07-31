@@ -30,12 +30,12 @@ ui->label2_40,ui->label2_41,ui->label2_42,ui->label2_43,ui->label2_44,ui->label2
                    ui->label6_8,ui->label6_9,ui->label6_10};
     ui->adminLed->setPixmap(isNotFree);
 
-    for(auto i = 0; i < Compact.size(); i++){Compact[i]->setPixmap(online);}
-    for(auto i = 0; i < Medium.size(); i++){Medium[i]->setPixmap(online);}
-    for(auto i = 0; i < Large.size(); i++){Large[i]->setPixmap(online);}
-    for(auto i = 0; i < Motorcycle.size(); i++){Motorcycle[i]->setPixmap(online);}
-    for(auto i = 0; i < Electric.size(); i++){Electric[i]->setPixmap(online); }
-    for(auto i = 0; i < Handicapped.size(); i++){Handicapped[i]->setPixmap(online);}
+    for(size_t i = 0; i < Compact.size(); i++){Compact[i]->setPixmap(online);}
+    for(size_t i = 0; i < Medium.size(); i++){Medium[i]->setPixmap(online);}
+    for(size_t i = 0; i < Large.size(); i++){Large[i]->setPixmap(online);}
+    for(size_t i = 0; i < Motorcycle.size(); i++){Motorcycle[i]->setPixmap(online);}
+    for(size_t i = 0; i < Electric.size(); i++){Electric[i]->setPixmap(online); }
+    for(size_t i = 0; i < Handicapped.size(); i++){Handicapped[i]->setPixmap(online);}
 
     ui->adminBox->setGeometry(1076, 23, 381, 191);
     ui->editBox->hide();

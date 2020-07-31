@@ -8,22 +8,22 @@ ParkingFloor::ParkingFloor(int const& newNumberOfFloor,  int const& newNumberOfC
 {
     numberOfFloor= newNumberOfFloor;
     NumberOfCompactSpots = newNumberOfCompacts;
-    for(int i = 1; i <= newNumberOfCompacts; i++){
+    for(int i = 0; i <= newNumberOfCompacts; i++){
         compact.push_back(CompactSpot(i));
    }
-    for(int i = 1; i <= newNumberOfMediums; i++){
+    for(int i = 0; i <= newNumberOfMediums; i++){
         medium.push_back(MediumSpot(i));
    }
-    for(int i = 1; i <= newNumberOfLarges; i++){
+    for(int i = 0; i <= newNumberOfLarges; i++){
         large.push_back(LargeSpot(i));
    }
-    for(int i = 1; i <= newNumberOfMoto; i++){
+    for(int i = 0; i <= newNumberOfMoto; i++){
         motorcycle.push_back(MotorcycleSpot(i));
    }
-    for(int i = 1; i <= newNumberOfElectrics; i++){
+    for(int i = 0; i <= newNumberOfElectrics; i++){
         electric.push_back(ElectricSpot(i));
    }
-    for(int i = 1; i <= newNumberOfHandicapped; i++){
+    for(int i = 0; i <= newNumberOfHandicapped; i++){
         handicapped.push_back(HandicappedSpot(i));
    }
 }
@@ -110,27 +110,27 @@ int ParkingFloor::takePlace(Types::VehicleType const& type){
 void ParkingFloor::releasePlace(Types::VehicleType const& type, int const& numberOfSpot){
     switch(type){
     case Types::VehicleType::MiniCooper:{
-        compact[numberOfSpot-1].setAvailability(true);
+        compact[numberOfSpot].setAvailability(true);
         break;
     }
     case Types::VehicleType::Car:{
-        medium[numberOfSpot-1].setAvailability(true);
+        medium[numberOfSpot].setAvailability(true);
         break;
     }
     case Types::VehicleType::Bus:{
-        large[numberOfSpot-1].setAvailability(true);
+        large[numberOfSpot].setAvailability(true);
         break;
     }
     case Types::VehicleType::Moto:{
-        motorcycle[numberOfSpot-1].setAvailability(true);
+        motorcycle[numberOfSpot].setAvailability(true);
         break;
     }
      case Types::VehicleType::ElectroCar:{
-        electric[numberOfSpot-1].setAvailability(true);
+        electric[numberOfSpot].setAvailability(true);
         break;
     }
     case Types::VehicleType::HandicappedCar:{
-        handicapped[numberOfSpot-1].setAvailability(true);
+        handicapped[numberOfSpot].setAvailability(true);
         break;
     }
    }
