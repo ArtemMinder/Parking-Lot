@@ -25,5 +25,6 @@ double ParkingRate::getRate(Types::VehicleType const& newType, int const& elapse
     case Types::VehicleType::HandicappedCar:{
         return fullPriceForMinute * 0.5 * elapsedMinuts;
     }
+    default: return -1;
     }
 }
