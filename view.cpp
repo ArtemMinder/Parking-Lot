@@ -1,9 +1,10 @@
 #include "view.h"
 #include "ui_view.h"
 
-View::View(QWidget *parent, IExchange *exh) :
+View::View(QWidget *parent, IExchange *exh, ParkingLot *new_p_lot) :
     QDialog(parent),
     ui(new Ui::View),
+    p_lot(new_p_lot),
     ex(exh)
 {
     ui->setupUi(this);
@@ -46,6 +47,7 @@ ui->label2_40,ui->label2_41,ui->label2_42,ui->label2_43,ui->label2_44,ui->label2
     ui->tableView->hide();
 
     acc = new Acc;
+    p_lot = new ParkingLot(1,17,53,14,10,10,17);
     dataBase = acc->getDB();
     dataBase.open();
     model = new QSqlQueryModel();
@@ -58,6 +60,77 @@ ui->label2_40,ui->label2_41,ui->label2_42,ui->label2_43,ui->label2_44,ui->label2
     ui->tableView->close();
     acc->authentification();
     this->checkStatus();
+    this->simulateTraffic();
+}
+
+void View::simulateTraffic(){
+    add = new QTimer;
+    del = new QTimer;
+    del->setInterval(450);
+    add->setInterval(500);
+    connect(add, SIGNAL(timeout()), this, SLOT(coming()));
+    connect(del, SIGNAL(timeout()), this, SLOT(depart()));
+    del->start();
+    add->start();
+}
+
+void View::coming(){
+    Vehicle newVehicle(sim->generateNumber().toStdString(), sim->generateType(), sim->generateTime());
+    std::string startTime = QTime::currentTime().toString().toStdString();
+    int place = 0;
+    static const double fraction = 1.0 / (static_cast<double>(RAND_MAX) + 1.0);
+    if(newVehicle.getType()==Types::MiniCooper){
+        place = static_cast<int>(rand() * fraction * (17 - 1 + 1) + 1);
+    }
+    else if(newVehicle.getType()==Types::Car){
+        place = static_cast<int>(rand() * fraction * (53 - 1 + 1) + 1);
+    }
+    else if(newVehicle.getType()==Types::Bus){
+        place = static_cast<int>(rand() * fraction * (14 - 1 + 1) + 1);
+    }
+    else if(newVehicle.getType()==Types::Moto){
+        place = static_cast<int>(rand() * fraction * (10 - 1 + 1) + 1);
+    }
+    else if(newVehicle.getType()==Types::HandicappedCar){
+        place = static_cast<int>(rand() * fraction * (10 - 1 + 1) + 1);
+    }
+    else if(newVehicle.getType()==Types::ElectroCar){
+        place = static_cast<int>(rand() * fraction * (17 - 1 + 1) + 1);
+    }
+    if(place != -1){
+   loadInfo(place,newVehicle.getLicense(),newVehicle.getType(),startTime,rate->getRate(newVehicle.getType(),
+   newVehicle.getParkingTime()), newVehicle.getParkingTime());
+   busy(place, newVehicle.getType());
+    }else {
+        std::cout<<"Sorry, all plases for your vehicle is unavailable"<<std::endl;
+    }
+    p_lot->receiveCar(place, newVehicle.getType(), newVehicle);
+}
+
+void View::depart(){
+    Vehicle newVehicle(sim->generateNumber().toStdString(), sim->generateType(), sim->generateTime());
+    int place = 0;
+    static const double fraction = 1.0 / (static_cast<double>(RAND_MAX) + 1.0);
+    if(newVehicle.getType()==Types::MiniCooper){
+        place = static_cast<int>(rand() * fraction * (17 - 1 + 1) + 1);
+    }
+    else if(newVehicle.getType()==Types::Car){
+        place = static_cast<int>(rand() * fraction * (53 - 1 + 1) + 1);
+    }
+    else if(newVehicle.getType()==Types::Bus){
+        place = static_cast<int>(rand() * fraction * (14 - 1 + 1) + 1);
+    }
+    else if(newVehicle.getType()==Types::Moto){
+        place = static_cast<int>(rand() * fraction * (10 - 1 + 1) + 1);
+    }
+    else if(newVehicle.getType()==Types::HandicappedCar){
+        place = static_cast<int>(rand() * fraction * (10 - 1 + 1) + 1);
+    }
+    else if(newVehicle.getType()==Types::ElectroCar){
+        place = static_cast<int>(rand() * fraction * (17 - 1 + 1) + 1);
+    }
+    free(place, newVehicle.getType());
+    p_lot->deleteCar(place, newVehicle.getType());
 }
 
 void View::busy(int const& newPlase, Types::VehicleType const& newType){
@@ -136,7 +209,6 @@ void View::loadInfo(int const& newPlase, std::string const& newLicense, Types::V
      QString startTime = QString::fromUtf8(newStartTime.c_str());
      QString amount = QString::number(newAmount)+"BYN";
      this->noteNumber += 1;
-
 
      dataBase.open();
      sqlQuery->prepare("insert into Parking (place, license_number, type,"

@@ -1,13 +1,6 @@
 #include "simulation.h"
 #include "ui_simulation.h"
 
-Simulation::Simulation(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::Simulation)
-{
-    ui->setupUi(this);
-}
-
 QString Simulation::generateNumber(){
     static const double fraction = 1.0 / (static_cast<double>(RAND_MAX) + 1.0);
     QString first = QString::number(static_cast<int>(rand() * fraction * (9 - 0 + 1) + 0));
@@ -66,7 +59,3 @@ int Simulation::generateTime(){
     return time;
 }
 
-Simulation::~Simulation()
-{
-    delete ui;
-}

@@ -2,6 +2,7 @@
 #define ACC_H
 
 #include "IAcc.h"
+#include <QDebug>
 
 namespace Ui {
 class Acc;
@@ -18,7 +19,6 @@ public:
     void authentification()override;
     void setStatus(QString const& newStatus)override;
     QString getStatus()override;
-
     ~Acc();
 private slots:
     void on_enterButton_clicked();

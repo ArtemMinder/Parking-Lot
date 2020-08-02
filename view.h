@@ -3,25 +3,28 @@
 
 #include <QDialog>
 #include <QLabel>
-#include "Types.h"
 #include <QtSql>
 #include <QSqlQuery>
 #include <QSqlTableModel>
 #include <QMessageBox>
+#include <QTime>
+#include <QTimer>
+#include "Types.h"
+#include "parkinglot.h"
 #include "acc.h"
 #include "exchange.h"
-#include <QDebug>
+#include "simulation.h"
+#include "parkingrate.h"
 
 namespace Ui {
 class View;
 }
-
 class View : public QDialog
 {
     Q_OBJECT
-
 public:
-    explicit View(QWidget *parent = nullptr, IExchange *exh = nullptr);
+    View(QWidget *parent = nullptr, IExchange *exh = nullptr, ParkingLot *new_p_lot = nullptr);
+    void simulateTraffic();
     bool showInfo(std::string const& newLogin, std::string const& newPassword);
     void busy(int const& newPlase, Types::VehicleType const& newType);
     void free(int const& newPlase, Types::VehicleType const& newType);
@@ -29,36 +32,33 @@ public:
                   std::string const& newStartTime, double const& newAmount, int const& newParkingTime);
     void checkStatus();
     ~View();
+public slots:
+    void coming();
+    void depart();
 private slots:
     void on_pushButton_clicked();
-
     void on_exitButton_clicked();
-
     void on_delete_all_clicked();
-
     void on_tableView_activated(const QModelIndex &index);
-
     void on_closeEditButton_clicked();
-
     void on_commitButton_clicked();
-
     void on_add_clicked();
-
     void on_addButton_clicked();
-
     void on_deleteNoteButton_clicked();
-
     void on_deleteButton_clicked();
-
     void on_comboBox_currentTextChanged(const QString &arg1);
-
 private:
     QSqlDatabase dataBase;
     QSqlQuery *sqlQuery;
     QSqlQueryModel *model;
     Ui::View *ui;
     Acc *acc;
+    Simulation *sim;
+    ParkingLot *p_lot;
     IExchange *ex;
+    ParkingRate *rate;
+    QTimer *add;
+    QTimer *del;
     std::vector<QLabel*> Compact = {};
     std::vector<QLabel*> Medium = {};
     std::vector<QLabel*> Large = {};

@@ -1,11 +1,10 @@
-#include "parkinglot.h"
-#include "view.h"
 #include <QApplication>
+#include <view.h>
+#include "parkinglot.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    ParkingLot w(1,17,53,14,10,10,17);
-    w.simulate();
+    View view(0,0,0);
     return a.exec();
 }

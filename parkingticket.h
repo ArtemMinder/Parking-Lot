@@ -11,7 +11,6 @@ private:
     int parkingPlace = 0;
     std::string licenseNumber = {};
     Types::VehicleType type ={};
-
 };
 
 #endif // PARKINGTICKET_H

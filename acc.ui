@@ -60,53 +60,32 @@
      <bold>true</bold>
     </font>
    </property>
+   <property name="tabletTracking">
+    <bool>false</bool>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
    <property name="styleSheet">
     <string notr="true">color:rgb(0, 0, 0)</string>
    </property>
    <property name="text">
     <string>Sign in</string>
    </property>
-  </widget>
-  <widget class="QPlainTextEdit" name="passwordBox">
-   <property name="geometry">
-    <rect>
-     <x>207</x>
-     <y>263</y>
-     <width>197</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>9</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-  </widget>
-  <widget class="QRadioButton" name="adminButton">
-   <property name="geometry">
-    <rect>
-     <x>380</x>
-     <y>115</y>
-     <width>18</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="autoFillBackground">
+   <property name="checkable">
     <bool>false</bool>
    </property>
-   <property name="text">
-    <string/>
+   <property name="autoDefault">
+    <bool>true</bool>
    </property>
-   <property name="checked">
-    <bool>false</bool>
+   <property name="default">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QPlainTextEdit" name="loginBox">
    <property name="geometry">
     <rect>
-     <x>207</x>
+     <x>210</x>
      <y>230</y>
      <width>197</width>
      <height>31</height>
@@ -119,8 +98,98 @@
      <bold>true</bold>
     </font>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::StrongFocus</enum>
+   </property>
+   <property name="contextMenuPolicy">
+    <enum>Qt::NoContextMenu</enum>
+   </property>
    <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAsNeeded</enum>
+   </property>
+   <property name="horizontalScrollBarPolicy">
+    <enum>Qt::ScrollBarAsNeeded</enum>
+   </property>
+   <property name="sizeAdjustPolicy">
+    <enum>QAbstractScrollArea::AdjustIgnored</enum>
+   </property>
+   <property name="tabChangesFocus">
     <bool>true</bool>
+   </property>
+   <property name="undoRedoEnabled">
+    <bool>true</bool>
+   </property>
+   <property name="lineWrapMode">
+    <enum>QPlainTextEdit::WidgetWidth</enum>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="adminButton">
+   <property name="geometry">
+    <rect>
+     <x>380</x>
+     <y>115</y>
+     <width>18</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="passwordBox">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>263</y>
+     <width>197</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::StrongFocus</enum>
+   </property>
+   <property name="contextMenuPolicy">
+    <enum>Qt::NoContextMenu</enum>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAsNeeded</enum>
+   </property>
+   <property name="horizontalScrollBarPolicy">
+    <enum>Qt::ScrollBarAsNeeded</enum>
+   </property>
+   <property name="tabChangesFocus">
+    <bool>true</bool>
+   </property>
+   <property name="undoRedoEnabled">
+    <bool>true</bool>
+   </property>
+   <property name="lineWrapMode">
+    <enum>QPlainTextEdit::WidgetWidth</enum>
    </property>
   </widget>
   <widget class="QRadioButton" name="userButton">
@@ -131,6 +200,9 @@
      <width>18</width>
      <height>18</height>
     </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
    </property>
    <property name="text">
     <string/>

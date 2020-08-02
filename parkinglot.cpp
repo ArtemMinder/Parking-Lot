@@ -1,103 +1,49 @@
 #include "parkinglot.h"
 #include "ui_parkinglot.h"
 
-ParkingLot::ParkingLot(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::ParkingLot)
-{
-    ui->setupUi(this);
-}
-
 ParkingLot::ParkingLot(int const& newNumberOfFloors, int const& newNumberOfCompacts,
                        int const& newNumberOfMediums, int const& newNumberOfLarges,
                        int const& newNumberOfMoto, int const& newNumberOfElectrics,
                        int const& newNumberOfHandicapped)
 {
-    numberOfFloors = newNumberOfFloors;
-    for(auto i = 1; i <= newNumberOfFloors;i++){
+    for(auto i = 0; i <= newNumberOfFloors; i++){
             floors.push_back(ParkingFloor(i,newNumberOfCompacts,newNumberOfMediums,
                                           newNumberOfLarges,newNumberOfMoto,
                                           newNumberOfElectrics,newNumberOfHandicapped));
-
-    }
-
-    view = new View;
-    sim = new Simulation;
-    rate = new ParkingRate;
-}
-
-void ParkingLot::receiveCar(){
-    Vehicle newVehicle(sim->generateNumber().toStdString(), sim->generateType(), sim->generateTime());
-    std::string startTime = QTime::currentTime().toString().toStdString();
-    int place = 0;
-    static const double fraction = 1.0 / (static_cast<double>(RAND_MAX) + 1.0);
-    if(newVehicle.getType()==Types::MiniCooper){
-        place = static_cast<int>(rand() * fraction * (17 - 1 + 1) + 1);
-    }
-    else if(newVehicle.getType()==Types::Car){
-        place = static_cast<int>(rand() * fraction * (53 - 1 + 1) + 1);
-    }
-    else if(newVehicle.getType()==Types::Bus){
-        place = static_cast<int>(rand() * fraction * (14 - 1 + 1) + 1);
-    }
-    else if(newVehicle.getType()==Types::Moto){
-        place = static_cast<int>(rand() * fraction * (10 - 1 + 1) + 1);
-    }
-    else if(newVehicle.getType()==Types::HandicappedCar){
-        place = static_cast<int>(rand() * fraction * (10 - 1 + 1) + 1);
-    }
-    else if(newVehicle.getType()==Types::ElectroCar){
-        place = static_cast<int>(rand() * fraction * (17 - 1 + 1) + 1);
-    }
-    if(place != -1){
-    EntrancePanel enterPanel(newVehicle, place);
-    view->loadInfo(place,newVehicle.getLicense(),newVehicle.getType(),startTime,rate->getRate(newVehicle.getType(),
-    newVehicle.getParkingTime()), newVehicle.getParkingTime());
-    view->busy(place, newVehicle.getType());
-    }else {
-        std::cout<<"Sorry, all plases for your vehicle is unavailable"<<std::endl;
     }
 }
 
-
-void ParkingLot::deleteCar(){
-   Vehicle newVehicle(sim->generateNumber().toStdString(), sim->generateType(), sim->generateTime());
-   int place = 0;
-   static const double fraction = 1.0 / (static_cast<double>(RAND_MAX) + 1.0);
-   if(newVehicle.getType()==Types::MiniCooper){
-       place = static_cast<int>(rand() * fraction * (17 - 1 + 1) + 1);
-   }
-   else if(newVehicle.getType()==Types::Car){
-       place = static_cast<int>(rand() * fraction * (53 - 1 + 1) + 1);
-   }
-   else if(newVehicle.getType()==Types::Bus){
-       place = static_cast<int>(rand() * fraction * (14 - 1 + 1) + 1);
-   }
-   else if(newVehicle.getType()==Types::Moto){
-       place = static_cast<int>(rand() * fraction * (10 - 1 + 1) + 1);
-   }
-   else if(newVehicle.getType()==Types::HandicappedCar){
-       place = static_cast<int>(rand() * fraction * (10 - 1 + 1) + 1);
-   }
-   else if(newVehicle.getType()==Types::ElectroCar){
-       place = static_cast<int>(rand() * fraction * (17 - 1 + 1) + 1);
-   }
-   floors[0].releasePlace(newVehicle.getType(),place);
-   view->free(place, newVehicle.getType());
+void ParkingLot::receiveCar(int const& newPlase, Types::VehicleType const& newType, Vehicle& newVehicle){
+    EntrancePanel enterPanel(newVehicle, newPlase);
+    floors.front().takePlace(newType, newPlase);
 }
 
-void ParkingLot::simulate(){
-    add = new QTimer;
-    del = new QTimer;
-    del->setInterval(450);
-    add->setInterval(500);
-    connect(add, SIGNAL(timeout()), this, SLOT(receiveCar()));
-    connect(del, SIGNAL(timeout()), this, SLOT(deleteCar()));
-    del->start();
-    add->start();
+void ParkingLot::deleteCar(int const& newPlace, Types::VehicleType const& newType){
+    floors.front().releasePlace(newType, newPlace);
 }
 
-ParkingLot::~ParkingLot()
-{
-    delete ui;
+void ParkingLot::setStreet(std::string& newStreet){
+   this->newAddress->street = newStreet;
 }
+void ParkingLot::setBuilding(std::string& newBuilding){
+   this->newAddress->building = newBuilding;
+}
+void ParkingLot::setPostCode(std::string& newPostCode){
+   this->newAddress->postCode = newPostCode;
+}
+void ParkingLot::setParkingID(std::string& newParkingID){
+   this->newAddress->parkingID = newParkingID;
+}
+std::string ParkingLot::getStreet(){
+   return this->newAddress->street;
+}
+std::string ParkingLot::getBuilding(){
+    return this->newAddress->building;
+}
+std::string ParkingLot::getPostCode(){
+    return this->newAddress->postCode;
+}
+std::string ParkingLot::getParkingID(){
+    return this->newAddress->parkingID;
+}
+
