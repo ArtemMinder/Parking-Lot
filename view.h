@@ -15,6 +15,8 @@
 #include "exchange.h"
 #include "simulation.h"
 #include "parkingrate.h"
+#include "sqlitedb.h"
+#include "Idatabase.h"
 
 namespace Ui {
 class View;
@@ -23,7 +25,7 @@ class View : public QDialog
 {
     Q_OBJECT
 public:
-    View(QWidget *parent = nullptr, IExchange *exh = nullptr, ParkingLot *new_p_lot = nullptr);
+    View(QWidget *parent = nullptr, IExchange *exh = nullptr, ParkingLot *new_p_lot = nullptr, Idatabase *newdat = nullptr);
     void simulateTraffic();
     bool showInfo(std::string const& newLogin, std::string const& newPassword);
     void busy(int const& newPlase, Types::VehicleType const& newType);
@@ -48,9 +50,7 @@ private slots:
     void on_deleteButton_clicked();
     void on_comboBox_currentTextChanged(const QString &arg1);
 private:
-    QSqlDatabase dataBase;
-    QSqlQuery *sqlQuery;
-    QSqlQueryModel *model;
+    Idatabase *dat;
     Ui::View *ui;
     Acc *acc;
     Simulation *sim;
