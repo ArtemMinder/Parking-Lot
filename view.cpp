@@ -1,8 +1,10 @@
 #include "view.h"
 #include "ui_view.h"
+#include <QDebug>
 
-View::View(QWidget *parent, IExchange *exh, ParkingLot *new_p_lot) :
+View::View(QWidget *parent, IExchange *exh, ParkingLot *new_p_lot, Idatabase *newdat) :
     QDialog(parent),
+    dat(newdat),
     ui(new Ui::View),
     p_lot(new_p_lot),
     ex(exh)
@@ -48,14 +50,11 @@ ui->label2_40,ui->label2_41,ui->label2_42,ui->label2_43,ui->label2_44,ui->label2
     rate = new ParkingRate();
     acc = new Acc();
     p_lot = new ParkingLot(1,17,53,14,10,10,17);
-    dataBase = acc->getDB();
-    dataBase.open();
-    model = new QSqlQueryModel();
-    sqlQuery = new QSqlQuery(dataBase);
-    sqlQuery->prepare("select * from Parking");
-    sqlQuery->exec();
-    model->setQuery(*sqlQuery);
-    ui->tableView->setModel(model);
+    dat = new SqliteDB();
+    cm = new CarModel();
+    this->cm = dat->show();
+    transfer();
+    ui->tableView->setModel(m);
     this->close();
     ui->tableView->close();
     acc->authentification();
@@ -196,31 +195,19 @@ void View::free(int const& newPlase, Types::VehicleType const& newType){
 void View::loadInfo(int const& newPlase, std::string const& newLicense, Types::VehicleType const& newType,
                     std::string const& newStartTime, double const& newAmount, int const& newParkingTime){
      this->loot += newAmount;
-     QString place = QString::number(newPlase);
-     QString parkingTime = QString::number(newParkingTime)+"мин";
-     QString license = QString::fromUtf8(newLicense.c_str());
      QString type = QString::number(newType);
-     if(type =="0"){type = "Легковой мини";}
-     else if(type =="1"){type = "Легковой стандарт";}
-     else if(type =="2"){type = "Крупногабаритный";}
-     else if(type =="3"){type = "Мотоцикл";}
-     else if(type =="4"){type = "Электромобиль";}
-     else{type = "Handicapped";}
-     QString startTime = QString::fromUtf8(newStartTime.c_str());
-     QString amount = QString::number(newAmount)+"BYN";
+     std::string nType = {};
+     if(type =="0"){nType = "Легковой мини";}
+     else if(type =="1"){nType = "Легковой стандарт";}
+     else if(type =="2"){nType = "Крупногабаритный";}
+     else if(type =="3"){nType = "Мотоцикл";}
+     else if(type =="4"){nType = "Электромобиль";}
+     else{nType = "Handicapped";}
      this->noteNumber += 1;
 
-     dataBase.open();
-     sqlQuery->prepare("insert into Parking (place, license_number, type,"
-                       " time_of_coming, parking, amount) values('"+place+"' ,"
-                       " '"+license+"' , '"+type+"' , '"+startTime+"' , "
-                       "'"+parkingTime+"', '"+amount+"')");
-     sqlQuery->exec();
-     sqlQuery->prepare("select * from Parking");
-     sqlQuery->exec();
-     model->setQuery(*sqlQuery);
-     ui->tableView->setModel(model);
-
+     this->cm = dat->load(newPlase, newLicense, nType, newStartTime+"мин", newParkingTime, newAmount);
+     transfer();
+     ui->tableView->setModel(m);
      if(maxTime < newParkingTime){
          maxTime = newParkingTime;
      }
@@ -306,12 +293,9 @@ void View::on_delete_all_clicked()
     msgBox.addButton(QMessageBox::No);
     msgBox.setDefaultButton(QMessageBox::No);
     if(msgBox.exec() == QMessageBox::Yes){
-        sqlQuery->prepare("delete  from Parking");
-        sqlQuery->exec();
-        sqlQuery->prepare("select * from Parking");
-        sqlQuery->exec();
-        model->setQuery(*sqlQuery);
-        ui->tableView->setModel(model);
+        this->cm = dat->delAll();
+        transfer();
+        ui->tableView->setModel(m);
     }else {
 
     }
@@ -335,27 +319,18 @@ void View::on_tableView_activated(const QModelIndex &index)
     ui->commitButton->show();
     ui->delete_all->show();
     ui->tableView->setGeometry(1070, 360, 811, 620);
-    QString val = ui->tableView->model()->data(index).toString();
-    sqlQuery->prepare("select * from parking where place ='"+val+"' "
-                       "or license_number ='"+val+"' or type ='"+val+"' "
-                       "or time_of_coming ='"+val+"' or parking ='"+val+"'"
-                       "or amount ='"+val+"'");
     exPlace = ui->placeEdit->toPlainText();
     exType = ui->typeEdit->toPlainText();
     exMoney = ui->amountEdit->toPlainText();
+    QString val = ui->tableView->model()->data(index).toString();
 
-    sqlQuery->exec();
 
-    if(sqlQuery-exec()){
-        while(sqlQuery->next()){
-            ui->placeEdit->setPlainText(sqlQuery->value(0).toString());
-            ui->licenseEdit->setPlainText(sqlQuery->value(1).toString());
-            ui->typeEdit->setPlainText(sqlQuery->value(2).toString());
-            ui->time1Edit->setPlainText(sqlQuery->value(3).toString());
-            ui->Time2Edit->setPlainText(sqlQuery->value(4).toString());
-            ui->amountEdit->setPlainText(sqlQuery->value(5).toString());
-        }
-    }
+    ui->placeEdit->setPlainText(m->data(m->index(ui->tableView->currentIndex().row(), 0)).toString());
+    ui->licenseEdit->setPlainText(m->data(m->index(ui->tableView->currentIndex().row(), 1)).toString());
+    ui->typeEdit->setPlainText(m->data(m->index(ui->tableView->currentIndex().row(), 2)).toString());
+    ui->Time2Edit->setPlainText(m->data(m->index(ui->tableView->currentIndex().row(), 3)).toString());
+    ui->amountEdit->setPlainText(m->data(m->index(ui->tableView->currentIndex().row(), 4)).toString());
+
 }
 
 void View::on_closeEditButton_clicked()
@@ -366,18 +341,22 @@ void View::on_closeEditButton_clicked()
 
 void View::on_commitButton_clicked()
 {
-    QString newPlace, newLicense, newType, newTimeOfComing, newParkingTime, newAmount;
-    newPlace = ui->placeEdit->toPlainText();
-    newLicense = ui->licenseEdit->toPlainText();
-    newType = ui->typeEdit->toPlainText();
-    newTimeOfComing = ui->time1Edit->toPlainText();
-    newParkingTime= ui->Time2Edit->toPlainText();
-    newAmount= ui->amountEdit->toPlainText();
-    int place = newPlace.toInt();
+    int newPlace = {};
+    std::string newLicense = {};
+    std::string newType={};
+    std::string newTimeOfComing = {};
+    int newParkingTime = {};
+    long long newAmount = {};
+    newPlace = ui->placeEdit->toPlainText().toInt();
+    newLicense = ui->licenseEdit->toPlainText().toStdString();
+    newType = ui->typeEdit->toPlainText().toStdString();
+    newTimeOfComing = ui->time1Edit->toPlainText().toStdString();
+    newParkingTime= ui->Time2Edit->toPlainText().toInt();
+    newAmount= ui->amountEdit->toPlainText().toLongLong();
     Types::VehicleType type = {};
-    if ((newType == "Легковой мини" && newPlace.toInt() <= 17 ) || (newType == "Легковой стандарт" && newPlace.toInt() <= 53) ||
-        (newType == "Крупногабаритный" && newPlace.toInt() <= 14) || (newType == "Мотоцикл" && newPlace.toInt() <= 10) ||
-        (newType == "Электромобиль" && newPlace.toInt() <= 17 ) || ( newType == "Handicapped" && newPlace.toInt() <= 10) ){
+    if ((newType == "Легковой мини" && newPlace <= 17 ) || (newType == "Легковой стандарт" && newPlace <= 53) ||
+        (newType == "Крупногабаритный" && newPlace <= 14) || (newType == "Мотоцикл" && newPlace <= 10) ||
+        (newType == "Электромобиль" && newPlace <= 17 ) || ( newType == "Handicapped" && newPlace <= 10) ){
 
     if(newType == "Легковой мини"){type = Types::VehicleType::MiniCooper;}
     else if(newType == "Легковой стандарт"){type = Types::VehicleType::Car;}
@@ -385,7 +364,7 @@ void View::on_commitButton_clicked()
     else if(newType == "Мотоцикл"){type = Types::VehicleType::Moto;}
     else if(newType == "Электромобиль"){type = Types::VehicleType::ElectroCar;}
     else if(newType == "Handicapped"){type = Types::VehicleType::HandicappedCar;}
-    busy(place, type);
+    busy(newPlace, type);
     if(exType == "Легковой мини"){type = Types::VehicleType::MiniCooper;}
     else if(exType == "Легковой стандарт"){type = Types::VehicleType::Car;}
     else if(exType == "Крупногабаритный"){type = Types::VehicleType::Bus;}
@@ -394,15 +373,9 @@ void View::on_commitButton_clicked()
     else if(exType == "Handicapped"){type = Types::VehicleType::HandicappedCar;}
     free (exPlace.toInt(), type);
 
-    sqlQuery->prepare("update parking set place = '"+newPlace+"' , license_number = '"+newLicense+"' ,"
-                      " type = '"+newType+"' , time_of_coming = '"+newTimeOfComing+"' ,"
-                      " parking = '"+newParkingTime+"' , amount = '"+newAmount+"' where license_number = '"+newLicense+"'");
-    sqlQuery->exec();
-    sqlQuery->prepare("select * from Parking");
-    sqlQuery->exec();
-    model->setQuery(*sqlQuery);
-    ui->tableView->setModel(model);
-
+    this->cm = dat->commit(newPlace,newLicense,newType,newTimeOfComing,newParkingTime,newAmount);
+    transfer();
+    ui->tableView->setModel(m);
     } else {
         QMessageBox msgBox;
         msgBox.setWindowTitle("New data is incorrect");
@@ -433,29 +406,28 @@ void View::on_add_clicked()
 
 void View::on_addButton_clicked()
 {
-    QString newPlace, newLicense, newType, newTimeOfComing, newParkingTime, newAmount;
-    newPlace = ui->placeEdit->toPlainText();
-    newLicense = ui->licenseEdit->toPlainText();
-    newType = ui->typeEdit->toPlainText();
-    newTimeOfComing = ui->time1Edit->toPlainText();
-    newParkingTime= ui->Time2Edit->toPlainText();
-    newAmount= ui->amountEdit->toPlainText();
+    int newPlace = {};
+    std::string newLicense = {};
+    std::string newType={};
+    std::string newTimeOfComing = {};
+    int newParkingTime = {};
+    long long newAmount = {};
+    newPlace = ui->placeEdit->toPlainText().toInt();
+    newLicense = ui->licenseEdit->toPlainText().toStdString();
+    newType = ui->typeEdit->toPlainText().toStdString();
+    newTimeOfComing = ui->time1Edit->toPlainText().toStdString();
+    newParkingTime= ui->Time2Edit->toPlainText().toInt();
+    newAmount= ui->amountEdit->toPlainText().toLongLong();
 
-    if ((newType == "Легковой мини" && newPlace.toInt() <= 17 ) || (newType == "Легковой стандарт" && newPlace.toInt() <= 53) ||
-        (newType == "Крупногабаритный" && newPlace.toInt() <= 14) || (newType == "Мотоцикл" && newPlace.toInt() <= 10) ||
-        (newType == "Электромобиль" && newPlace.toInt() <= 17 ) || ( newType == "Handicapped" && newPlace.toInt() <= 10) ){
+    if ((newType == "Легковой мини" && newPlace <= 17 ) || (newType == "Легковой стандарт" && newPlace <= 53) ||
+            (newType == "Крупногабаритный" && newPlace <= 14) || (newType == "Мотоцикл" && newPlace <= 10) ||
+            (newType == "Электромобиль" && newPlace <= 17 ) || ( newType == "Handicapped" && newPlace <= 10) ){
 
-    sqlQuery->prepare("insert into Parking (place, license_number, type,"
-                      " time_of_coming, parking, amount) values('"+newPlace+"' ,"
-                      " '"+newLicense+"' , '"+newType+"' , '"+newTimeOfComing+"' , "
-                      "'"+newParkingTime+"', '"+newAmount+"')");
-    sqlQuery->exec();
-    sqlQuery->prepare("select * from Parking");
-    sqlQuery->exec();
-    model->setQuery(*sqlQuery);
-    ui->tableView->setModel(model);
+        this->cm = dat->add(newPlace, newLicense, newType, newTimeOfComing, newParkingTime, newAmount);
+        transfer();
+        ui->tableView->setModel(m);
 
-    int place = newPlace.toInt();
+    int place = newPlace;
     Types::VehicleType type = {};
     if(newType == "Легковой мини"){type = Types::VehicleType::MiniCooper;}
     else if(newType == "Легковой стандарт"){type = Types::VehicleType::Car;}
@@ -489,21 +461,22 @@ void View::on_deleteNoteButton_clicked()
 
 void View::on_deleteButton_clicked()
 {
-    QString newPlace, newLicense, newType, newTimeOfComing, newParkingTime, newAmount;
-    newPlace = ui->placeEdit->toPlainText();
-    newLicense = ui->licenseEdit->toPlainText();
-    newType = ui->typeEdit->toPlainText();
-    newTimeOfComing = ui->time1Edit->toPlainText();
-    newParkingTime= ui->Time2Edit->toPlainText();
-    newAmount= ui->amountEdit->toPlainText();
-    sqlQuery->prepare("delete  from Parking where place = '"+newPlace+"' and license_number = '"+newLicense+"'"
-                      "and type = '"+newType+"' and time_of_coming = '"+newTimeOfComing+"' and parking = '"+newParkingTime+"'"
-                       "and amount = '"+newAmount+"'");
-    sqlQuery->exec();
-    sqlQuery->prepare("select * from Parking");
-    sqlQuery->exec();
-    model->setQuery(*sqlQuery);
-    ui->tableView->setModel(model);
+    int newPlace = {};
+    std::string newLicense = {};
+    std::string newType={};
+    std::string newTimeOfComing = {};
+    int newParkingTime = {};
+    long long newAmount = {};
+    newPlace = ui->placeEdit->toPlainText().toInt();
+    newLicense = ui->licenseEdit->toPlainText().toStdString();
+    newType = ui->typeEdit->toPlainText().toStdString();
+    newTimeOfComing = ui->time1Edit->toPlainText().toStdString();
+    newParkingTime= ui->Time2Edit->toPlainText().toInt();
+    newAmount= ui->amountEdit->toPlainText().toLongLong();
+
+    this->cm  =dat->del(newPlace,newLicense,newType,newTimeOfComing,newParkingTime,newAmount);
+    transfer();
+    ui->tableView->setModel(m);
 
     Types::VehicleType type;
     if(newType == "Легковой мини"){type = Types::VehicleType::MiniCooper;}
@@ -512,7 +485,7 @@ void View::on_deleteButton_clicked()
     else if(newType == "Мотоцикл"){type = Types::VehicleType::Moto;}
     else if(newType == "Электромобиль"){type = Types::VehicleType::ElectroCar;}
     else if(newType == "Handicapped"){type = Types::VehicleType::HandicappedCar;}
-    free (newPlace.toInt(), type);
+    free (newPlace, type);
 }
 
 void View::on_comboBox_currentTextChanged(const QString &arg1)
@@ -526,4 +499,20 @@ void View::on_comboBox_currentTextChanged(const QString &arg1)
     moneyName = "EUR";}
     else if (arg1 == "RUB"){rateCoeff = (ex->exchange(4))/100;
     moneyName = "RUB";}
+}
+
+void View::transfer(){
+    int rows = cm->place.size();
+    for(int i = 1; i < rows; i++){
+        m = new QStandardItemModel(rows,6,this);
+    }
+    for(int i = 0; i < rows; i++){
+        m->insertRow( m->rowCount(QModelIndex()));
+        m->setData(m->index(i,0), cm->place[i]);
+        m->setData(m->index(i,1), QString::fromStdString(cm->license[i]));
+        m->setData(m->index(i,2), QString::fromStdString(cm->type[i]));
+        m->setData(m->index(i,3), QString::fromStdString(cm->startTime[i]));
+        m->setData(m->index(i,4), QString::fromStdString(cm->parkingTime[i]));
+        m->setData(m->index(i,5), cm->amount[i]);
+    }
 }

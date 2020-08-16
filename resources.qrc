@@ -21,5 +21,6 @@
         <file>images/EU.ico</file>
         <file>images/RUS.ico</file>
         <file>images/USA.ico</file>
+        <file>images/WBW.ico</file>
     </qresource>
 </RCC>

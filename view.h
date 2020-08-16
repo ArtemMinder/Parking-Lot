@@ -15,6 +15,10 @@
 #include "exchange.h"
 #include "simulation.h"
 #include "parkingrate.h"
+#include "sqlitedb.h"
+#include "Idatabase.h"
+#include "CarModel.h"
+#include "QStandardItemModel"
 
 namespace Ui {
 class View;
@@ -23,7 +27,7 @@ class View : public QDialog
 {
     Q_OBJECT
 public:
-    View(QWidget *parent = nullptr, IExchange *exh = nullptr, ParkingLot *new_p_lot = nullptr);
+    View(QWidget *parent = nullptr, IExchange *exh = nullptr, ParkingLot *new_p_lot = nullptr, Idatabase *newdat = nullptr);
     void simulateTraffic();
     bool showInfo(std::string const& newLogin, std::string const& newPassword);
     void busy(int const& newPlase, Types::VehicleType const& newType);
@@ -31,6 +35,7 @@ public:
     void loadInfo(int const& newPlase, std::string const& newLicense, Types::VehicleType const& newType,
                   std::string const& newStartTime, double const& newAmount, int const& newParkingTime);
     void checkStatus();
+    void transfer();
     ~View();
 public slots:
     void coming();
@@ -48,9 +53,8 @@ private slots:
     void on_deleteButton_clicked();
     void on_comboBox_currentTextChanged(const QString &arg1);
 private:
-    QSqlDatabase dataBase;
-    QSqlQuery *sqlQuery;
-    QSqlQueryModel *model;
+    CarModel *cm;
+    Idatabase *dat;
     Ui::View *ui;
     Acc *acc;
     Simulation *sim;
@@ -82,6 +86,7 @@ private:
     QString exMoney = {};
     double rateCoeff = 1;
     QString moneyName = "BYN";
+    QStandardItemModel *m;
 };
 
 #endif // VIEW_H
