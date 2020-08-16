@@ -4727,7 +4727,7 @@ color: rgb(0, 0, 0);
     </property>
     <property name="icon">
      <iconset resource="resources.qrc">
-      <normaloff>:/images/images/WBW.ico</normaloff>:/images/images/WBW.ico</iconset>
+      <normaloff>:/images/images/BY.ico</normaloff>:/images/images/BY.ico</iconset>
     </property>
    </item>
    <item>
