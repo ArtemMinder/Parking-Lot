@@ -51,10 +51,14 @@ ui->label2_40,ui->label2_41,ui->label2_42,ui->label2_43,ui->label2_44,ui->label2
     acc = new Acc();
     p_lot = new ParkingLot(1,17,53,14,10,10,17);
     dat = new SqliteDB();
+<<<<<<< HEAD
     cm = new CarModel();
     this->cm = dat->show();
     transfer();
     ui->tableView->setModel(m);
+=======
+    ui->tableView->setModel(dat->show());
+>>>>>>> 7621f5733b019e921c2f7adc17fc3bf11b0eb398
     this->close();
     ui->tableView->close();
     acc->authentification();
@@ -205,9 +209,14 @@ void View::loadInfo(int const& newPlase, std::string const& newLicense, Types::V
      else{nType = "Handicapped";}
      this->noteNumber += 1;
 
+<<<<<<< HEAD
      this->cm = dat->load(newPlase, newLicense, nType, newStartTime+"мин", newParkingTime, newAmount);
      transfer();
      ui->tableView->setModel(m);
+=======
+     ui->tableView->setModel(dat->load(place, license, type, startTime, parkingTime, amount));
+
+>>>>>>> 7621f5733b019e921c2f7adc17fc3bf11b0eb398
      if(maxTime < newParkingTime){
          maxTime = newParkingTime;
      }
@@ -293,9 +302,13 @@ void View::on_delete_all_clicked()
     msgBox.addButton(QMessageBox::No);
     msgBox.setDefaultButton(QMessageBox::No);
     if(msgBox.exec() == QMessageBox::Yes){
+<<<<<<< HEAD
         this->cm = dat->delAll();
         transfer();
         ui->tableView->setModel(m);
+=======
+      ui->tableView->setModel(dat->delAll());
+>>>>>>> 7621f5733b019e921c2f7adc17fc3bf11b0eb398
     }else {
 
     }
@@ -323,6 +336,7 @@ void View::on_tableView_activated(const QModelIndex &index)
     exType = ui->typeEdit->toPlainText();
     exMoney = ui->amountEdit->toPlainText();
     QString val = ui->tableView->model()->data(index).toString();
+<<<<<<< HEAD
 
 
     ui->placeEdit->setPlainText(m->data(m->index(ui->tableView->currentIndex().row(), 0)).toString());
@@ -331,6 +345,25 @@ void View::on_tableView_activated(const QModelIndex &index)
     ui->Time2Edit->setPlainText(m->data(m->index(ui->tableView->currentIndex().row(), 3)).toString());
     ui->amountEdit->setPlainText(m->data(m->index(ui->tableView->currentIndex().row(), 4)).toString());
 
+=======
+  /*  sqlQuery->prepare("select * from parking where place ='"+val+"' "
+                       "or license_number ='"+val+"' or type ='"+val+"' "
+                       "or time_of_coming ='"+val+"' or parking ='"+val+"'"
+                       "or amount ='"+val+"'");
+
+   sqlQuery->exec();
+
+    if(sqlQuery-exec()){
+        while(sqlQuery->next()){
+            ui->placeEdit->setPlainText(sqlQuery->value(0).toString());
+            ui->licenseEdit->setPlainText(sqlQuery->value(1).toString());
+            ui->typeEdit->setPlainText(sqlQuery->value(2).toString());
+            ui->time1Edit->setPlainText(sqlQuery->value(3).toString());
+            ui->Time2Edit->setPlainText(sqlQuery->value(4).toString());
+            ui->amountEdit->setPlainText(sqlQuery->value(5).toString());
+        }
+    } */
+>>>>>>> 7621f5733b019e921c2f7adc17fc3bf11b0eb398
 }
 
 void View::on_closeEditButton_clicked()
@@ -373,9 +406,14 @@ void View::on_commitButton_clicked()
     else if(exType == "Handicapped"){type = Types::VehicleType::HandicappedCar;}
     free (exPlace.toInt(), type);
 
+<<<<<<< HEAD
     this->cm = dat->commit(newPlace,newLicense,newType,newTimeOfComing,newParkingTime,newAmount);
     transfer();
     ui->tableView->setModel(m);
+=======
+    ui->tableView->setModel(dat->commit(newPlace,newLicense,newType,newTimeOfComing,newParkingTime,newAmount));
+
+>>>>>>> 7621f5733b019e921c2f7adc17fc3bf11b0eb398
     } else {
         QMessageBox msgBox;
         msgBox.setWindowTitle("New data is incorrect");
@@ -406,6 +444,7 @@ void View::on_add_clicked()
 
 void View::on_addButton_clicked()
 {
+<<<<<<< HEAD
     int newPlace = {};
     std::string newLicense = {};
     std::string newType={};
@@ -428,6 +467,23 @@ void View::on_addButton_clicked()
         ui->tableView->setModel(m);
 
     int place = newPlace;
+=======
+    QString newPlace, newLicense, newType, newTimeOfComing, newParkingTime, newAmount;
+    newPlace = ui->placeEdit->toPlainText();
+    newLicense = ui->licenseEdit->toPlainText();
+    newType = ui->typeEdit->toPlainText();
+    newTimeOfComing = ui->time1Edit->toPlainText();
+    newParkingTime= ui->Time2Edit->toPlainText();
+    newAmount= ui->amountEdit->toPlainText();
+
+    if ((newType == "Легковой мини" && newPlace.toInt() <= 17 ) || (newType == "Легковой стандарт" && newPlace.toInt() <= 53) ||
+        (newType == "Крупногабаритный" && newPlace.toInt() <= 14) || (newType == "Мотоцикл" && newPlace.toInt() <= 10) ||
+        (newType == "Электромобиль" && newPlace.toInt() <= 17 ) || ( newType == "Handicapped" && newPlace.toInt() <= 10) ){
+
+    ui->tableView->setModel(dat->add(newPlace, newLicense, newType, newTimeOfComing, newParkingTime, newAmount));
+
+    int place = newPlace.toInt();
+>>>>>>> 7621f5733b019e921c2f7adc17fc3bf11b0eb398
     Types::VehicleType type = {};
     if(newType == "Легковой мини"){type = Types::VehicleType::MiniCooper;}
     else if(newType == "Легковой стандарт"){type = Types::VehicleType::Car;}
@@ -461,6 +517,7 @@ void View::on_deleteNoteButton_clicked()
 
 void View::on_deleteButton_clicked()
 {
+<<<<<<< HEAD
     int newPlace = {};
     std::string newLicense = {};
     std::string newType={};
@@ -477,6 +534,17 @@ void View::on_deleteButton_clicked()
     this->cm  =dat->del(newPlace,newLicense,newType,newTimeOfComing,newParkingTime,newAmount);
     transfer();
     ui->tableView->setModel(m);
+=======
+    QString newPlace, newLicense, newType, newTimeOfComing, newParkingTime, newAmount;
+    newPlace = ui->placeEdit->toPlainText();
+    newLicense = ui->licenseEdit->toPlainText();
+    newType = ui->typeEdit->toPlainText();
+    newTimeOfComing = ui->time1Edit->toPlainText();
+    newParkingTime= ui->Time2Edit->toPlainText();
+    newAmount= ui->amountEdit->toPlainText();
+
+    ui->tableView->setModel(dat->del(newPlace,newLicense,newType,newTimeOfComing,newParkingTime,newAmount));
+>>>>>>> 7621f5733b019e921c2f7adc17fc3bf11b0eb398
 
     Types::VehicleType type;
     if(newType == "Легковой мини"){type = Types::VehicleType::MiniCooper;}

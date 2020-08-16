@@ -17,8 +17,11 @@
 #include "parkingrate.h"
 #include "sqlitedb.h"
 #include "Idatabase.h"
+<<<<<<< HEAD
 #include "CarModel.h"
 #include "QStandardItemModel"
+=======
+>>>>>>> 7621f5733b019e921c2f7adc17fc3bf11b0eb398
 
 namespace Ui {
 class View;
@@ -53,7 +56,10 @@ private slots:
     void on_deleteButton_clicked();
     void on_comboBox_currentTextChanged(const QString &arg1);
 private:
+<<<<<<< HEAD
     CarModel *cm;
+=======
+>>>>>>> 7621f5733b019e921c2f7adc17fc3bf11b0eb398
     Idatabase *dat;
     Ui::View *ui;
     Acc *acc;
