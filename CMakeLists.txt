@@ -24,11 +24,7 @@ set(SOURCE_FILES acc.cpp compactspot.cpp electricspot.cpp entrancepanel.cpp
     handicappedspot.h largespot.h mediumspot.h motorcyclespot.h parkingfloor.h 
     parkingrate.h parkinglot.h parkinglot.cpp parkingrate.cpp exchange.cpp
     exchange.h parkingspot.h IExchange.h IAcc.h parkingticket.h vehicle.h
-<<<<<<< HEAD
     simulation.cpp simulation.h sqlitedb.cpp CarModel.h Idatabase.h sqlitedb.h model.h
-=======
-    simulation.cpp simulation.h sqlitedb.cpp Idatabase.h sqlitedb.h model.h
->>>>>>> 7621f5733b019e921c2f7adc17fc3bf11b0eb398
     view.h view.ui acc.ui resources.qrc)
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
