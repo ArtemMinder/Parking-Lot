@@ -302,13 +302,7 @@ void View::on_delete_all_clicked()
 
 }
 
-View::~View()
-{
-    delete ui;
-}
-
-
-void View::on_tableView_activated(const QModelIndex &index)
+void View::on_tableView_doubleClicked(const QModelIndex &index)
 {
     ui->adminBox->setGeometry(1076, 23, 381, 191);
     ui->editBox->show();
@@ -323,14 +317,12 @@ void View::on_tableView_activated(const QModelIndex &index)
     exType = ui->typeEdit->toPlainText();
     exMoney = ui->amountEdit->toPlainText();
     QString val = ui->tableView->model()->data(index).toString();
-
-
     ui->placeEdit->setPlainText(m->data(m->index(ui->tableView->currentIndex().row(), 0)).toString());
     ui->licenseEdit->setPlainText(m->data(m->index(ui->tableView->currentIndex().row(), 1)).toString());
     ui->typeEdit->setPlainText(m->data(m->index(ui->tableView->currentIndex().row(), 2)).toString());
-    ui->Time2Edit->setPlainText(m->data(m->index(ui->tableView->currentIndex().row(), 3)).toString());
-    ui->amountEdit->setPlainText(m->data(m->index(ui->tableView->currentIndex().row(), 4)).toString());
-
+    ui->time1Edit->setPlainText(m->data(m->index(ui->tableView->currentIndex().row(), 3)).toString());
+    ui->Time2Edit->setPlainText(m->data(m->index(ui->tableView->currentIndex().row(), 4)).toString());
+    ui->amountEdit->setPlainText(m->data(m->index(ui->tableView->currentIndex().row(), 5)).toString());
 }
 
 void View::on_closeEditButton_clicked()
@@ -515,4 +507,9 @@ void View::transfer(){
         m->setData(m->index(i,4), QString::fromStdString(cm->parkingTime[i]));
         m->setData(m->index(i,5), cm->amount[i]);
     }
+}
+
+View::~View()
+{
+    delete ui;
 }

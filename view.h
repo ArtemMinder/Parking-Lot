@@ -44,7 +44,6 @@ private slots:
     void on_pushButton_clicked();
     void on_exitButton_clicked();
     void on_delete_all_clicked();
-    void on_tableView_activated(const QModelIndex &index);
     void on_closeEditButton_clicked();
     void on_commitButton_clicked();
     void on_add_clicked();
@@ -52,6 +51,8 @@ private slots:
     void on_deleteNoteButton_clicked();
     void on_deleteButton_clicked();
     void on_comboBox_currentTextChanged(const QString &arg1);
+    void on_tableView_doubleClicked(const QModelIndex &index);
+
 private:
     CarModel *cm;
     Idatabase *dat;
