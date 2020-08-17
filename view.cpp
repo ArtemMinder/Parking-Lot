@@ -205,7 +205,8 @@ void View::loadInfo(int const& newPlase, std::string const& newLicense, Types::V
      else{nType = "Handicapped";}
      this->noteNumber += 1;
 
-     this->cm = dat->load(newPlase, newLicense, nType, newStartTime+"мин", newParkingTime, newAmount);
+     this->cm = dat->add(newPlase, newLicense, nType, newStartTime+"мин", newParkingTime, newAmount);
+     this->cm = dat->show();
      transfer();
      ui->tableView->setModel(m);
      if(maxTime < newParkingTime){
@@ -294,6 +295,7 @@ void View::on_delete_all_clicked()
     msgBox.setDefaultButton(QMessageBox::No);
     if(msgBox.exec() == QMessageBox::Yes){
         this->cm = dat->delAll();
+        this->cm = dat->show();
         transfer();
         ui->tableView->setModel(m);
     }else {
@@ -366,6 +368,7 @@ void View::on_commitButton_clicked()
     free (exPlace.toInt(), type);
 
     this->cm = dat->commit(newPlace,newLicense,newType,newTimeOfComing,newParkingTime,newAmount);
+    this->cm = dat->show();
     transfer();
     ui->tableView->setModel(m);
     } else {
@@ -416,6 +419,7 @@ void View::on_addButton_clicked()
             (newType == "Электромобиль" && newPlace <= 17 ) || ( newType == "Handicapped" && newPlace <= 10) ){
 
         this->cm = dat->add(newPlace, newLicense, newType, newTimeOfComing, newParkingTime, newAmount);
+        this->cm = dat->show();
         transfer();
         ui->tableView->setModel(m);
 
@@ -467,6 +471,7 @@ void View::on_deleteButton_clicked()
     newAmount= ui->amountEdit->toPlainText().toLongLong();
 
     this->cm  =dat->del(newPlace,newLicense,newType,newTimeOfComing,newParkingTime,newAmount);
+    this->cm = dat->show();
     transfer();
     ui->tableView->setModel(m);
 

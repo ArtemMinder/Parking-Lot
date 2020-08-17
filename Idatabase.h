@@ -9,8 +9,6 @@ class Idatabase
 {
 public:
     virtual CarModel* show() = 0;
-    virtual CarModel* load(int place, std::string license, std::string type,
-              std::string startTime, int parkingTime, long long amount) = 0;
     virtual CarModel* commit(int place, std::string license, std::string type,
               std::string startTime, int parkingTime, long long amount) = 0;
     virtual CarModel* del(int place, std::string license, std::string type,

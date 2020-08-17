@@ -14,8 +14,6 @@ class SqliteDB : public Idatabase
 public:
     SqliteDB();
     CarModel* show()override;
-    CarModel* load(int place, std::string license, std::string type,
-          std::string startTime, int parkingTime, long long amount) override;
     CarModel* commit(int place, std::string license, std::string type,
           std::string startTime, int parkingTime, long long amount) override;
     CarModel* del(int place, std::string license, std::string type,

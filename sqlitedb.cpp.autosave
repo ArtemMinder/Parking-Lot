@@ -86,18 +86,18 @@ void SqliteDB::transfer(){
     cmod->parkingTime.clear();
     cmod->amount.clear();
     for (int i = 0; i < mod->getModel()->rowCount(); ++i) {
-             QSqlRecord record = mod->getModel()->record(i);
-             int place = record.value("place").toInt();
-             std::string license_number = record.value("license_number").toString().toStdString();
-             std::string type = record.value("type").toString().toStdString();
-             std::string time_of_coming = record.value("time_of_coming").toString().toStdString();
-             std::string parking = record.value("parking").toString().toStdString();
-             long long amount = record.value("amount").toLongLong();
-             cmod->place.push_back(place);
-             cmod->license.push_back(license_number);
-             cmod->type.push_back(type);
-             cmod->startTime.push_back(time_of_coming);
-             cmod->parkingTime.push_back(parking);
-             cmod->amount.push_back(amount);
+        QSqlRecord record = mod->getModel()->record(i);
+        int place = record.value("place").toInt();
+        std::string license_number = record.value("license_number").toString().toStdString();
+        std::string type = record.value("type").toString().toStdString();
+        std::string time_of_coming = record.value("time_of_coming").toString().toStdString();
+        std::string parking = record.value("parking").toString().toStdString();
+        long long amount = record.value("amount").toLongLong();
+        cmod->place.push_back(place);
+        cmod->license.push_back(license_number);
+        cmod->type.push_back(type);
+        cmod->startTime.push_back(time_of_coming);
+        cmod->parkingTime.push_back(parking);
+        cmod->amount.push_back(amount);
     }
 }
