@@ -3,23 +3,23 @@
 
 #include <QDialog>
 #include <QLabel>
-#include <QtSql>
-#include <QSqlQuery>
-#include <QSqlTableModel>
+#include <memory>
+#include <sqlitedb.h>
 #include <QMessageBox>
+#include <QStandardItemModel>
+#include <QSqlTableModel>
+#include <QSqlQuery>
+#include <QtSql>
 #include <QTime>
 #include <QTimer>
-#include "Types.h"
-#include "parkinglot.h"
 #include "acc.h"
-#include "exchange.h"
-#include "simulation.h"
-#include "parkingrate.h"
-#include "sqlitedb.h"
-#include "Idatabase.h"
 #include "CarModel.h"
-#include "QStandardItemModel"
-#include <memory>
+#include "exchange.h"
+#include "Idatabase.h"
+#include "parkinglot.h"
+#include "parkingrate.h"
+#include "simulation.h"
+#include "Types.h"
 
 namespace Ui {
 class View;
@@ -55,16 +55,31 @@ private slots:
     void on_tableView_doubleClicked(const QModelIndex &index);
 
 private:
+    int noteNumber = -1;
+    int maxTime = 0;
+    double employeeCost = 0.096;
+    double electricCost = 0.29;
+    double percent = 0;
+    double loot = 0;
+    double cost = 0;
+    double profit = 0;
+    double rateCoeff = 1;
+    QString exType = {};
+    QString exPlace = {};
+    QString exMoney = {};
+    QString moneyName = "BYN";
+    std::string startTime = {};
+    QStandardItemModel *m;
     std::vector<CarModel> cm;
     Idatabase *dat;
     Ui::View *ui;
-    Acc *acc;
-    Simulation *sim;
     ParkingLot *p_lot;
     IExchange *ex;
-    ParkingRate *rate;
     QTimer *add;
     QTimer *del;
+    std::unique_ptr<Acc> acc{new Acc()};
+    std::unique_ptr<Simulation> sim{new Simulation()};
+    std::unique_ptr<ParkingRate> rate{new ParkingRate};
     std::vector<QLabel*> Compact = {};
     std::vector<QLabel*> Medium = {};
     std::vector<QLabel*> Large = {};
@@ -74,21 +89,6 @@ private:
     QPixmap background = QPixmap(":/images/images/Parking Floor HD.png");
     QPixmap isNotFree = QPixmap(":/images/images/isNotFree.png");
     QPixmap online = QPixmap(":/images/images/Online.png");
-    std::string startTime = {};
-    int noteNumber = -1;
-    int maxTime = 0;
-    double employeeCost = 0.096;
-    double electricCost = 0.29;
-    double percent = 0;
-    double loot = 0;
-    double cost = 0;
-    double profit = 0;
-    QString exType = {};
-    QString exPlace = {};
-    QString exMoney = {};
-    double rateCoeff = 1;
-    QString moneyName = "BYN";
-    QStandardItemModel *m;
 };
 
 #endif // VIEW_H

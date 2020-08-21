@@ -47,8 +47,6 @@ ui->label2_40,ui->label2_41,ui->label2_42,ui->label2_43,ui->label2_44,ui->label2
     ui->delete_all->hide();
     ui->deleteNoteButton->hide();
     ui->tableView->hide();
-    rate = new ParkingRate();
-    acc = new Acc();
     p_lot = new ParkingLot(1,17,53,14,10,10,17);
     dat = new SqliteDB();
     this->cm = dat->show();

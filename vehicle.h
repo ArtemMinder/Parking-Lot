@@ -7,14 +7,14 @@ class Vehicle
 {
 public:
     Vehicle(std::string const& newLicenseNumber, Types::VehicleType const& newType, int const& newparkingTime);
+    int getParkingTime()const;
     std::string getLicense()const;
     Types::VehicleType getType()const;
-    int getParkingTime()const;
     ~Vehicle();
 private:
+    int parkingTime = 0;
     std::string licenseNumber = {};
     Types::VehicleType type = {};
-    int parkingTime = 0;
 };
 
 #endif // VEHICLE_H

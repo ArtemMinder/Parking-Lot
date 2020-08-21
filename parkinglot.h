@@ -1,11 +1,11 @@
 #ifndef PARKINGLOT_H
 #define PARKINGLOT_H
 
+#include <iostream>
 #include <QDialog>
 #include <QObject>
-#include "iostream"
-#include "parkingfloor.h"
 #include "entrancepanel.h"
+#include "parkingfloor.h"
 #include "vehicle.h"
 
 namespace Ui {

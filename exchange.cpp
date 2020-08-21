@@ -14,7 +14,7 @@ double Exchange::exchange(int const & arg)
    else if(arg == 3) {url = "https://www.nbrb.by/api/exrates/rates/292";}
    else if(arg == 4) {url = "https://www.nbrb.by/api/exrates/rates/298";}
    QNetworkRequest request(url);
-   QNetworkReply* reply=  manager->get(request);
+   QNetworkReply* reply =  manager->get(request);
    QEventLoop loop;
    connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
    loop.exec();

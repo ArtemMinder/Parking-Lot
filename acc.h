@@ -2,7 +2,6 @@
 #define ACC_H
 
 #include "IAcc.h"
-#include <QDebug>
 
 namespace Ui {
 class Acc;

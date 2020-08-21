@@ -1,13 +1,13 @@
 #ifndef EXCHANGE_H
 #define EXCHANGE_H
 
+#include <QEventLoop>
 #include <QMainWindow>
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkRequest>
 #include <QtNetwork/QNetworkReply>
-#include <QUrl>
 #include <QTextCodec>
-#include <QEventLoop>
+#include <QUrl>
 #include "IExchange.h"
 
 

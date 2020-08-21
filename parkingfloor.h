@@ -1,13 +1,13 @@
 #ifndef PARKINGFLOOR_H
 #define PARKINGFLOOR_H
 
-#include "parkingspot.h"
 #include "compactspot.h"
-#include "mediumspot.h"
-#include "largespot.h"
-#include "motorcyclespot.h"
 #include "electricspot.h"
 #include "handicappedspot.h"
+#include "largespot.h"
+#include "mediumspot.h"
+#include "motorcyclespot.h"
+#include "parkingspot.h"
 
 class ParkingFloor
 {

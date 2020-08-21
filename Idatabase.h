@@ -1,13 +1,14 @@
 #ifndef IDATABASE_H
 #define IDATABASE_H
 
-#include <QString>
 #include <QSqlQueryModel>
+#include <QString>
 #include "CarModel.h"
 
 class Idatabase
 {
 public:
+    virtual void transfer() = 0;
     virtual std::vector<CarModel> show() = 0;
     virtual std::vector<CarModel> commit(int place, std::string license, std::string type,
               std::string startTime, int parkingTime, long long amount) = 0;
@@ -16,7 +17,6 @@ public:
     virtual std::vector<CarModel> delAll() = 0;
     virtual std::vector<CarModel> add(int place, std::string license, std::string type,
               std::string startTime, int parkingTime, long long amount) = 0;
-    virtual void transfer() = 0;
     virtual ~Idatabase () {};
 };
 #endif // IDATABASE_H

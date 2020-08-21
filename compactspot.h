@@ -1,8 +1,8 @@
 #ifndef COMPACTSPOT_H
 #define COMPACTSPOT_H
 
-#include "parkingspot.h"
 #include "Types.h"
+#include "parkingspot.h"
 
 class CompactSpot : public ParkingSpot
 {

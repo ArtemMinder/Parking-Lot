@@ -1,8 +1,8 @@
 #ifndef ENTRANCEPANEL_H
 #define ENTRANCEPANEL_H
 
-#include "vehicle.h"
 #include "parkingticket.h"
+#include "vehicle.h"
 
 class EntrancePanel
 {

@@ -4,8 +4,8 @@
 
 #include <QSqlQuery>
 #include <QSqlQueryModel>
+#include <QSqlRecord>
 #include "CarModel.h"
-#include "QSqlRecord"
 #include "model.h"
 #include "Idatabase.h"
 
@@ -13,6 +13,7 @@ class SqliteDB : public Idatabase
 {
 public:
     SqliteDB();
+    void transfer() override;
     std::vector<CarModel> show()override;
     std::vector<CarModel> commit(int place, std::string license, std::string type,
           std::string startTime, int parkingTime, long long amount) override;
@@ -21,7 +22,6 @@ public:
     std::vector<CarModel> delAll() override;
     std::vector<CarModel> add(int place, std::string license, std::string type,
           std::string startTime, int parkingTime, long long amount) override;
-    void transfer() override;
     ~SqliteDB() = default;
 private:
     CarModel cmod;

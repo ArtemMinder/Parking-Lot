@@ -6,7 +6,7 @@ SqliteDB::SqliteDB()
     dataBase.setDatabaseName("ParkingLot.sqlite");
     dataBase.open();
     mod = new model();
-    sqlQuery = new QSqlQuery(dataBase);    
+    sqlQuery = new QSqlQuery(dataBase);
 }
 
 std::vector<CarModel> SqliteDB::commit(int place, std::string license, std::string type,

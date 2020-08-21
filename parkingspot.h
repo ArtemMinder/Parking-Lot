@@ -7,10 +7,10 @@ class ParkingSpot
 {
 public:
     ParkingSpot();
-    ParkingSpot(int const& newNumberOfSpot);
-    Types::SpotType getTypeOfSpot() const;
+    ParkingSpot(int const& newNumberOfSpot); 
     void setAvailability(bool const& availability);
     bool getAvailability() const;
+    Types::SpotType getTypeOfSpot() const;
 private:
     bool isFree = true;
     int numberOfSpot = 0;
