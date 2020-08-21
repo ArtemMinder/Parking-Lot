@@ -51,7 +51,6 @@ ui->label2_40,ui->label2_41,ui->label2_42,ui->label2_43,ui->label2_44,ui->label2
     acc = new Acc();
     p_lot = new ParkingLot(1,17,53,14,10,10,17);
     dat = new SqliteDB();
-    cm = new CarModel();
     this->cm = dat->show();
     transfer();
     ui->tableView->setModel(m);
@@ -499,18 +498,18 @@ void View::on_comboBox_currentTextChanged(const QString &arg1)
 }
 
 void View::transfer(){
-    int rows = cm->place.size();
+    int rows = cm.size();
     for(int i = 1; i < rows; i++){
         m = new QStandardItemModel(rows,6,this);
     }
     for(int i = 0; i < rows; i++){
         m->insertRow( m->rowCount(QModelIndex()));
-        m->setData(m->index(i,0), cm->place[i]);
-        m->setData(m->index(i,1), QString::fromStdString(cm->license[i]));
-        m->setData(m->index(i,2), QString::fromStdString(cm->type[i]));
-        m->setData(m->index(i,3), QString::fromStdString(cm->startTime[i]));
-        m->setData(m->index(i,4), QString::fromStdString(cm->parkingTime[i]));
-        m->setData(m->index(i,5), cm->amount[i]);
+        m->setData(m->index(i,0), cm[i].place);
+        m->setData(m->index(i,1), QString::fromStdString(cm[i].license));
+        m->setData(m->index(i,2), QString::fromStdString(cm[i].type));
+        m->setData(m->index(i,3), QString::fromStdString(cm[i].startTime));
+        m->setData(m->index(i,4), QString::fromStdString(cm[i].parkingTime));
+        m->setData(m->index(i,5), cm[i].amount);
     }
 }
 

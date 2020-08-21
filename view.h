@@ -19,6 +19,7 @@
 #include "Idatabase.h"
 #include "CarModel.h"
 #include "QStandardItemModel"
+#include <memory>
 
 namespace Ui {
 class View;
@@ -54,7 +55,7 @@ private slots:
     void on_tableView_doubleClicked(const QModelIndex &index);
 
 private:
-    CarModel *cm;
+    std::vector<CarModel> cm;
     Idatabase *dat;
     Ui::View *ui;
     Acc *acc;

@@ -6,11 +6,10 @@ SqliteDB::SqliteDB()
     dataBase.setDatabaseName("ParkingLot.sqlite");
     dataBase.open();
     mod = new model();
-    cmod = new CarModel();
     sqlQuery = new QSqlQuery(dataBase);    
 }
 
-CarModel* SqliteDB::commit(int place, std::string license, std::string type,
+std::vector<CarModel> SqliteDB::commit(int place, std::string license, std::string type,
                                  std::string startTime, int parkingTime, long long amount){
     QString newPlace = QString::number(place);
     QString newLicense = QString::fromStdString(license);
@@ -24,18 +23,18 @@ CarModel* SqliteDB::commit(int place, std::string license, std::string type,
     sqlQuery->exec();
     mod->getModel()->setQuery(*sqlQuery);
     transfer();
-    return cmod;
+    return notes;
 }
 
-CarModel* SqliteDB::show(){
+std::vector<CarModel> SqliteDB::show(){
     sqlQuery->prepare("SELECT * from Parking");
     sqlQuery->exec();
     mod->getModel()->setQuery(*sqlQuery);
     transfer();
-    return cmod;
+    return notes;
 }
 
-CarModel* SqliteDB::del(int place, std::string license, std::string type,
+std::vector<CarModel> SqliteDB::del(int place, std::string license, std::string type,
                               std::string startTime, int parkingTime, long long amount){
     QString newPlace = QString::number(place);
     QString newLicense = QString::fromStdString(license);
@@ -49,18 +48,18 @@ CarModel* SqliteDB::del(int place, std::string license, std::string type,
     sqlQuery->exec();
     mod->getModel()->setQuery(*sqlQuery);
     transfer();
-    return cmod;
+    return notes;
 }
 
-CarModel* SqliteDB::delAll(){
+std::vector<CarModel> SqliteDB::delAll(){
     sqlQuery->prepare("DELETE  from Parking");
     sqlQuery->exec();
     mod->getModel()->setQuery(*sqlQuery);
     transfer();
-    return cmod;
+    return notes;
 }
 
-CarModel* SqliteDB::add(int place, std::string license, std::string type,
+std::vector<CarModel> SqliteDB::add(int place, std::string license, std::string type,
                               std::string startTime, int parkingTime, long long amount){
     QString newPlace = QString::number(place);
     QString newLicense = QString::fromStdString(license);
@@ -75,29 +74,25 @@ CarModel* SqliteDB::add(int place, std::string license, std::string type,
     sqlQuery->exec();
     mod->getModel()->setQuery(*sqlQuery);
     transfer();
-    return cmod;
+    return notes;
 }
 
 void SqliteDB::transfer(){
-    cmod->place.clear();
-    cmod->license.clear();
-    cmod->type.clear();
-    cmod->startTime.clear();
-    cmod->parkingTime.clear();
-    cmod->amount.clear();
+    notes.clear();
     for (int i = 0; i < mod->getModel()->rowCount(); ++i) {
-             QSqlRecord record = mod->getModel()->record(i);
-             int place = record.value("place").toInt();
-             std::string license_number = record.value("license_number").toString().toStdString();
-             std::string type = record.value("type").toString().toStdString();
-             std::string time_of_coming = record.value("time_of_coming").toString().toStdString();
-             std::string parking = record.value("parking").toString().toStdString();
-             long long amount = record.value("amount").toLongLong();
-             cmod->place.push_back(place);
-             cmod->license.push_back(license_number);
-             cmod->type.push_back(type);
-             cmod->startTime.push_back(time_of_coming);
-             cmod->parkingTime.push_back(parking);
-             cmod->amount.push_back(amount);
+        QSqlRecord record = mod->getModel()->record(i);
+        int place = record.value("place").toInt();
+        std::string license_number = record.value("license_number").toString().toStdString();
+        std::string type = record.value("type").toString().toStdString();
+        std::string time_of_coming = record.value("time_of_coming").toString().toStdString();
+        std::string parking = record.value("parking").toString().toStdString();
+        long long amount = record.value("amount").toLongLong();
+        cmod.place = place;
+        cmod.license = license_number;
+        cmod.type = type;
+        cmod.startTime = time_of_coming;
+        cmod.parkingTime = parking;
+        cmod.amount = amount;
+        notes.push_back(cmod);
     }
 }

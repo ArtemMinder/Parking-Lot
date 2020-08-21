@@ -15,7 +15,7 @@ Types::VehicleType Vehicle::getType()const{
 }
 
 int Vehicle::getParkingTime()const{
-   return parkingTime;
+    return parkingTime;
 }
 
 Vehicle::~Vehicle(){
