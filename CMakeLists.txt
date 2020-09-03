@@ -10,25 +10,30 @@ find_package(Qt5Widgets REQUIRED)
 find_package(Qt5Sql REQUIRED)
 find_package(Qt5Network REQUIRED)
 
+include_directories(Data_layer)
+include_directories(Data_layer/Model)
+include_directories(Data_layer/Data_presentation)
+include_directories(Presentation_layer)
+include_directories(Bussiness_logic)
+
 list(APPEND THIRD_PARTY_LIBS Qt5::Widgets Qt5::Core Qt5::Gui Qt5::Sql Qt5::Network)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-file(COPY ${CMAKE_CURRENT_SOURCE_DIR} ParkingLot.sqlite
+file(COPY Data_layer/ParkingLot.sqlite
     DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
-set(SOURCE_FILES acc.cpp compactspot.cpp electricspot.cpp entrancepanel.cpp
-    handicappedspot.cpp largespot.cpp main.cpp mediumspot.cpp motorcyclespot.cpp 
-    parkingfloor.cpp parkingrate.cpp parkingspot.cpp parkingticket.cpp 
-    vehicle.cpp view.cpp Types.h acc.h compactspot.h electricspot.h entrancepanel.h
-    handicappedspot.h largespot.h mediumspot.h motorcyclespot.h parkingfloor.h 
-    parkingrate.h parkinglot.h parkinglot.cpp parkingrate.cpp exchange.cpp
-    exchange.h parkingspot.h IExchange.h IAcc.h parkingticket.h vehicle.h
-    simulation.cpp simulation.h sqlitedb.cpp CarModel.h Idatabase.h sqlitedb.h model.h
-    view.h view.ui acc.ui resources.qrc)
+set(RESOURCE_FILES resources.qrc)
+file(GLOB MODEL Data_layer/Model/*.cpp *.h */*.h */*.cpp)
+file(GLOB DATA_PRESENTATION Data_layer/Data_presentation/*.cpp *.h */*.h */*.cpp)
+file(GLOB BUSSINES_LOGIC Bussiness_logic/*.cpp *.h */*.h */*.cpp)
+file(GLOB PRESENTATION_LAYER Presentation_layer/*.cpp *.h */*.h */*.cpp)
+file(GLOB DATA_LAYER Data_layer/*.cpp *.h */*.h */*.cpp)
 
-add_executable(${PROJECT_NAME} ${SOURCE_FILES})
+
+add_executable(${PROJECT_NAME} ${BUSSINES_LOGIC} ${PRESENTATION_LAYER}
+    ${DATA_LAYER} ${RESOURCE_FILES} ${MODEL} ${DATA_PRESENTATION})
 
 target_link_libraries(${PROJECT_NAME}
         Qt5::Core
