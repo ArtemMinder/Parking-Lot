@@ -13,7 +13,6 @@ class Acc : public QDialog, public IAcc
 
 public:
     explicit Acc(QWidget *parent = nullptr);
-    QSqlDatabase getDB()const override;
     bool isAuthorized(QString const& newLogin, QString const& newPassword)override;
     void authentification()override;
     void setStatus(QString const& newStatus)override;

@@ -21,10 +21,6 @@ bool Acc::isAuthorized(QString const& newLogin, QString const& newPassword){
     else{return false;}
 }
 
-QSqlDatabase Acc::getDB()const{
-    return dataBase;
-}
-
 void Acc::setStatus(QString const& newStatus){
     this->status = newStatus;
 }
