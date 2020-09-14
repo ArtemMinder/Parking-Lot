@@ -1,6 +1,20 @@
 #ifndef VIEW_H
 #define VIEW_H
 
+#include <QPieSlice>
+#include <QChart>
+#include <QtCharts/QChartView>
+#include <QtCharts/QPieSeries>
+#include <QtCharts/QPieSlice>
+
+
+
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QMainWindow>
+#include <QtCharts/QChartView>
+#include <QtCharts/QPieSeries>
+#include <QtCharts/QPieSlice>
+#include <QtCharts/QSplineSeries>
 #include <QDialog>
 #include <QLabel>
 #include <memory>
@@ -9,6 +23,12 @@
 #include <QStandardItemModel>
 #include <QSqlTableModel>
 #include <QSqlQuery>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QMainWindow>
+#include <QtCharts/QChartView>
+#include <QtCharts/QPieSeries>
+#include <QtCharts/QPieSlice>
+#include <QtCharts/QLegend>
 #include <QtSql>
 #include <QTime>
 #include <QTimer>
@@ -54,7 +74,20 @@ private slots:
     void on_comboBox_currentTextChanged(const QString &arg1);
     void on_tableView_doubleClicked(const QModelIndex &index);
 
+    void on_open_analitics_clicked();
+
+    void on_hide_analitics_clicked();
+
+    void on_refresh_stat_clicked();
+
 private:
+    int com = 0;
+    int med = 0;
+    int lrg = 0;
+    int mot = 0;
+    int hnd = 0;
+    int elc = 0;
+    int all = 0;
     int noteNumber = -1;
     int maxTime = 0;
     double employeeCost = 0.096;
@@ -86,6 +119,10 @@ private:
     std::vector<QLabel*> Motorcycle = {};
     std::vector<QLabel*> Electric = {};
     std::vector<QLabel*> Handicapped = {};
+    std::vector<int> money = {};
+    std::vector<int> time = {};
+    std::vector<int> times = {};
+    std::vector<int> all_percentage = {};
     QPixmap background = QPixmap(":/images/images/Parking Floor HD.png");
     QPixmap isNotFree = QPixmap(":/images/images/isNotFree.png");
     QPixmap online = QPixmap(":/images/images/Online.png");

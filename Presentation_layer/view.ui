@@ -3521,7 +3521,7 @@ background-color: transparent;
     <string>Add note</string>
    </property>
    <property name="icon">
-    <iconset resource="resources.qrc">
+    <iconset resource="../resources.qrc">
      <normaloff>:/images/images/add.png</normaloff>:/images/images/add.png</iconset>
    </property>
    <property name="iconSize">
@@ -3744,7 +3744,7 @@ color: rgb(0, 0, 0);
     <string/>
    </property>
    <property name="icon">
-    <iconset resource="resources.qrc">
+    <iconset resource="../resources.qrc">
      <normaloff>:/images/images/warning.png</normaloff>:/images/images/warning.png</iconset>
    </property>
    <property name="iconSize">
@@ -3785,7 +3785,7 @@ color: rgb(0, 0, 0);
      <string/>
     </property>
     <property name="icon">
-     <iconset resource="resources.qrc">
+     <iconset resource="../resources.qrc">
       <normaloff>:/images/images/exit.png</normaloff>:/images/images/exit.png</iconset>
     </property>
     <property name="iconSize">
@@ -3883,7 +3883,7 @@ color: rgb(0, 0, 0);
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap resource="resources.qrc">:/images/images/employee.png</pixmap>
+     <pixmap resource="../resources.qrc">:/images/images/employee.png</pixmap>
     </property>
    </widget>
    <widget class="QPlainTextEdit" name="loginBox">
@@ -4011,7 +4011,7 @@ background-color: rgb(255, 255, 255);</string>
      <string>Close</string>
     </property>
     <property name="icon">
-     <iconset resource="resources.qrc">
+     <iconset resource="../resources.qrc">
       <normaloff>:/images/images/cancel.ico</normaloff>:/images/images/cancel.ico</iconset>
     </property>
     <property name="iconSize">
@@ -4044,7 +4044,7 @@ background-color: rgb(255, 255, 255);</string>
      <string>Commit</string>
     </property>
     <property name="icon">
-     <iconset resource="resources.qrc">
+     <iconset resource="../resources.qrc">
       <normaloff>:/images/images/success.ico</normaloff>:/images/images/success.ico</iconset>
     </property>
     <property name="iconSize">
@@ -4293,7 +4293,7 @@ color: rgb(0, 0, 0);
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap resource="resources.qrc">:/images/images/SQLite-Logo.png.png</pixmap>
+     <pixmap resource="../resources.qrc">:/images/images/SQLite-Logo.png.png</pixmap>
     </property>
    </widget>
    <widget class="QLabel" name="label_9">
@@ -4345,7 +4345,7 @@ color: rgb(0, 0, 0);
      <string>Add</string>
     </property>
     <property name="icon">
-     <iconset resource="resources.qrc">
+     <iconset resource="../resources.qrc">
       <normaloff>:/images/images/success.ico</normaloff>:/images/images/success.ico</iconset>
     </property>
     <property name="iconSize">
@@ -4378,7 +4378,7 @@ color: rgb(0, 0, 0);
      <string>Delete</string>
     </property>
     <property name="icon">
-     <iconset resource="resources.qrc">
+     <iconset resource="../resources.qrc">
       <normaloff>:/images/images/cancel.ico</normaloff>:/images/images/cancel.ico</iconset>
     </property>
     <property name="iconSize">
@@ -4432,7 +4432,7 @@ color: rgb(0, 0, 0);
       <string/>
      </property>
      <property name="icon">
-      <iconset resource="resources.qrc">
+      <iconset resource="../resources.qrc">
        <normaloff>:/images/images/loot (2).png</normaloff>:/images/images/loot (2).png</iconset>
      </property>
      <property name="iconSize">
@@ -4523,7 +4523,7 @@ color: rgb(0, 0, 0);
       <string/>
      </property>
      <property name="icon">
-      <iconset resource="resources.qrc">
+      <iconset resource="../resources.qrc">
        <normaloff>:/images/images/money (2).png</normaloff>:/images/images/money (2).png</iconset>
      </property>
      <property name="iconSize">
@@ -4614,7 +4614,7 @@ color: rgb(0, 0, 0);
       <string/>
      </property>
      <property name="icon">
-      <iconset resource="resources.qrc">
+      <iconset resource="../resources.qrc">
        <normaloff>:/images/images/lighting.png</normaloff>:/images/images/lighting.png</iconset>
      </property>
      <property name="iconSize">
@@ -4699,7 +4699,7 @@ color: rgb(0, 0, 0);
     <string>Delete note</string>
    </property>
    <property name="icon">
-    <iconset resource="resources.qrc">
+    <iconset resource="../resources.qrc">
      <normaloff>:/images/images/delete.png</normaloff>:/images/images/delete.png</iconset>
    </property>
    <property name="iconSize">
@@ -4726,7 +4726,7 @@ color: rgb(0, 0, 0);
      <string>BYN</string>
     </property>
     <property name="icon">
-     <iconset resource="resources.qrc">
+     <iconset resource="../resources.qrc">
       <normaloff>:/images/images/WBW.ico</normaloff>:/images/images/WBW.ico</iconset>
     </property>
    </item>
@@ -4735,7 +4735,7 @@ color: rgb(0, 0, 0);
      <string>USD</string>
     </property>
     <property name="icon">
-     <iconset resource="resources.qrc">
+     <iconset resource="../resources.qrc">
       <normaloff>:/images/images/USA.ico</normaloff>:/images/images/USA.ico</iconset>
     </property>
    </item>
@@ -4744,7 +4744,7 @@ color: rgb(0, 0, 0);
      <string>EUR</string>
     </property>
     <property name="icon">
-     <iconset resource="resources.qrc">
+     <iconset resource="../resources.qrc">
       <normaloff>:/images/images/EU.ico</normaloff>:/images/images/EU.ico</iconset>
     </property>
    </item>
@@ -4753,14 +4753,646 @@ color: rgb(0, 0, 0);
      <string>RUB</string>
     </property>
     <property name="icon">
-     <iconset resource="resources.qrc">
+     <iconset resource="../resources.qrc">
       <normaloff>:/images/images/RUS.ico</normaloff>:/images/images/RUS.ico</iconset>
     </property>
    </item>
   </widget>
+  <widget class="QGroupBox" name="analytics">
+   <property name="geometry">
+    <rect>
+     <x>1070</x>
+     <y>220</y>
+     <width>811</width>
+     <height>771</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string/>
+   </property>
+   <widget class="QGroupBox" name="groupBox_7">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>100</y>
+      <width>221</width>
+      <height>181</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string/>
+    </property>
+    <widget class="QGroupBox" name="groupBox_11">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>26</y>
+       <width>151</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string/>
+     </property>
+     <widget class="QLabel" name="high_time">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>0</y>
+        <width>91</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_7">
+      <property name="geometry">
+       <rect>
+        <x>-40</x>
+        <y>170</y>
+        <width>41</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-color: transparent;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_13">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>41</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: transparent;
+border-color:  transparent;
+background-color:  transparent;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../resources.qrc">
+        <normaloff>:/images/images/Stonks.ico</normaloff>:/images/images/Stonks.ico</iconset>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_12">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>129</y>
+       <width>151</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string/>
+     </property>
+     <widget class="QLabel" name="min_time">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>0</y>
+        <width>91</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_10">
+      <property name="geometry">
+       <rect>
+        <x>6</x>
+        <y>4</y>
+        <width>41</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-color: transparent;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../resources.qrc">
+        <normaloff>:/images/images/no_stonks.ico</normaloff>:/images/images/no_stonks.ico</iconset>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_13">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>80</y>
+       <width>151</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string/>
+     </property>
+     <widget class="QLabel" name="ave_time">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>0</y>
+        <width>91</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_9">
+      <property name="geometry">
+       <rect>
+        <x>5</x>
+        <y>4</y>
+        <width>41</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-color: transparent;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../resources.qrc">
+        <normaloff>:/images/images/time.ico</normaloff>:/images/images/time.ico</iconset>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QLabel" name="label_37">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>110</y>
+       <width>111</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#00557f;&quot;&gt;Min time&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_35">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>58</y>
+       <width>111</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#00557f;&quot;&gt;Ave time&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_36">
+     <property name="geometry">
+      <rect>
+       <x>69</x>
+       <y>5</y>
+       <width>111</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#00557f;&quot;&gt;Max time&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_6">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>330</y>
+      <width>221</width>
+      <height>191</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string/>
+    </property>
+    <widget class="QGroupBox" name="groupBox_5">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>30</y>
+       <width>151</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string/>
+     </property>
+     <widget class="QLabel" name="high_money">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>0</y>
+        <width>91</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>8</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_14">
+      <property name="geometry">
+       <rect>
+        <x>6</x>
+        <y>4</y>
+        <width>41</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: transparent;
+border-color:  transparent;
+background-color:  transparent;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../resources.qrc">
+        <normaloff>:/images/images/Stonks.ico</normaloff>:/images/images/Stonks.ico</iconset>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_9">
+     <property name="geometry">
+      <rect>
+       <x>29</x>
+       <y>85</y>
+       <width>151</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string/>
+     </property>
+     <widget class="QLabel" name="ave_money">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>0</y>
+        <width>91</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_11">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>3</y>
+        <width>41</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-color: transparent;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../resources.qrc">
+        <normaloff>:/images/images/money (2).png</normaloff>:/images/images/money (2).png</iconset>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_10">
+     <property name="geometry">
+      <rect>
+       <x>29</x>
+       <y>135</y>
+       <width>151</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string/>
+     </property>
+     <widget class="QLabel" name="min_money">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>0</y>
+        <width>91</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_12">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>6</y>
+        <width>41</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-color: transparent;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="../resources.qrc">
+        <normaloff>:/images/images/no_stonks.ico</normaloff>:/images/images/no_stonks.ico</iconset>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QLabel" name="label_27">
+     <property name="geometry">
+      <rect>
+       <x>64</x>
+       <y>6</y>
+       <width>111</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#00557f;&quot;&gt;Max summ&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_33">
+     <property name="geometry">
+      <rect>
+       <x>64</x>
+       <y>66</y>
+       <width>111</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#00557f;&quot;&gt;Ave summ&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_34">
+     <property name="geometry">
+      <rect>
+       <x>74</x>
+       <y>116</y>
+       <width>111</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#00557f;&quot;&gt;Min summ&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="label_16">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>10</y>
+      <width>181</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt; font-weight:600; color:#00557f;&quot;&gt;Statistics&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_23">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>50</y>
+      <width>201</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600; color:#00557f;&quot;&gt;Types frequency&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_24">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>290</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600; color:#00557f;&quot;&gt;Money&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_25">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>60</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600; color:#00557f;&quot;&gt;Time&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_26">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>520</y>
+      <width>181</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600; color:#00557f;&quot;&gt;Visit frequency&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="hide_analitics">
+    <property name="geometry">
+     <rect>
+      <x>780</x>
+      <y>0</y>
+      <width>31</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="../resources.qrc">
+      <normaloff>:/images/images/cancel.ico</normaloff>:/images/images/cancel.ico</iconset>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="refresh_stat">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>0</y>
+      <width>31</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="../resources.qrc">
+      <normaloff>:/images/images/refrech.ico</normaloff>:/images/images/refrech.ico</iconset>
+    </property>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>560</y>
+      <width>771</width>
+      <height>201</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="Visit"/>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>100</y>
+      <width>501</width>
+      <height>421</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="frequency"/>
+   </widget>
+  </widget>
+  <widget class="QPushButton" name="open_analitics">
+   <property name="geometry">
+    <rect>
+     <x>1460</x>
+     <y>60</y>
+     <width>61</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: transparent;
+border-color:  transparent;
+background-color:  transparent;</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/images/images/statistics.ico</normaloff>:/images/images/statistics.ico</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>40</width>
+     <height>40</height>
+    </size>
+   </property>
+  </widget>
  </widget>
  <resources>
-  <include location="resources.qrc"/>
+  <include location="../resources.qrc"/>
  </resources>
  <connections/>
 </ui>

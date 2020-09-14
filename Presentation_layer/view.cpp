@@ -43,6 +43,9 @@ ui->label2_40,ui->label2_41,ui->label2_42,ui->label2_43,ui->label2_44,ui->label2
     ui->adminBox->setGeometry(1076, 23, 381, 191);
     ui->editBox->hide();
     ui->statBox->hide();
+    ui->analytics->hide();
+    ui->comboBox->hide();
+    ui->open_analitics->hide();
     ui->add->hide();
     ui->delete_all->hide();
     ui->deleteNoteButton->hide();
@@ -74,6 +77,7 @@ void View::coming(){
     Vehicle newVehicle(sim->generateNumber().toStdString(), sim->generateType(), sim->generateTime());
     std::string startTime = QTime::currentTime().toString().toStdString();
     int place = 0;
+    all+=1;
     static const double fraction = 1.0 / (static_cast<double>(RAND_MAX) + 1.0);
     if(newVehicle.getType()==Types::MiniCooper){
         place = static_cast<int>(rand() * fraction * (17 - 1 + 1) + 1);
@@ -133,26 +137,32 @@ void View::busy(int const& newPlase, Types::VehicleType const& newType){
     switch(newType){
         case Types::VehicleType::MiniCooper:{
             Compact[newPlase-1]->setPixmap(isNotFree);
+            com += 1;
             break;
         }
         case Types::VehicleType::Car:{
             Medium[newPlase-1]->setPixmap(isNotFree);
+            med += 1;
             break;
         }
         case Types::VehicleType::Bus:{
             Large[newPlase-1]->setPixmap(isNotFree);
+            lrg += 1;
             break;
         }
         case Types::VehicleType::Moto:{
             Motorcycle[newPlase-1]->setPixmap(isNotFree);
+            mot += 1;
             break;
         }
          case Types::VehicleType::ElectroCar:{
             Electric[newPlase-1]->setPixmap(isNotFree);
+            elc += 1;
             break;
         }
         case Types::VehicleType::HandicappedCar:{
             Handicapped[newPlase-1]->setPixmap(isNotFree);
+            hnd += 1;
             break;
         }
     }
@@ -231,6 +241,8 @@ void View::on_pushButton_clicked()
         ui->warningLabel->close();
         ui->label->close();
         ui->adminLed->setPixmap(online);
+        ui->comboBox->show();
+        ui->open_analitics->show();
         ui->tableView->show();
         ui->statBox->show();
         ui->add->show();
@@ -265,6 +277,8 @@ void View::checkStatus(){
         ui->tableView->setGeometry(1070, 220, 811, 761);
         ui->adminBox->setGeometry(1076, 23, 381, 191);
         ui->statBox->show();
+        ui->comboBox->show();
+        ui->open_analitics->show();
         ui->delete_all->show();
         ui->deleteNoteButton->show();
         ui->add->show();
@@ -508,10 +522,120 @@ void View::transfer(){
         m->setData(m->index(i,3), QString::fromStdString(cm[i].startTime));
         m->setData(m->index(i,4), QString::fromStdString(cm[i].parkingTime));
         m->setData(m->index(i,5), cm[i].amount);
+        money.push_back(cm[i].amount);
+        time.push_back((QString::fromStdString(cm[i].parkingTime)).toInt());
+        QString st = QString::fromStdString(cm[i].startTime);
+        st.remove(0,3);
+        st.remove(4,4);
+        st.remove(2,1);
+        times.push_back(st.toInt());
+        all_percentage.push_back(all);
     }
 }
 
 View::~View()
 {
     delete ui;
+}
+
+void View::on_open_analitics_clicked()
+{
+    ui->analytics->show();
+
+    QtCharts::QPieSeries *series = new QtCharts::QPieSeries();
+    series->append("Compact", com);
+    series->append("Medium", med);
+    series->append("Large", lrg);
+    series->append("Motorcycle", mot);
+    series->append("Handicapped", hnd);
+    series->append("Electric", elc);
+
+    QtCharts::QChart *chart = new QtCharts::QChart();
+    chart->setScale(1);
+    chart->addSeries(series);
+    chart->setTitle("Types frequency");
+    chart->legend()->setAlignment(Qt::AlignBottom);
+    QtCharts::QPieSlice *slice = series->slices().at(5);
+    slice->setLabelVisible();
+    slice->setPen(QPen(Qt::darkGreen, 2));
+    slice->setBrush(Qt::green);
+    slice->setLabel(QString("%1% Electric").arg(100*slice->percentage(), 0, 'f', 1));
+
+    QtCharts::QPieSlice *slice_4 = series->slices().at(4);
+    slice_4->setLabelVisible();
+    slice_4->setPen(QPen(Qt::darkMagenta, 2));
+    slice_4->setBrush(Qt::magenta);
+    slice_4->setLabel(QString("%1% Handicapped").arg(100*slice_4->percentage(), 0, 'f', 1));
+
+    QtCharts::QPieSlice *slice_3 = series->slices().at(3);
+    slice_3->setLabelVisible();
+    slice_3->setColor(QColor(253,156,31));
+    slice_3->setBrush(QColor(253,156,0));
+    slice_3->setLabel(QString("%1% Motorcycle").arg(100*slice_3->percentage(), 0, 'f', 1));
+
+    QtCharts::QPieSlice *slice_2 = series->slices().at(2);
+    slice_2->setLabelVisible();
+    slice_2->setPen(QPen(Qt::darkRed, 2));
+    slice_2->setBrush(Qt::red);
+    slice_2->setLabel(QString("%1% Large").arg(100*slice_2->percentage(), 0, 'f', 1));
+
+    QtCharts::QPieSlice *slice_1 = series->slices().at(1);
+    slice_1->setLabelVisible();
+    slice_1->setPen(QPen(Qt::darkBlue, 2));
+    slice_1->setBrush(Qt::blue);
+    slice_1->setLabel(QString("%1% Medium").arg(100*slice_1->percentage(), 0, 'f', 1));
+
+    QtCharts::QPieSlice *slice_0 = series->slices().at(0);
+    slice_0->setLabelVisible();
+    slice_0->setPen(QPen(Qt::darkYellow, 2));
+    slice_0->setBrush(Qt::yellow);
+    slice_0->setLabel(QString("%1% Compact").arg(100*slice_0->percentage(), 0, 'f', 1));
+
+    QtCharts::QChartView *chartView = new QtCharts::QChartView(chart);
+    chartView->setRenderHint(QPainter::Antialiasing);
+
+    ui->frequency->addWidget(chartView);
+
+    QtCharts::QSplineSeries *sp_series = new  QtCharts::QSplineSeries();
+    sp_series->setName("spline");
+    //sp_series->append(0,0);
+    for(size_t i = 0; i < all_percentage.size(); i++){
+        sp_series->append(times[i], all);
+    }
+    QtCharts::QChart *sp_chart = new QtCharts::QChart();
+
+    sp_chart->addSeries(sp_series);
+    sp_chart->legend()->hide();
+    sp_chart->setTitle("Visit Frequency");
+    sp_chart->createDefaultAxes();
+    sp_chart->axes(Qt::Vertical).first()->setRange(0, 100);
+    sp_chart->axes(Qt::Horizontal).first()->setRange(0, 500);
+
+    QtCharts::QChartView *sp_chartView = new  QtCharts::QChartView(sp_chart);
+    chartView->setRenderHint(QPainter::Antialiasing);
+    ui->Visit->addWidget(sp_chartView);
+
+    double maxMoney = *std::max_element(money.begin(), money.end());
+    double minMoney = *std::min_element(money.begin(), money.end());
+    double average_money = accumulate(money.begin(), money.end(), 0.0)/money.size();
+    ui->high_money->setText(QString::number(maxMoney));
+    ui->ave_money->setText(QString::number(average_money));
+    ui->min_money->setText(QString::number(minMoney));
+    int maxTime = *std::max_element(time.begin(), time.end());
+    int minTime = *std::min_element(time.begin(), time.end());
+    float average = accumulate(time.begin(), time.end(), 0.0)/time.size();
+    ui->high_time->setText(QString::number(maxTime));
+    ui->ave_time->setText(QString::number(average));
+    ui->min_time->setText(QString::number(minTime));
+}
+
+void View::on_hide_analitics_clicked()
+{
+    ui->analytics->hide();
+}
+
+void View::on_refresh_stat_clicked()
+{
+    on_hide_analitics_clicked();
+    on_open_analitics_clicked();
 }

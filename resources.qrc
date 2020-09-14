@@ -22,5 +22,10 @@
         <file>images/RUS.ico</file>
         <file>images/USA.ico</file>
         <file>images/WBW.ico</file>
+        <file>images/no_stonks.ico</file>
+        <file>images/refrech.ico</file>
+        <file>images/Stonks.ico</file>
+        <file>images/time.ico</file>
+        <file>images/statistics.ico</file>
     </qresource>
 </RCC>
