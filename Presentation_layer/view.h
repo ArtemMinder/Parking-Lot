@@ -6,14 +6,6 @@
 #include <QtCharts/QChartView>
 #include <QtCharts/QPieSeries>
 #include <QtCharts/QPieSlice>
-
-
-
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QMainWindow>
-#include <QtCharts/QChartView>
-#include <QtCharts/QPieSeries>
-#include <QtCharts/QPieSlice>
 #include <QtCharts/QSplineSeries>
 #include <QDialog>
 #include <QLabel>
@@ -123,6 +115,12 @@ private:
     std::vector<int> time = {};
     std::vector<int> times = {};
     std::vector<int> all_percentage = {};
+    QtCharts::QPieSeries *series = new QtCharts::QPieSeries();
+    QtCharts::QChart *chart = new QtCharts::QChart();
+    QtCharts::QChartView *chartView = new QtCharts::QChartView(chart);
+    QtCharts::QSplineSeries *sp_series = new  QtCharts::QSplineSeries();
+    QtCharts::QChart *sp_chart = new QtCharts::QChart();
+    QtCharts::QChartView *sp_chartView = new  QtCharts::QChartView(sp_chart);
     QPixmap background = QPixmap(":/images/images/Parking Floor HD.png");
     QPixmap isNotFree = QPixmap(":/images/images/isNotFree.png");
     QPixmap online = QPixmap(":/images/images/Online.png");

@@ -542,7 +542,7 @@ void View::on_open_analitics_clicked()
 {
     ui->analytics->show();
 
-    QtCharts::QPieSeries *series = new QtCharts::QPieSeries();
+    series = new QtCharts::QPieSeries();
     series->append("Compact", com);
     series->append("Medium", med);
     series->append("Large", lrg);
@@ -550,7 +550,7 @@ void View::on_open_analitics_clicked()
     series->append("Handicapped", hnd);
     series->append("Electric", elc);
 
-    QtCharts::QChart *chart = new QtCharts::QChart();
+    chart = new QtCharts::QChart();
     chart->setScale(1);
     chart->addSeries(series);
     chart->setTitle("Types frequency");
@@ -591,18 +591,17 @@ void View::on_open_analitics_clicked()
     slice_0->setBrush(Qt::yellow);
     slice_0->setLabel(QString("%1% Compact").arg(100*slice_0->percentage(), 0, 'f', 1));
 
-    QtCharts::QChartView *chartView = new QtCharts::QChartView(chart);
+    chartView = new QtCharts::QChartView(chart);
     chartView->setRenderHint(QPainter::Antialiasing);
 
     ui->frequency->addWidget(chartView);
 
-    QtCharts::QSplineSeries *sp_series = new  QtCharts::QSplineSeries();
+    sp_series = new  QtCharts::QSplineSeries();
     sp_series->setName("spline");
-    //sp_series->append(0,0);
     for(size_t i = 0; i < all_percentage.size(); i++){
         sp_series->append(times[i], all);
     }
-    QtCharts::QChart *sp_chart = new QtCharts::QChart();
+    sp_chart = new QtCharts::QChart();
 
     sp_chart->addSeries(sp_series);
     sp_chart->legend()->hide();
@@ -611,7 +610,7 @@ void View::on_open_analitics_clicked()
     sp_chart->axes(Qt::Vertical).first()->setRange(0, 100);
     sp_chart->axes(Qt::Horizontal).first()->setRange(0, 500);
 
-    QtCharts::QChartView *sp_chartView = new  QtCharts::QChartView(sp_chart);
+    sp_chartView = new  QtCharts::QChartView(sp_chart);
     chartView->setRenderHint(QPainter::Antialiasing);
     ui->Visit->addWidget(sp_chartView);
 
@@ -637,5 +636,11 @@ void View::on_hide_analitics_clicked()
 void View::on_refresh_stat_clicked()
 {
     on_hide_analitics_clicked();
+    series->clear();
+    chart->destroyed();
+    chartView->close();
+    sp_series->clear();
+    sp_chart->destroyed();
+    sp_chartView->close();
     on_open_analitics_clicked();
 }
