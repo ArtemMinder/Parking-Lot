@@ -31,14 +31,14 @@ public:
     std::string getParkingID();
 private:
     std::vector<ParkingFloor> floors = {};
-    EntrancePanel *enterPanel;
+    std::unique_ptr<EntrancePanel> pEnterPanel;
     struct address {
         std::string street = {};
         std::string building = {};
         std::string postCode = {};
         std::string parkingID = {};
     };
-    address *newAddress;
+    std::unique_ptr<address> pAddress;
 };
 
 #endif // PARKINGLOT_H

@@ -4,10 +4,10 @@
 
 View::View(QWidget *parent, IExchange *exh, ParkingLot *new_p_lot, Idatabase *newdat) :
     QDialog(parent),
-    dat(newdat),
+    pDat(newdat),
     ui(new Ui::View),
-    p_lot(new_p_lot),
-    ex(exh)
+    pPLot(new_p_lot),
+    pEx(exh)
 {
     ui->setupUi(this);
     QWidget::showMaximized();
@@ -50,11 +50,11 @@ ui->label2_40,ui->label2_41,ui->label2_42,ui->label2_43,ui->label2_44,ui->label2
     ui->delete_all->hide();
     ui->deleteNoteButton->hide();
     ui->tableView->hide();
-    p_lot = new ParkingLot(1,17,53,14,10,10,17);
-    dat = new SqliteDB();
-    this->cm = dat->show();
+    pPLot = std::make_unique<ParkingLot>(1,17,53,14,10,10,17);
+    pDat = std::make_unique <SqliteDB>();
+    this->cm = pDat->show();
     transfer();
-    ui->tableView->setModel(m);
+    ui->tableView->setModel(pM.get());
     this->close();
     ui->tableView->close();
     acc->authentification();
@@ -63,14 +63,15 @@ ui->label2_40,ui->label2_41,ui->label2_42,ui->label2_43,ui->label2_44,ui->label2
 }
 
 void View::simulateTraffic(){
-    add = new QTimer;
-    del = new QTimer;
-    del->setInterval(450);
-    add->setInterval(500);
-    connect(add, SIGNAL(timeout()), this, SLOT(coming()));
-    connect(del, SIGNAL(timeout()), this, SLOT(depart()));
-    del->start();
-    add->start();
+
+    pAddTimer = std::make_unique<QTimer>();
+    pDelTimer = std::make_unique<QTimer>();
+    pDelTimer->setInterval(450);
+    pAddTimer->setInterval(500);
+    connect(pAddTimer.get(), SIGNAL(timeout()), this, SLOT(coming()));
+    connect(pDelTimer.get(), SIGNAL(timeout()), this, SLOT(depart()));
+    pDelTimer->start();
+    pAddTimer->start();
 }
 
 void View::coming(){
@@ -104,7 +105,7 @@ void View::coming(){
     }else {
         std::cout<<"Sorry, all plases for your vehicle is unavailable"<<std::endl;
     }
-    p_lot->receiveCar(place, newVehicle.getType(), newVehicle);
+    pPLot->receiveCar(place, newVehicle.getType(), newVehicle);
 }
 
 void View::depart(){
@@ -130,7 +131,7 @@ void View::depart(){
         place = static_cast<int>(rand() * fraction * (17 - 1 + 1) + 1);
     }
     free(place, newVehicle.getType());
-    p_lot->deleteCar(place, newVehicle.getType());
+    pPLot->deleteCar(place, newVehicle.getType());
 }
 
 void View::busy(int const& newPlase, Types::VehicleType const& newType){
@@ -212,10 +213,10 @@ void View::loadInfo(int const& newPlase, std::string const& newLicense, Types::V
      else{nType = "Handicapped";}
      this->noteNumber += 1;
 
-     this->cm = dat->add(newPlase, newLicense, nType, newStartTime+"мин", newParkingTime, newAmount);
-     this->cm = dat->show();
+     this->cm = pDat->add(newPlase, newLicense, nType, newStartTime+"мин", newParkingTime, newAmount);
+     this->cm = pDat->show();
      transfer();
-     ui->tableView->setModel(m);
+     ui->tableView->setModel(pM.get());
      if(maxTime < newParkingTime){
          maxTime = newParkingTime;
      }
@@ -305,10 +306,10 @@ void View::on_delete_all_clicked()
     msgBox.addButton(QMessageBox::No);
     msgBox.setDefaultButton(QMessageBox::No);
     if(msgBox.exec() == QMessageBox::Yes){
-        this->cm = dat->delAll();
-        this->cm = dat->show();
+        this->cm = pDat->delAll();
+        this->cm = pDat->show();
         transfer();
-        ui->tableView->setModel(m);
+        ui->tableView->setModel(pM.get());
     }else {
 
     }
@@ -330,12 +331,12 @@ void View::on_tableView_doubleClicked(const QModelIndex &index)
     exType = ui->typeEdit->toPlainText();
     exMoney = ui->amountEdit->toPlainText();
     QString val = ui->tableView->model()->data(index).toString();
-    ui->placeEdit->setPlainText(m->data(m->index(ui->tableView->currentIndex().row(), 0)).toString());
-    ui->licenseEdit->setPlainText(m->data(m->index(ui->tableView->currentIndex().row(), 1)).toString());
-    ui->typeEdit->setPlainText(m->data(m->index(ui->tableView->currentIndex().row(), 2)).toString());
-    ui->time1Edit->setPlainText(m->data(m->index(ui->tableView->currentIndex().row(), 3)).toString());
-    ui->Time2Edit->setPlainText(m->data(m->index(ui->tableView->currentIndex().row(), 4)).toString());
-    ui->amountEdit->setPlainText(m->data(m->index(ui->tableView->currentIndex().row(), 5)).toString());
+    ui->placeEdit->setPlainText(pM->data(pM->index(ui->tableView->currentIndex().row(), 0)).toString());
+    ui->licenseEdit->setPlainText(pM->data(pM->index(ui->tableView->currentIndex().row(), 1)).toString());
+    ui->typeEdit->setPlainText(pM->data(pM->index(ui->tableView->currentIndex().row(), 2)).toString());
+    ui->time1Edit->setPlainText(pM->data(pM->index(ui->tableView->currentIndex().row(), 3)).toString());
+    ui->Time2Edit->setPlainText(pM->data(pM->index(ui->tableView->currentIndex().row(), 4)).toString());
+    ui->amountEdit->setPlainText(pM->data(pM->index(ui->tableView->currentIndex().row(), 5)).toString());
 }
 
 void View::on_closeEditButton_clicked()
@@ -378,10 +379,10 @@ void View::on_commitButton_clicked()
     else if(exType == "Handicapped"){type = Types::VehicleType::HandicappedCar;}
     free (exPlace.toInt(), type);
 
-    this->cm = dat->commit(newPlace,newLicense,newType,newTimeOfComing,newParkingTime,newAmount);
-    this->cm = dat->show();
+    this->cm = pDat->commit(newPlace,newLicense,newType,newTimeOfComing,newParkingTime,newAmount);
+    this->cm = pDat->show();
     transfer();
-    ui->tableView->setModel(m);
+    ui->tableView->setModel(pM.get());
     } else {
         QMessageBox msgBox;
         msgBox.setWindowTitle("New data is incorrect");
@@ -429,10 +430,10 @@ void View::on_addButton_clicked()
             (newType == "Крупногабаритный" && newPlace <= 14) || (newType == "Мотоцикл" && newPlace <= 10) ||
             (newType == "Электромобиль" && newPlace <= 17 ) || ( newType == "Handicapped" && newPlace <= 10) ){
 
-        this->cm = dat->add(newPlace, newLicense, newType, newTimeOfComing, newParkingTime, newAmount);
-        this->cm = dat->show();
+        this->cm = pDat->add(newPlace, newLicense, newType, newTimeOfComing, newParkingTime, newAmount);
+        this->cm = pDat->show();
         transfer();
-        ui->tableView->setModel(m);
+        ui->tableView->setModel(pM.get());
 
     int place = newPlace;
     Types::VehicleType type = {};
@@ -481,10 +482,10 @@ void View::on_deleteButton_clicked()
     newParkingTime= ui->Time2Edit->toPlainText().toInt();
     newAmount= ui->amountEdit->toPlainText().toLongLong();
 
-    this->cm  =dat->del(newPlace,newLicense,newType,newTimeOfComing,newParkingTime,newAmount);
-    this->cm = dat->show();
+    this->cm = pDat->del(newPlace,newLicense,newType,newTimeOfComing,newParkingTime,newAmount);
+    this->cm = pDat->show();
     transfer();
-    ui->tableView->setModel(m);
+    ui->tableView->setModel(pM.get());
 
     Types::VehicleType type;
     if(newType == "Легковой мини"){type = Types::VehicleType::MiniCooper;}
@@ -512,16 +513,16 @@ void View::on_comboBox_currentTextChanged(const QString &arg1)
 void View::transfer(){
     int rows = cm.size();
     for(int i = 1; i < rows; i++){
-        m = new QStandardItemModel(rows,6,this);
+       pM = std::make_unique<QStandardItemModel>(rows,6,this);
     }
     for(int i = 0; i < rows; i++){
-        m->insertRow( m->rowCount(QModelIndex()));
-        m->setData(m->index(i,0), cm[i].place);
-        m->setData(m->index(i,1), QString::fromStdString(cm[i].license));
-        m->setData(m->index(i,2), QString::fromStdString(cm[i].type));
-        m->setData(m->index(i,3), QString::fromStdString(cm[i].startTime));
-        m->setData(m->index(i,4), QString::fromStdString(cm[i].parkingTime));
-        m->setData(m->index(i,5), cm[i].amount);
+        pM->insertRow( pM->rowCount(QModelIndex()));
+        pM->setData(pM->index(i,0), cm[i].place);
+        pM->setData(pM->index(i,1), QString::fromStdString(cm[i].license));
+        pM->setData(pM->index(i,2), QString::fromStdString(cm[i].type));
+        pM->setData(pM->index(i,3), QString::fromStdString(cm[i].startTime));
+        pM->setData(pM->index(i,4), QString::fromStdString(cm[i].parkingTime));
+        pM->setData(pM->index(i,5), cm[i].amount);
         money.push_back(cm[i].amount);
         time.push_back((QString::fromStdString(cm[i].parkingTime)).toInt());
         QString st = QString::fromStdString(cm[i].startTime);
@@ -535,84 +536,84 @@ void View::transfer(){
 
 View::~View()
 {
-    delete ui;
+    delete ui.get();
 }
 
 void View::on_open_analitics_clicked()
 {
     ui->analytics->show();
 
-    series = new QtCharts::QPieSeries();
-    series->append("Compact", com);
-    series->append("Medium", med);
-    series->append("Large", lrg);
-    series->append("Motorcycle", mot);
-    series->append("Handicapped", hnd);
-    series->append("Electric", elc);
+    pSeries = std::make_unique<QtCharts::QPieSeries>();
+    pSeries->append("Compact", com);
+    pSeries->append("Medium", med);
+    pSeries->append("Large", lrg);
+    pSeries->append("Motorcycle", mot);
+    pSeries->append("Handicapped", hnd);
+    pSeries->append("Electric", elc);
 
-    chart = new QtCharts::QChart();
-    chart->setScale(1);
-    chart->addSeries(series);
-    chart->setTitle("Types frequency");
-    chart->legend()->setAlignment(Qt::AlignBottom);
-    QtCharts::QPieSlice *slice = series->slices().at(5);
+    pChart = std::make_unique<QtCharts::QChart>();
+    pChart->setScale(1);
+    pChart->addSeries(pSeries.get());
+    pChart->setTitle("Types frequency");
+    pChart->legend()->setAlignment(Qt::AlignBottom);
+    QtCharts::QPieSlice *slice = pSeries->slices().at(5);
     slice->setLabelVisible();
     slice->setPen(QPen(Qt::darkGreen, 2));
     slice->setBrush(Qt::green);
     slice->setLabel(QString("%1% Electric").arg(100*slice->percentage(), 0, 'f', 1));
 
-    QtCharts::QPieSlice *slice_4 = series->slices().at(4);
+    QtCharts::QPieSlice *slice_4 = pSeries->slices().at(4);
     slice_4->setLabelVisible();
     slice_4->setPen(QPen(Qt::darkMagenta, 2));
     slice_4->setBrush(Qt::magenta);
     slice_4->setLabel(QString("%1% Handicapped").arg(100*slice_4->percentage(), 0, 'f', 1));
 
-    QtCharts::QPieSlice *slice_3 = series->slices().at(3);
+    QtCharts::QPieSlice *slice_3 = pSeries->slices().at(3);
     slice_3->setLabelVisible();
     slice_3->setColor(QColor(253,156,31));
     slice_3->setBrush(QColor(253,156,0));
     slice_3->setLabel(QString("%1% Motorcycle").arg(100*slice_3->percentage(), 0, 'f', 1));
 
-    QtCharts::QPieSlice *slice_2 = series->slices().at(2);
+    QtCharts::QPieSlice *slice_2 = pSeries->slices().at(2);
     slice_2->setLabelVisible();
     slice_2->setPen(QPen(Qt::darkRed, 2));
     slice_2->setBrush(Qt::red);
     slice_2->setLabel(QString("%1% Large").arg(100*slice_2->percentage(), 0, 'f', 1));
 
-    QtCharts::QPieSlice *slice_1 = series->slices().at(1);
+    QtCharts::QPieSlice *slice_1 = pSeries->slices().at(1);
     slice_1->setLabelVisible();
     slice_1->setPen(QPen(Qt::darkBlue, 2));
     slice_1->setBrush(Qt::blue);
     slice_1->setLabel(QString("%1% Medium").arg(100*slice_1->percentage(), 0, 'f', 1));
 
-    QtCharts::QPieSlice *slice_0 = series->slices().at(0);
+    QtCharts::QPieSlice *slice_0 = pSeries->slices().at(0);
     slice_0->setLabelVisible();
     slice_0->setPen(QPen(Qt::darkYellow, 2));
     slice_0->setBrush(Qt::yellow);
     slice_0->setLabel(QString("%1% Compact").arg(100*slice_0->percentage(), 0, 'f', 1));
 
-    chartView = new QtCharts::QChartView(chart);
-    chartView->setRenderHint(QPainter::Antialiasing);
+    pChartView = std::make_unique<QtCharts::QChartView>(pChart.get());
+    pChartView->setRenderHint(QPainter::Antialiasing);
 
-    ui->frequency->addWidget(chartView);
+    ui->frequency->addWidget(pChartView.get());
 
-    sp_series = new  QtCharts::QSplineSeries();
-    sp_series->setName("spline");
+    pSpSeries = std::make_unique<QtCharts::QSplineSeries>();
+    pSpSeries->setName("spline");
     for(size_t i = 0; i < all_percentage.size(); i++){
-        sp_series->append(times[i], all);
+        pSpSeries->append(times[i], all);
     }
-    sp_chart = new QtCharts::QChart();
+    pSpChart = std::make_unique<QtCharts::QChart>();
 
-    sp_chart->addSeries(sp_series);
-    sp_chart->legend()->hide();
-    sp_chart->setTitle("Visit Frequency");
-    sp_chart->createDefaultAxes();
-    sp_chart->axes(Qt::Vertical).first()->setRange(0, 100);
-    sp_chart->axes(Qt::Horizontal).first()->setRange(0, 500);
+    pSpChart->addSeries(pSpSeries.get());
+    pSpChart->legend()->hide();
+    pSpChart->setTitle("Visit Frequency");
+    pSpChart->createDefaultAxes();
+    pSpChart->axes(Qt::Vertical).first()->setRange(0, 100);
+    pSpChart->axes(Qt::Horizontal).first()->setRange(0, 500);
 
-    sp_chartView = new  QtCharts::QChartView(sp_chart);
-    chartView->setRenderHint(QPainter::Antialiasing);
-    ui->Visit->addWidget(sp_chartView);
+    pSpChartView = std::make_unique<QtCharts::QChartView>(pSpChart.get());
+    pChartView->setRenderHint(QPainter::Antialiasing);
+    ui->Visit->addWidget(pSpChartView.get());
 
     double maxMoney = *std::max_element(money.begin(), money.end());
     double minMoney = *std::min_element(money.begin(), money.end());
@@ -636,11 +637,11 @@ void View::on_hide_analitics_clicked()
 void View::on_refresh_stat_clicked()
 {
     on_hide_analitics_clicked();
-    series->clear();
-    chart->destroyed();
-    chartView->close();
-    sp_series->clear();
-    sp_chart->destroyed();
-    sp_chartView->close();
+    pSeries->clear();
+    pChart->destroyed();
+    pChartView->close();
+    pSpSeries->clear();
+    pSpChart->destroyed();
+    pSpChartView->close();
     on_open_analitics_clicked();
 }

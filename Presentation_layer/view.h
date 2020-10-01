@@ -1,11 +1,7 @@
 #ifndef VIEW_H
 #define VIEW_H
 
-#include <QPieSlice>
 #include <QChart>
-#include <QtCharts/QChartView>
-#include <QtCharts/QPieSeries>
-#include <QtCharts/QPieSlice>
 #include <QtCharts/QSplineSeries>
 #include <QDialog>
 #include <QLabel>
@@ -94,17 +90,17 @@ private:
     QString exMoney = {};
     QString moneyName = "BYN";
     std::string startTime = {};
-    QStandardItemModel *m;
+    std::unique_ptr<QStandardItemModel> pM;
     std::vector<CarModel> cm;
-    Idatabase *dat;
-    Ui::View *ui;
-    ParkingLot *p_lot;
-    IExchange *ex;
-    QTimer *add;
-    QTimer *del;
+    std::unique_ptr<Idatabase> pDat;
+    std::unique_ptr<Ui::View> ui;
+    std::unique_ptr<ParkingLot> pPLot;
+    std::unique_ptr<IExchange> pEx;
+    std::unique_ptr<QTimer> pAddTimer;
+    std::unique_ptr<QTimer> pDelTimer;
     std::unique_ptr<Acc> acc{new Acc()};
     std::unique_ptr<Simulation> sim{new Simulation()};
-    std::unique_ptr<ParkingRate> rate{new ParkingRate};
+    std::unique_ptr<ParkingRate> rate{new ParkingRate()};
     std::vector<QLabel*> Compact = {};
     std::vector<QLabel*> Medium = {};
     std::vector<QLabel*> Large = {};
@@ -115,12 +111,12 @@ private:
     std::vector<int> time = {};
     std::vector<int> times = {};
     std::vector<int> all_percentage = {};
-    QtCharts::QPieSeries *series = new QtCharts::QPieSeries();
-    QtCharts::QChart *chart = new QtCharts::QChart();
-    QtCharts::QChartView *chartView = new QtCharts::QChartView(chart);
-    QtCharts::QSplineSeries *sp_series = new  QtCharts::QSplineSeries();
-    QtCharts::QChart *sp_chart = new QtCharts::QChart();
-    QtCharts::QChartView *sp_chartView = new  QtCharts::QChartView(sp_chart);
+    std::unique_ptr<QtCharts::QPieSeries> pSeries;
+    std::unique_ptr<QtCharts::QChart> pChart;
+    std::unique_ptr<QtCharts::QChartView> pChartView;
+    std::unique_ptr<QtCharts::QSplineSeries> pSpSeries;
+    std::unique_ptr<QtCharts::QChart> pSpChart;
+    std::unique_ptr<QtCharts::QChartView> pSpChartView;
     QPixmap background = QPixmap(":/images/images/Parking Floor HD.png");
     QPixmap isNotFree = QPixmap(":/images/images/isNotFree.png");
     QPixmap online = QPixmap(":/images/images/Online.png");

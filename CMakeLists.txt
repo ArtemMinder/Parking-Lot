@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
 project(Parking_Lot)
 
-add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/googletest""googletest")
+add_subdirectory(googletest "googletest")
 enable_testing()
 include_directories(googletest/googletest/include ${gtest_SOURCE_DIR})
 
@@ -40,10 +40,11 @@ find_package(Qt5Charts)
     endif()
 
 set(GTEST_SRC googletest/googletest/src/gtest-all.cc)
+set(TEST_DIR tests/test1.cpp tests/test1.h)
 add_library(Gtest STATIC ${GTEST_SRC})
-target_link_libraries(${CMAKE_THREAD_LIBS_INIT} Gtest)
-#add_executable(G)
-add_test(Gtest g)
+add_executable(GT ${TEST_DIR})
+target_link_libraries(GT gtest gtest_main)
+add_test(GT GT -V)
 
 list(APPEND THIRD_PARTY_LIBS Qt5::Widgets Qt5::Core Qt5::Gui Qt5::Sql Qt5::Network)
 

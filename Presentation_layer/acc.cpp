@@ -46,5 +46,5 @@ void Acc::on_enterButton_clicked()
 
 Acc::~Acc()
 {
-    delete ui;
+    delete ui.get();
 }

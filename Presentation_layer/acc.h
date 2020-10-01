@@ -22,7 +22,7 @@ private slots:
     void on_enterButton_clicked();
 
 private:
-    Ui::Acc *ui;
+    std::unique_ptr<Ui::Acc> ui;
     QString status = {};
     QString adminLogin = "admin";
     QString adminPassword = "admin";

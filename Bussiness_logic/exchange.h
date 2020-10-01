@@ -21,7 +21,7 @@ public:
 private:
     QUrl url ={};
     QString rate = {};
-    QNetworkAccessManager* manager;
+    std::unique_ptr<QNetworkAccessManager> pManager;
 };
 
 #endif // EXCHANGE_H

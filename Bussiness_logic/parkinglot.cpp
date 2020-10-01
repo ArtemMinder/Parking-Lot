@@ -23,27 +23,27 @@ void ParkingLot::deleteCar(int const& newPlace, Types::VehicleType const& newTyp
 }
 
 void ParkingLot::setStreet(std::string& newStreet){
-   this->newAddress->street = newStreet;
+   this->pAddress->street = newStreet;
 }
 void ParkingLot::setBuilding(std::string& newBuilding){
-   this->newAddress->building = newBuilding;
+   this->pAddress->building = newBuilding;
 }
 void ParkingLot::setPostCode(std::string& newPostCode){
-   this->newAddress->postCode = newPostCode;
+   this->pAddress->postCode = newPostCode;
 }
 void ParkingLot::setParkingID(std::string& newParkingID){
-   this->newAddress->parkingID = newParkingID;
+   this->pAddress->parkingID = newParkingID;
 }
 std::string ParkingLot::getStreet(){
-   return this->newAddress->street;
+   return this->pAddress->street;
 }
 std::string ParkingLot::getBuilding(){
-    return this->newAddress->building;
+    return this->pAddress->building;
 }
 std::string ParkingLot::getPostCode(){
-    return this->newAddress->postCode;
+    return this->pAddress->postCode;
 }
 std::string ParkingLot::getParkingID(){
-    return this->newAddress->parkingID;
+    return this->pAddress->parkingID;
 }
 
