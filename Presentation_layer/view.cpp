@@ -223,12 +223,9 @@ void View::loadInfo(int const& newPlase, std::string const& newLicense, Types::V
      percent = (newAmount/(100*0.035) + (employeeCost + electricCost));
      this->cost += percent;
      this->profit = loot - cost;
-     loot /= rateCoeff;
-     cost /= rateCoeff;
-     profit /= rateCoeff;
-     QString newLoot = QString::number(loot);
-     QString newCost = QString::number(cost);
-     QString newProfit = QString::number(profit);
+     QString newLoot = QString::number(loot/rateCoeff);
+     QString newCost = QString::number(cost/rateCoeff);
+     QString newProfit = QString::number(profit/rateCoeff);
      ui->Loot_label->setText(QString(newLoot)+moneyName);
      ui->Cost_label->setText(QString(newCost)+moneyName);
      ui->Profit_label->setText(QString(newProfit)+moneyName);
