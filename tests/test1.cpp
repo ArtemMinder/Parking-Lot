@@ -8,10 +8,23 @@
 #include "../googletest/googletest/src/gtest-test-part.cc"
 #include "../googletest/googletest/src/gtest-typed-test.cc"
 
-int i = 5;
-
-TEST(i,i){
-    ASSERT_EQ(i,5);
+TEST(ParkingLot, test1){
+    ASSERT_EQ(1, 1);
+}
+TEST(ParkingLot, test2){
+     ASSERT_NE(1, 2);
+}
+TEST(ParkingLot, test3){
+    ASSERT_LT(1, 2);
+}
+TEST(ParkingLot, test4){
+    ASSERT_LE(1, 2);
+}
+TEST(ParkingLot, test5){
+    ASSERT_GT(2, 1);
+}
+TEST(ParkingLot, test6){
+    ASSERT_GE(2, 2);
 }
 
 int g_main(int argc, char **argv) {

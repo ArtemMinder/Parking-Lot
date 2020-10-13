@@ -5,7 +5,6 @@ add_subdirectory(googletest "googletest")
 enable_testing()
 include_directories(googletest/googletest/include ${gtest_SOURCE_DIR})
 
-
 find_package(Qt5Charts)
 if(Qt5Charts_FOUND)
     set( QT_INCLUDE_DIR
@@ -39,13 +38,6 @@ find_package(Qt5Charts)
         set (LIBS ${LIBS} ${Qt5Charts_LIBRARIES} )
     endif()
 
-set(GTEST_SRC googletest/googletest/src/gtest-all.cc)
-set(TEST_DIR tests/test1.cpp tests/test1.h)
-add_library(Gtest STATIC ${GTEST_SRC})
-add_executable(GT ${TEST_DIR})
-target_link_libraries(GT gtest gtest_main)
-add_test(GT GT -V)
-
 list(APPEND THIRD_PARTY_LIBS Qt5::Widgets Qt5::Core Qt5::Gui Qt5::Sql Qt5::Network)
 
 set(CMAKE_CXX_STANDARD 14)
@@ -63,6 +55,12 @@ file(GLOB DATA_LAYER Data_layer/*.cpp *.h */*.h */*.cpp)
 
 add_executable(${PROJECT_NAME} ${BUSSINES_LOGIC} ${PRESENTATION_LAYER}
     ${DATA_LAYER} ${RESOURCE_FILES} ${MODEL} ${DATA_PRESENTATION})
+
+set(GTEST_SRC googletest/googletest/src/gtest-all.cc)
+set(TEST_DIR tests/test1.cpp)
+add_executable(GT ${TEST_DIR})
+target_link_libraries(GT gtest gtest_main)
+add_test(GT GT)
 
 target_link_libraries(${PROJECT_NAME}
         Qt5::Core
